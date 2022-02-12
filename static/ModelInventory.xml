@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collaborationSessionMetamodel:ModelInventory
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:collaborationSessionMetamodel="http://www.example.org/collaborationSessionMetamodel"
+    xsi:schemaLocation="http://www.example.org/collaborationSessionMetamodel collaborationSessionMetamodel.ecore">
+  <users name="John"
+      email="john_xyz@abcd.com"
+      password="1234ab!"
+      id="3"/>
+  <users name="Anna"
+      email="anna.xyz@abcd.com"
+      password="1234_ab!"
+      id="5"/>
+  <users name="Jack"
+      email="jack@abcd.com"
+      password="qwerty1!"
+      id="2"/>
+  <users name="James"
+      email="james@abcd.com"
+      password="!@james123@"
+      id="4"/>
+  <users name="Adams"
+      email="adams@me.com"
+      password="adams12#"
+      id="1"/>
+  <users name="Sara"
+      email="sara@sarah.com"
+      password="sarah12$%"
+      id="6"/>
+  <collaborationSessions
+      id="2">
+    <participants
+        user="3">
+      <roles>COLLABORATOR</roles>
+    </participants>
+    <participants
+        user="2">
+      <roles>COLLABORATOR</roles>
+    </participants>
+    <participants
+        user="4">
+      <roles>INITIATOR</roles>
+    </participants>
+  </collaborationSessions>
+  <collaborationSessions
+      id="1">
+    <participants
+        user="1">
+      <roles>COLLABORATOR</roles>
+      <roles>INITIATOR</roles>
+    </participants>
+    <participants
+        user="6">
+      <roles>COLLABORATOR</roles>
+    </participants>
+  </collaborationSessions>
+  <collaborationSessions
+      id="3">
+    <participants
+        user="5">
+      <roles>OWNER</roles>
+    </participants>
+    <participants
+        user="1">
+      <roles>COLLABORATOR</roles>
+    </participants>
+    <participants
+        user="6">
+      <roles>INITIATOR</roles>
+      <roles>COLLABORATOR</roles>
+    </participants>
+  </collaborationSessions>
+  <models id="1"/>
+  <models id="3"
+      name="ThirdModel"
+      conformsTo="//@language.2"
+      location="www.test.com"/>
+  <models id="1"
+      name="FirstModel"
+      conformsTo="//@language.0"
+      location="www.testtwo.com"/>
+  <models id="2"
+      name="SecondModel"
+      conformsTo="//@language.1"
+      location="www.github.com/abcd"
+      type="GIT"/>
+  <language
+      name="UML"/>
+  <language
+      name="SysML"/>
+  <language
+      name="XML"/>
+</collaborationSessionMetamodel:ModelInventory>
