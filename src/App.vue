@@ -38,6 +38,20 @@
         </tbody>
       </table>
     </div>
+    <div class="languages">
+      <table class="language__table">
+        <thead>
+          <tr>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in languages" :key="item">
+            <td>{{ item.getAttribute("name") }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </header>
 
   <main></main>
@@ -53,12 +67,11 @@ export default {
       xmlDoc: null,
       users: [],
       models: [],
+      languages: [],
     };
   },
   methods: {
     parseXml() {
-      const parser = new DOMParser();
-      this.xmlDoc = parser.parseFromString(this.xmlDoc, "text/xml");
       const modelInventory = this.xmlDoc.getElementsByTagName(
         "collaborationSessionMetamodel:ModelInventory"
       );
@@ -68,14 +81,15 @@ export default {
         "collaborationSessions"
       );
       this.models = modelInventory[0].getElementsByTagName("models");
-      const languages = modelInventory[0].getElementsByTagName("language");
+      this.languages = modelInventory[0].getElementsByTagName("language");
     },
   },
   async mounted() {
     await axios
       .get("../static/ModelInventory.xml")
       .then((response) => {
-        this.xmlDoc = response.data;
+        const parser = new DOMParser();
+        this.xmlDoc = parser.parseFromString(response.data, "text/xml");
       })
       .catch((e) => {
         console.log(e);
