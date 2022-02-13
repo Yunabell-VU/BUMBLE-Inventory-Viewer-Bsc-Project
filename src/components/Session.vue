@@ -34,10 +34,8 @@ export default {
     };
   },
   methods: {
-    getRoleValue(participant) {
-      return participant.getElementsByTagName("roles")[0].childNodes[0]
-        .nodeValue;
-    },
+    getRoleValue: (participant) =>
+      participant.getElementsByTagName("roles")[0].childNodes[0].nodeValue,
   },
   mounted() {
     this.participants = this.session.getElementsByTagName("participants");

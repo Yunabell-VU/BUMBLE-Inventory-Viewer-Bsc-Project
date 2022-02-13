@@ -1,6 +1,7 @@
 <template>
   <header>
-    <div class="users">
+    <h2>Users</h2>
+    <div class="users tables">
       <table class="users__table table table-hover">
         <thead>
           <tr>
@@ -18,10 +19,12 @@
         </tbody>
       </table>
     </div>
-    <div class="sessions" v-for="session in sessions" :key="session">
+    <h2>Sessions</h2>
+    <div class="sessions tables" v-for="session in sessions" :key="session">
       <Session :session="session" />
     </div>
-    <div class="models">
+    <h2>Models</h2>
+    <div class="models tables">
       <table class="models__table table table-hover">
         <thead>
           <tr>
@@ -41,7 +44,8 @@
         </tbody>
       </table>
     </div>
-    <div class="languages">
+    <h2>Languages</h2>
+    <div class="languages tables">
       <table class="languages__table table table-hover">
         <thead>
           <tr>
@@ -114,5 +118,9 @@ export default {
   padding: 2rem;
 
   font-weight: normal;
+}
+
+.tables {
+  margin-bottom: 2rem;
 }
 </style>

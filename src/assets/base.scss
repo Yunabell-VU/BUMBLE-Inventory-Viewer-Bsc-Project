@@ -73,4 +73,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+th {
+  font-weight: bold;
+}
+
 @import "bootstrap/dist/css/bootstrap.min.css"
