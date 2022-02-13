@@ -44,39 +44,22 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "App",
   data() {
     return {
+      xmlDoc: null,
       users: [],
       models: [],
     };
   },
   methods: {
-    readXml(xmlFile) {
-      var xmlDoc;
-      var xmlhttp;
-
-      if (typeof window.DOMParser != "undefined") {
-        xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", xmlFile, false);
-        if (xmlhttp.overrideMimeType) {
-          xmlhttp.overrideMimeType("text/xml");
-        }
-        xmlhttp.send();
-        xmlDoc = xmlhttp.responseXML;
-      } else {
-        console.log("in else");
-        xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
-        xmlDoc.async = "false";
-        xmlDoc.load(xmlFile);
-      }
-      return xmlDoc;
-    },
     parseXml() {
-      const xmlDoc = this.readXml("../static/ModelInventory.xml");
-
-      const modelInventory = xmlDoc.getElementsByTagName(
+      const parser = new DOMParser();
+      this.xmlDoc = parser.parseFromString(this.xmlDoc, "text/xml");
+      const modelInventory = this.xmlDoc.getElementsByTagName(
         "collaborationSessionMetamodel:ModelInventory"
       );
 
@@ -86,13 +69,17 @@ export default {
       );
       this.models = modelInventory[0].getElementsByTagName("models");
       const languages = modelInventory[0].getElementsByTagName("language");
-      console.log(this.users);
-      // console.log(sessions);
-      // console.log(models);
-      console.log(languages[1].getAttribute("name"));
     },
   },
-  mounted() {
+  async mounted() {
+    await axios
+      .get("../static/ModelInventory.xml")
+      .then((response) => {
+        this.xmlDoc = response.data;
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     this.parseXml();
   },
 };
