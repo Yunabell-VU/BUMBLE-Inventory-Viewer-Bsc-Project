@@ -1,5 +1,9 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import "bootstrap"
+const http = require('http')
 
-createApp(App).mount('#app')
+const server = http.createServer((req, res) => {
+    const url = req.url
+    const path = url.split('?')[0]
+    res.end(path)
+})
+
+server.listen(5000)
