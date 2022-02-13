@@ -18,6 +18,26 @@
         </tbody>
       </table>
     </div>
+    <div class="models">
+      <table class="model__table">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Name</th>
+            <th>conformsTo</th>
+            <th>location</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in models" :key="item">
+            <td>{{ item.getAttribute("id") }}</td>
+            <td>{{ item.getAttribute("name") }}</td>
+            <td>{{ item.getAttribute("conformsTo") }}</td>
+            <td>{{ item.getAttribute("location") }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </header>
 
   <main></main>
@@ -29,6 +49,7 @@ export default {
   data() {
     return {
       users: [],
+      models: [],
     };
   },
   methods: {
@@ -63,7 +84,7 @@ export default {
       const sessions = modelInventory[0].getElementsByTagName(
         "collaborationSessions"
       );
-      const models = modelInventory[0].getElementsByTagName("models");
+      this.models = modelInventory[0].getElementsByTagName("models");
       const languages = modelInventory[0].getElementsByTagName("language");
       console.log(this.users);
       // console.log(sessions);
