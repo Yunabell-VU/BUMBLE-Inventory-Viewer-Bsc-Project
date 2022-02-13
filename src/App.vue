@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="users">
-      <table class="user__table">
+      <table class="users__table table table-hover">
         <thead>
           <tr>
             <th>id</th>
@@ -19,7 +19,7 @@
       </table>
     </div>
     <div class="models">
-      <table class="model__table">
+      <table class="models__table table table-hover">
         <thead>
           <tr>
             <th>id</th>
@@ -39,7 +39,7 @@
       </table>
     </div>
     <div class="languages">
-      <table class="language__table">
+      <table class="languages__table table table-hover">
         <thead>
           <tr>
             <th>Name</th>
