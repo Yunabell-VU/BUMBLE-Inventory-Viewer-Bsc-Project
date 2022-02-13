@@ -18,6 +18,9 @@
         </tbody>
       </table>
     </div>
+    <div class="sessions" v-for="session in sessions" :key="session">
+      <Session :session="session" />
+    </div>
     <div class="models">
       <table class="models__table table table-hover">
         <thead>
@@ -59,13 +62,16 @@
 
 <script>
 import axios from "axios";
+import Session from "./components/Session.vue";
 
 export default {
   name: "App",
+  components: { Session },
   data() {
     return {
       xmlDoc: null,
       users: [],
+      sessions: [],
       models: [],
       languages: [],
     };
@@ -77,7 +83,7 @@ export default {
       );
 
       this.users = modelInventory[0].getElementsByTagName("users");
-      const sessions = modelInventory[0].getElementsByTagName(
+      this.sessions = modelInventory[0].getElementsByTagName(
         "collaborationSessions"
       );
       this.models = modelInventory[0].getElementsByTagName("models");
