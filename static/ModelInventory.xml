@@ -72,7 +72,6 @@
       <roles>COLLABORATOR</roles>
     </participants>
   </collaborationSessions>
-  <models id="1"/>
   <models id="3"
       name="ThirdModel"
       conformsTo="//@language.2"
