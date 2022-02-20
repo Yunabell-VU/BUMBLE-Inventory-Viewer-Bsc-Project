@@ -109,6 +109,6 @@ export default {
 @import "../assets/base.scss";
 
 .tables {
-  margin-bottom: 2rem;
+  margin-bottom: 0.2rem;
 }
 </style>
