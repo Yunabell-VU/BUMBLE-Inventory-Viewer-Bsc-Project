@@ -11,8 +11,15 @@
         placeholder="password"
       />
     </div>
-    <div class="wrapper__login-button" @click="handleLogin">Login</div>
-    <div class="wrapper__login-link" @click="handleRegisterClick">Register</div>
+    <div class="wrapper__input">
+      <input
+        class="wrapper__input__content"
+        type="password"
+        placeholder="confirm password"
+      />
+    </div>
+    <div class="wrapper__register-button" @click="handleRegister">Register</div>
+    <div class="wrapper__register-link" @click="handleLoginClick">Login</div>
   </div>
 </template>
 
@@ -20,17 +27,13 @@
 import { useRouter } from "vue-router";
 
 export default {
-  name: "Login",
+  name: "Register",
   setup() {
     const router = useRouter();
-    const handleLogin = () => {
-      localStorage.isLogin = true;
-      router.push({ name: "Home" });
+    const handleLoginClick = () => {
+      router.push({ name: "Login" });
     };
-    const handleRegisterClick = () => {
-      router.push({ name: "Register" });
-    };
-    return { handleLogin, handleRegisterClick };
+    return { handleLoginClick };
   },
 };
 </script>
@@ -75,7 +78,7 @@ export default {
       }
     }
   }
-  &__login-button {
+  &__register-button {
     margin: 2rem 2.5rem 1rem 2.5rem;
     line-height: 3rem;
     background: #0091ff;
@@ -86,7 +89,7 @@ export default {
     font-size: 1.25rem;
     text-align: center;
   }
-  &__login-link {
+  &__register-link {
     text-align: center;
     font-size: 1rem;
     color: $content-notice-fontcolor;
