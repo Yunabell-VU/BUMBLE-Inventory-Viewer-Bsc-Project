@@ -2,13 +2,18 @@
   <div class="wrapper">
     <img class="wrapper__img" src="../../public/BUMBLE_logo.png" />
     <div class="wrapper__input">
-      <input class="wrapper__input__content" placeholder="username" />
+      <input
+        class="wrapper__input__content"
+        placeholder="username"
+        v-model="data.username"
+      />
     </div>
     <div class="wrapper__input">
       <input
         class="wrapper__input__content"
         type="password"
         placeholder="password"
+        v-model="data.password"
       />
     </div>
     <div class="wrapper__login-button" @click="handleLogin">Login</div>
@@ -18,34 +23,39 @@
 
 <script>
 import { useRouter } from "vue-router";
-import axios from "axios";
+import { post } from "../utils/request";
+import { reactive } from "vue";
 
 export default {
   name: "Login",
   setup() {
+    const data = reactive({
+      username: "",
+      password: "",
+    });
+
     const router = useRouter();
-    const apiURL = "http://localhost:5000";
 
-    const handleLogin = () => {
-      axios
-        .post(`${apiURL}/login`, {
-          username: "jack",
-          password: "leaaan",
-        })
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((e) => {
-          console.log(e);
+    const handleLogin = async () => {
+      try {
+        const result = await post(`/login`, {
+          username: data.username,
+          password: data.password,
         });
-
-      localStorage.isLogin = true;
-      router.push({ name: "Home" });
+        if (result?.code === 0) {
+          localStorage.isLogin = true;
+          router.push({ name: "Home" });
+        } else {
+          alert("wrong password or username does not exist");
+        }
+      } catch (e) {
+        console.log(e);
+      }
     };
     const handleRegisterClick = () => {
       router.push({ name: "Register" });
     };
-    return { handleLogin, handleRegisterClick };
+    return { handleLogin, handleRegisterClick, data };
   },
 };
 </script>
