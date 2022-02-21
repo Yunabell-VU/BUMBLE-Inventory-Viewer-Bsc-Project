@@ -8,7 +8,11 @@ const routes = [
   }, {
     path: '/register',
     name: 'Register',
-    component: () => import('../pages/Register.vue')
+    component: () => import('../pages/Register.vue'),
+    beforeEnter(to, from, next) {
+      const {isLogin} = localStorage;
+      isLogin ? next({name: 'Home'}): next();
+    }
   }, {
     path: '/login',
     name: 'Login',
