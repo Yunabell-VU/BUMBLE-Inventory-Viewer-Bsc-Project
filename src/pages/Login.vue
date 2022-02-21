@@ -18,12 +18,27 @@
 
 <script>
 import { useRouter } from "vue-router";
+import axios from "axios";
 
 export default {
   name: "Login",
   setup() {
     const router = useRouter();
+    const apiURL = "http://localhost:5000";
+
     const handleLogin = () => {
+      axios
+        .post(`${apiURL}/login`, {
+          username: "jack",
+          password: "leaaan",
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+
       localStorage.isLogin = true;
       router.push({ name: "Home" });
     };
