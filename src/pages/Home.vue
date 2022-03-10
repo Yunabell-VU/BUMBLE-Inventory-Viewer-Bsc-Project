@@ -63,6 +63,7 @@
 <script>
 import axios from "axios";
 import Session from "../components/Session.vue";
+import { post, get } from "../utils/request";
 
 export default {
   name: "Home",
@@ -101,6 +102,13 @@ export default {
         console.log(e);
       });
     this.parseXml();
+
+    const getFullModel = async () => {
+      const result = await get("/models");
+
+      console.log(result);
+    };
+    getFullModel();
   },
 };
 </script>
