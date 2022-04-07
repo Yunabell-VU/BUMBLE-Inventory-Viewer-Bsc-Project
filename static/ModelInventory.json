@@ -1,0 +1,82 @@
+{
+   "@version": "2.0",
+   "@schemaLocation": "http://www.example.org/modelInventory modelInventory.ecore",
+   "language": [
+      {
+         "@name": "shape",
+         "supportedEditors": {
+            "@name": "Atom"
+         }
+      },
+      {
+         "@name": "animal",
+         "supportedEditors": {
+            "@name": "Atom"
+         }
+      }
+   ],
+   "model": [
+      {
+         "@name": "ModelAnimal",
+         "@uri": "abc:isbn:0-476-27557-4",
+         "@confirmsTo": "//@language.1"
+      },
+      {
+         "@name": "ModelShape",
+         "@location": "",
+         "@uri": "abc:isbn:0-786-27557-4",
+         "@confirmsTo": "//@language.0"
+      }
+   ],
+   "collaborationSessions": [
+      {
+         "@id": "1",
+         "participants": [
+            {
+               "@user": "//@users.0"
+            },
+            {
+               "@user": "//@users.2",
+               "@role": "INITIATOR"
+            }
+         ],
+         "#text": "role=\"COLLABORATOR\"/>"
+      },
+      {
+         "@id": "2",
+         "participants": [
+            {
+               "@user": "//@users.1",
+               "@role": "OWNER"
+            },
+            {
+               "@user": "//@users.2"
+            },
+            {
+               "@user": "//@users.0",
+               "@role": "INITIATOR"
+            }
+         ]
+      }
+   ],
+   "users": [
+      {
+         "@id": "1",
+         "@name": "Alice",
+         "@email": "alice@xyz.com",
+         "@password": "abcdef"
+      },
+      {
+         "@id": "3",
+         "@name": "John",
+         "@email": "john@abc.com",
+         "@password": "uvwxyz"
+      },
+      {
+         "@id": "2",
+         "@name": "Bob",
+         "@email": "bob@abc.com",
+         "@password": "qwerty"
+      }
+   ]
+}

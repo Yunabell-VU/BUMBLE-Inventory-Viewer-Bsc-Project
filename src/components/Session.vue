@@ -1,6 +1,6 @@
 <template>
   <div>
-    Collaboration Session (id : {{ session.getAttribute("id") }})
+    Collaboration Session (id : {{ session.id }})
     <table class="sessions__table table table-hover">
       <thead>
         <tr>
@@ -11,7 +11,7 @@
       <tbody>
         <tr v-for="participant in participants" :key="participant">
           <td>
-            {{ participant.getAttribute("user") }}
+            {{ participant.user.$ref }}
           </td>
           <td>
             {{ getRoleValue(participant) }}
@@ -34,11 +34,10 @@ export default {
     };
   },
   methods: {
-    getRoleValue: (participant) =>
-      participant.getElementsByTagName("roles")[0].childNodes[0].nodeValue,
+    getRoleValue: (participant) => participant.role,
   },
   mounted() {
-    this.participants = this.session.getElementsByTagName("participants");
+    this.participants = this.session.participants;
   },
 };
 </script>

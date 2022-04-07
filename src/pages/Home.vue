@@ -7,13 +7,15 @@
           <th>id</th>
           <th>Name</th>
           <th>Email</th>
+          <th>Password</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in users" :key="item">
-          <td>{{ item.getAttribute("id") }}</td>
-          <td>{{ item.getAttribute("name") }}</td>
-          <td>{{ item.getAttribute("email") }}</td>
+          <td>{{ item.id }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.email }}</td>
+          <td>{{ item.password }}</td>
         </tr>
       </tbody>
     </table>
@@ -30,15 +32,17 @@
           <th>id</th>
           <th>Name</th>
           <th>conformsTo</th>
-          <th>location</th>
+          <th>Location</th>
+          <th>uri</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in models" :key="item">
-          <td>{{ item.getAttribute("id") }}</td>
-          <td>{{ item.getAttribute("name") }}</td>
-          <td>{{ item.getAttribute("conformsTo") }}</td>
-          <td>{{ item.getAttribute("location") }}</td>
+          <td>{{ item.$id }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.confirmsTo.$ref }}</td>
+          <td>{{ item.location }}</td>
+          <td>{{ item.uri }}</td>
         </tr>
       </tbody>
     </table>
@@ -48,12 +52,16 @@
     <table class="languages__table table table-hover">
       <thead>
         <tr>
+          <th>id</th>
           <th>Name</th>
+          <th>SupportedEditors</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in languages" :key="item">
-          <td>{{ item.getAttribute("name") }}</td>
+          <td>{{ item.$id }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.supportedEditors[0].name }}</td>
         </tr>
       </tbody>
     </table>
@@ -78,37 +86,21 @@ export default {
     };
   },
   methods: {
-    parseXml() {
-      const modelInventory = this.xmlDoc.getElementsByTagName(
-        "collaborationSessionMetamodel:ModelInventory"
-      );
-
-      this.users = modelInventory[0].getElementsByTagName("users");
-      this.sessions = modelInventory[0].getElementsByTagName(
-        "collaborationSessions"
-      );
-      this.models = modelInventory[0].getElementsByTagName("models");
-      this.languages = modelInventory[0].getElementsByTagName("language");
+    parseInventory(data) {
+      this.users = data.users;
+      this.sessions = data.collaborationSessions;
+      this.models = data.model;
+      this.languages = data.language;
     },
   },
   async mounted() {
-    await axios
-      .get("../static/ModelInventory.xml")
-      .then((response) => {
-        const parser = new DOMParser();
-        this.xmlDoc = parser.parseFromString(response.data, "text/xml");
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-    this.parseXml();
+    const getInventory = async () => {
+      const result = await get("/models/?modeluri=ModelInventory.xmi");
 
-    const getFullModel = async () => {
-      const result = await get("/models");
-
-      console.log(result);
+      this.parseInventory(result.data);
+      console.log(result.data);
     };
-    getFullModel();
+    getInventory();
   },
 };
 </script>

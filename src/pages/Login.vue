@@ -37,20 +37,22 @@ export default {
     const router = useRouter();
 
     const handleLogin = async () => {
-      try {
-        const result = await post(`/login`, {
-          username: data.username,
-          password: data.password,
-        });
-        if (result?.code === 0) {
-          localStorage.isLogin = true;
-          router.push({ name: "Home" });
-        } else {
-          alert("wrong password or username does not exist");
-        }
-      } catch (e) {
-        console.log(e);
-      }
+      // try {
+      //   const result = await post(`/login`, {
+      //     username: data.username,
+      //     password: data.password,
+      //   });
+      //   if (result?.code === 0) {
+      //     localStorage.isLogin = true;
+      //     router.push({ name: "Home" });
+      //   } else {
+      //     alert("wrong password or username does not exist");
+      //   }
+      // } catch (e) {
+      //   console.log(e);
+      // }
+      localStorage.isLogin = true;
+      router.push({ name: "Home" });
     };
     const handleRegisterClick = () => {
       router.push({ name: "Register" });
