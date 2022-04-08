@@ -1,0 +1,16 @@
+{
+   "@version": "2.0",
+   "@schemaLocation": "http://www.example.org/shape shape.ecore",
+   "polygon": {
+      "@Edges": "6",
+      "@id": "1"
+   },
+   "square": {
+      "@Area": "30",
+      "@id": "2"
+   },
+   "circle": {
+      "@Circumference": "45",
+      "@id": "3"
+   }
+}

@@ -1,4 +1,5 @@
 <template>
+  <h1>Model Inventory</h1>
   <h2>Users</h2>
   <div class="users tables">
     <table class="users__table table table-hover">
@@ -66,16 +67,32 @@
       </tbody>
     </table>
   </div>
+
+  <h1>Model Animal (id: {{ animals.$id }})</h1>
+
+  <div
+    class="animals tables"
+    v-for="(animal, name) in animalClasses"
+    :key="animal"
+  >
+    <Class :content="animal" :name="name" />
+  </div>
+
+  <h1>Model Shape(id: {{ shapes.$id }})</h1>
+
+  <div class="shapes tables" v-for="(shape, name) in shapeClasses" :key="shape">
+    <Class :content="shape" :name="name" />
+  </div>
 </template>
 
 <script>
-import axios from "axios";
 import Session from "../components/Session.vue";
+import Class from "../components/Class.vue";
 import { post, get } from "../utils/request";
 
 export default {
   name: "Home",
-  components: { Session },
+  components: { Session, Class },
   data() {
     return {
       xmlDoc: null,
@@ -83,6 +100,10 @@ export default {
       sessions: [],
       models: [],
       languages: [],
+      animals: [],
+      animalClasses: [],
+      shapes: [],
+      shapeClasses: [],
     };
   },
   methods: {
@@ -92,15 +113,38 @@ export default {
       this.models = data.model;
       this.languages = data.language;
     },
+    parseAnimal(data) {
+      this.animals = data;
+      const { $type, $id, ...animalClasses } = this.animals;
+      this.animalClasses = animalClasses;
+    },
+    parseShape(data) {
+      this.shapes = data;
+      const { $type, $id, ...shapeClasses } = this.shapes;
+      this.shapeClasses = shapeClasses;
+    },
   },
   async mounted() {
     const getInventory = async () => {
       const result = await get("/models/?modeluri=ModelInventory.xmi");
 
       this.parseInventory(result.data);
-      console.log(result.data);
     };
     getInventory();
+
+    const getAnimal = async () => {
+      const result = await get("/models/?modeluri=ModelAnimal.xmi");
+
+      this.parseAnimal(result.data);
+    };
+    getAnimal();
+
+    const getShape = async () => {
+      const result = await get("/models/?modeluri=ModelShape.xmi");
+
+      this.parseShape(result.data);
+    };
+    getShape();
   },
 };
 </script>
