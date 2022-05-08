@@ -1,5 +1,5 @@
 <template>
-  <div class="board-wrapper">
+  <div class="model-wrapper">
     <h1>{{ modelName }}</h1>
     <div class="tables" v-for="(content, name) in modelClasses" :key="content">
       <Class :content="content" :name="name" />

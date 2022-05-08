@@ -17,7 +17,7 @@ export default {
   props: {},
   data() {
     return {
-      currentView: "inventory",
+      currentView: "models",
     };
   },
 };
@@ -32,13 +32,13 @@ export default {
   align-items: center;
   height: 100%;
   padding-top: 50px;
-  overflow: hidden;
   background-color: #e6e6e6;
 }
 
 .board-content {
   width: 98%;
   height: 96%;
+  overflow-y: scroll;
   background-color: white;
 }
 
