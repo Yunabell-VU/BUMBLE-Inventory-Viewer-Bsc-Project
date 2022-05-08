@@ -1,5 +1,5 @@
 <template>
-  <div class="board-wrapper">
+  <div class="inventory-wrapper">
     <h1>Model Inventory</h1>
     <h2>Users</h2>
     <div class="users tables">
@@ -90,6 +90,10 @@ export default {
 
 <style lang="scss">
 @import "../../assets/base.scss";
+
+.inventory-wrapper {
+  padding: 10px;
+}
 
 .tables {
   margin-bottom: 0.2rem;

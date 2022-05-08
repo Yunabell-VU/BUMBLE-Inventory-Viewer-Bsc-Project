@@ -1,5 +1,5 @@
 <template>
-  <div class="board-wrapper">
+  <div class="models-wrapper">
     <div class="classes" v-for="model in modelInventory.models" :key="model">
       <Model :model-name="model.name" />
     </div>

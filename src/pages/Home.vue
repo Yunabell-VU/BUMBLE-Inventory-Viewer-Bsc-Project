@@ -1,8 +1,10 @@
 <template>
-  <div class="layout-top"><Header /></div>
-  <div class="layout-bottom">
-    <Navigator />
-    <Board />
+  <div class="layout-wrapper">
+    <div class="layout-left"><Navigator /></div>
+    <div class="layout-right">
+      <Header />
+      <Board />
+    </div>
   </div>
 </template>
 
@@ -23,4 +25,18 @@ export default {
 
 <style lang="scss">
 @import "../assets/base.scss";
+
+.layout-wrapper {
+  display: flex;
+}
+
+.layout-left {
+  width: 8vw;
+  height: 100vh;
+}
+
+.layout-right {
+  width: 92vw;
+  height: 100vh;
+}
 </style>
