@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <img class="wrapper__img" src="../../public/BUMBLE_logo.png" />
+    <img class="wrapper__img" src="../../BUMBLE_logo.png" />
     <div class="wrapper__input">
       <input class="wrapper__input__content" placeholder="username" />
     </div>

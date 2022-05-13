@@ -1,7 +1,7 @@
 <template>
   <div class="navi-wrapper">
     <div class="logo-wrapper">
-      <img src="../../../public/BUMBLE_logo.png" alt="" />
+      <img src="../../../BUMBLE_logo.png" alt="" />
       <span>BUMBLE</span>
     </div>
     <div class="menus"></div>
