@@ -31,13 +31,13 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100%;
-  padding-top: 50px;
+  padding: 4.5rem 1.5rem 0.6rem 1.5rem;
   background-color: #e6e6e6;
 }
 
 .board-content {
-  width: 98%;
-  height: 96%;
+  width: 100%;
+  height: 100%;
   overflow-y: scroll;
   background-color: white;
 }

@@ -1,5 +1,7 @@
 <template>
-  <div class="header-wrapper"></div>
+  <div class="header-wrapper">
+    <div class="contents-block"></div>
+  </div>
 </template>
 
 <script>
@@ -18,12 +20,22 @@ export default {
 @import "../../assets/base.scss";
 
 .header-wrapper {
+  display: flex;
+  justify-content: flex-end;
   position: fixed;
   top: 0;
   right: 0;
   z-index: 1;
-  width: 92vw;
+  width: 90vw;
   height: 50px;
+  padding: 0 1.5rem;
   background-color: white;
+}
+
+.contents-block {
+  width: 20%;
+  height: 100%;
+
+  background-color: aqua;
 }
 </style>
