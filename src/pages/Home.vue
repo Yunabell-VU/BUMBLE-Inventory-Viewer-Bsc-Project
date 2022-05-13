@@ -31,12 +31,12 @@ export default {
 }
 
 .layout-left {
-  width: 8vw;
+  width: 10vw;
   height: 100vh;
 }
 
 .layout-right {
-  width: 92vw;
+  width: 90vw;
   height: 100vh;
 }
 </style>
