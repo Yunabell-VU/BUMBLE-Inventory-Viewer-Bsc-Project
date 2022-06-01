@@ -1,0 +1,29 @@
+@mixin ellipse {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+@mixin alignCenter {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+@mixin flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flexLeftCenter {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+@mixin flexRightCenter {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}

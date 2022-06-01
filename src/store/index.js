@@ -9,11 +9,22 @@ const store = createStore({
             models: [],
             languages: [],
         },
-        currentUser:[],
+        currentUser:{
+            id: null,
+            name: "",
+            email: "",
+        },
     },
     mutations: {
         setModelInventory(state, inventory) {
             state.modelInventory = inventory;
+        },
+        setCurrentUser(state) {
+            const userID = localStorage.userID
+            const currentUser = state.modelInventory.users.filter((user) => user.id == userID)
+            state.currentUser.id = currentUser[0].id
+            state.currentUser.name = currentUser[0].name
+            state.currentUser.email = currentUser[0].email
         }
     },
     actions: {
@@ -27,6 +38,9 @@ const store = createStore({
             };
             this.commit('setModelInventory', inventory)
         },
+        setCurrentUser() {
+            this.commit('setCurrentUser')
+        }
     },
     getters: {
         modelInventory: (state) => {
@@ -34,6 +48,9 @@ const store = createStore({
         },
         users: (state) =>{
             return state.modelInventory.users
+        },
+        currentUser: (state) => {
+            return state.currentUser
         }
     }
 })

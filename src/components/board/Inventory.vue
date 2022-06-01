@@ -9,15 +9,13 @@
             <th>id</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Password</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in modelInventory.users" :key="item">
-            <td>{{ item.id }}</td>
-            <td>{{ item.name }}</td>
-            <td>{{ item.email }}</td>
-            <td>{{ item.password }}</td>
+          <tr>
+            <td>{{ currentUser.id }}</td>
+            <td>{{ currentUser.name }}</td>
+            <td>{{ currentUser.email }}</td>
           </tr>
         </tbody>
       </table>
@@ -83,7 +81,7 @@ export default {
   name: "Inventory",
   components: { Session },
   computed: {
-    ...mapGetters(["modelInventory"]),
+    ...mapGetters(["modelInventory", "currentUser"]),
   },
 };
 </script>

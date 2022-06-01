@@ -16,6 +16,9 @@ import Board from "../components/layout/Board.vue";
 export default {
   name: "Home",
   components: { Header, Navigator, Board },
+  mounted() {
+    this.$store.dispatch("setCurrentUser");
+  },
 };
 </script>
 
