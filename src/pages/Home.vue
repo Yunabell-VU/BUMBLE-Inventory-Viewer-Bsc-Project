@@ -16,10 +16,6 @@ import Board from "../components/layout/Board.vue";
 export default {
   name: "Home",
   components: { Header, Navigator, Board },
-
-  async mounted() {
-    await this.$store.dispatch("initModelInventory");
-  },
 };
 </script>
 

@@ -17,7 +17,7 @@ export default {
   props: {},
   data() {
     return {
-      currentView: "models",
+      currentView: "inventory",
     };
   },
 };

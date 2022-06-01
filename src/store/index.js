@@ -8,7 +8,8 @@ const store = createStore({
             sessions: [],
             models: [],
             languages: [],
-        }
+        },
+        currentUser:[],
     },
     mutations: {
         setModelInventory(state, inventory) {
@@ -16,7 +17,7 @@ const store = createStore({
         }
     },
     actions: {
-        async initModelInventory() {
+        async updateModelInventory() {
             const result = await get("/models/?modeluri=ModelInventory.xmi");
             const inventory = {
                 users: result.data.users,
@@ -31,6 +32,9 @@ const store = createStore({
         modelInventory: (state) => {
             return state.modelInventory
         },
+        users: (state) =>{
+            return state.modelInventory.users
+        }
     }
 })
 

@@ -5,7 +5,7 @@
       <input
         class="wrapper__input__content"
         placeholder="username"
-        v-model="data.username"
+        v-model="username"
       />
     </div>
     <div class="wrapper__input">
@@ -13,7 +13,7 @@
         class="wrapper__input__content"
         type="password"
         placeholder="password"
-        v-model="data.password"
+        v-model="password"
       />
     </div>
     <div class="wrapper__login-button" @click="handleLogin">Login</div>
@@ -23,41 +23,47 @@
 
 <script>
 import { useRouter } from "vue-router";
-import { post } from "../utils/request";
 import { reactive } from "vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Login",
-  setup() {
-    const data = reactive({
+  data() {
+    return {
       username: "",
       password: "",
-    });
-
-    const router = useRouter();
-
-    const handleLogin = async () => {
+      router: null,
+    };
+  },
+  computed: {
+    ...mapGetters(["users"]),
+  },
+  mounted() {
+    this.router = useRouter();
+  },
+  methods: {
+    handleLogin() {
       try {
-        const result = await post(`/login`, {
-          username: data.username,
-          password: data.password,
-        });
-        if (result?.code === 0) {
-          localStorage.isLogin = true;
-          router.push({ name: "Home" });
+        const currentUser = this.users.filter(
+          (user) => user.name === this.username
+        );
+
+        if (currentUser.length === 0) {
+          alert("username does not exist");
+        } else if (currentUser[0].password !== this.password) {
+          alert("wrong password");
         } else {
-          alert("wrong password or username does not exist");
+          localStorage.isLogin = true;
+          localStorage.userID = currentUser[0].id;
+          this.router.push({ name: "Home" });
         }
       } catch (e) {
         console.log(e);
       }
-      localStorage.isLogin = true;
-      router.push({ name: "Home" });
-    };
-    const handleRegisterClick = () => {
-      router.push({ name: "Register" });
-    };
-    return { handleLogin, handleRegisterClick, data };
+    },
+    handleRegisterClick() {
+      this.router.push({ name: "Register" });
+    },
   },
 };
 </script>
@@ -105,8 +111,8 @@ export default {
   &__login-button {
     margin: 2rem 2.5rem 1rem 2.5rem;
     line-height: 3rem;
-    background: #0091ff;
-    box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 145, 255, 0.32);
+    background: rgb(38, 38, 38);
+    box-shadow: 0 0.25rem 0.5rem 0 rgba(38, 38, 38, 0.32);
     border-radius: 0.25rem;
     border-radius: 0.25rem;
     color: #fff;

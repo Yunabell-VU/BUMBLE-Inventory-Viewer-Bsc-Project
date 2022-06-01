@@ -1,6 +1,7 @@
 <template>
   <div class="header-wrapper">
-    <div class="contents-block"></div>
+    <div class="path-block"></div>
+    <div class="users-block"></div>
   </div>
 </template>
 
@@ -21,7 +22,7 @@ export default {
 
 .header-wrapper {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   position: fixed;
   top: 0;
   right: 0;
@@ -32,7 +33,14 @@ export default {
   background-color: white;
 }
 
-.contents-block {
+.path-block {
+  width: 20%;
+  height: 100%;
+
+  background-color: aqua;
+}
+
+.users-block {
   width: 20%;
   height: 100%;
 

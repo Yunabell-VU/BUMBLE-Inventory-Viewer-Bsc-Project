@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modelInventory:ModelInventory
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:modelInventory="http://www.example.org/modelInventory"
+    xsi:schemaLocation="http://www.example.org/modelInventory modelInventory.ecore">
+  <language
+      name="shape">
+    <supportedEditors
+        name="Atom"/>
+  </language>
+  <language
+      name="animal">
+    <supportedEditors
+        name="Atom"/>
+  </language>
+  <model name="ModelAnimal"
+      uri="abc:isbn:0-476-27557-4"
+      confirmsTo="//@language.1"/>
+  <model name="ModelShape"
+      location=""
+      uri="abc:isbn:0-786-27557-4"
+      confirmsTo="//@language.0"/>
+  <collaborationSessions
+      id="1">
+    <participants
+        user="//@users.0"/>
+    <participants
+        user="//@users.2"
+        role="INITIATOR"/>
+  </collaborationSessions>
+  <collaborationSessions
+      id="2">
+    <participants
+        user="//@users.1"
+        role="OWNER"/>
+    <participants
+        user="//@users.2"/>
+    <participants
+        user="//@users.0"
+        role="INITIATOR"/>
+  </collaborationSessions>
+  <users id="1"
+      name="Alice"
+      email="alice@xyz.com"
+      password="abcdef"/>
+  <users id="3"
+      name="John"
+      email="john@abc.com"
+      password="uvwxyz"/>
+  <users id="2"
+      name="Bob"
+      email="bob@abc.com"
+      password="qwerty"/>
+</modelInventory:ModelInventory>
