@@ -1,29 +1,30 @@
 <template>
-  <div class="wrapper">
-    <img class="wrapper__img" src="../../BUMBLE_logo.png" />
-    <div class="wrapper__input">
+  <div class="login-wrapper">
+    <img class="login-wrapper__img" src="../../BUMBLE_logo.png" />
+    <div class="login-wrapper__input">
       <input
-        class="wrapper__input__content"
+        class="login-wrapper__input__content"
         placeholder="username"
         v-model="username"
       />
     </div>
-    <div class="wrapper__input">
+    <div class="login-wrapper__input">
       <input
-        class="wrapper__input__content"
+        class="login-wrapper__input__content"
         type="password"
         placeholder="password"
         v-model="password"
       />
     </div>
-    <div class="wrapper__login-button" @click="handleLogin">Login</div>
-    <div class="wrapper__login-link" @click="handleRegisterClick">Register</div>
+    <div class="login-wrapper__login-button" @click="handleLogin">Login</div>
+    <div class="login-wrapper__login-link" @click="handleRegisterClick">
+      Register
+    </div>
   </div>
 </template>
 
 <script>
 import { useRouter } from "vue-router";
-import { reactive } from "vue";
 import { mapGetters } from "vuex";
 
 export default {
@@ -32,15 +33,13 @@ export default {
     return {
       username: "",
       password: "",
-      router: null,
+      router: useRouter(),
     };
   },
   computed: {
     ...mapGetters(["users"]),
   },
-  mounted() {
-    this.router = useRouter();
-  },
+  mounted() {},
   methods: {
     handleLogin() {
       try {
@@ -71,11 +70,11 @@ export default {
 <style lang="scss">
 @import "../assets/base.scss";
 
-.wrapper {
+.login-wrapper {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  width: 40%;
+  width: 400px;
 
   @media only screen and (max-width: 769px) {
     width: 100%;

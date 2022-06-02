@@ -25,6 +25,13 @@ const store = createStore({
             state.currentUser.id = currentUser[0].id
             state.currentUser.name = currentUser[0].name
             state.currentUser.email = currentUser[0].email
+        },
+        clearCurrentUser(state) {
+            state.currentUser = {
+                id: null,
+                name: "",
+                email: "",
+            }
         }
     },
     actions: {
@@ -40,6 +47,9 @@ const store = createStore({
         },
         setCurrentUser() {
             this.commit('setCurrentUser')
+        },
+        clearCurrentUser() {
+            this.commit('clearCurrentUser')
         }
     },
     getters: {
