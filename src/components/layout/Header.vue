@@ -38,16 +38,14 @@ export default {
 <style lang="scss" scoped>
 @import "../../assets/base.scss";
 @import "../../assets/iconfont.css";
-@import "../../assets/mixins.scss";
 
 .header-wrapper {
-  display: flex;
-  justify-content: space-between;
-  position: fixed;
+  @include flexSpaceBetween;
+  position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   z-index: 1;
-  width: 90vw;
+  width: 100%;
   height: 50px;
   padding: 0 1.5rem;
   background-color: white;
@@ -61,9 +59,7 @@ export default {
 }
 
 .user-block {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flexSpaceBetween;
   width: 10%;
   height: 100%;
 

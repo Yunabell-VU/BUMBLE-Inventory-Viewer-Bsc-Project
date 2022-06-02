@@ -35,6 +35,7 @@ export default {
 }
 
 .layout-right {
+  position: relative;
   width: 90vw;
   height: 100vh;
 }

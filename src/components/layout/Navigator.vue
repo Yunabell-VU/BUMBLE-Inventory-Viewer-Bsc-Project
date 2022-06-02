@@ -41,6 +41,8 @@ export default {
     height: 35px;
   }
   span {
+    // To visually make BUMBLE logo and text position in the middle
+    padding-right: 15px;
     color: #f2f2f2;
     font-size: 1.5rem;
     font-weight: bold;

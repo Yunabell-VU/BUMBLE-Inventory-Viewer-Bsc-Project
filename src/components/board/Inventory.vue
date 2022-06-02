@@ -1,7 +1,33 @@
 <template>
   <div class="inventory-wrapper">
-    <h1>Model Inventory</h1>
-    <h2>Users</h2>
+    <div class="inventory-titles">
+      <div class="inventory-titles__model">model</div>
+      <div class="inventory-titles__language">language</div>
+      <div class="inventory-titles__owner">owner</div>
+      <div class="inventory-titles__participants">participants</div>
+      <div class="inventory-titles__arrow"></div>
+      <div class="inventory-titles__actions">actions</div>
+    </div>
+    <div
+      v-for="item in modelInventory.models"
+      :key="item"
+      class="inventory-rows"
+    >
+      <InventoryRow :model-id="item.$id" />
+      <!-- <td>{{ item.name }}</td>
+      <td>{{ item.confirmsTo.$ref }}</td>
+      <td>TODO</td>
+      <td>TODO</td>
+      <td>
+        <div
+          :class="{ 'open-detail--rotated': detailOpened }"
+          class="iconfont open-detail"
+        >
+          &#xe671;
+        </div>
+      </td> -->
+    </div>
+    <!-- <h2>Users</h2>
     <div class="users tables">
       <table class="users__table table table-hover">
         <thead>
@@ -69,28 +95,75 @@
           </tr>
         </tbody>
       </table>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import Session from "../Session.vue";
+import InventoryRow from "../board/row/InventoryRow.vue";
 import { mapGetters } from "vuex";
 
 export default {
   name: "Inventory",
-  components: { Session },
+  components: { Session, InventoryRow },
+  data() {
+    return {
+      detailClosed: true,
+    };
+  },
   computed: {
     ...mapGetters(["modelInventory", "currentUser"]),
+  },
+  methods: {
+    getLanguage(languageID) {},
   },
 };
 </script>
 
 <style lang="scss">
 @import "../../assets/base.scss";
+@import "../../assets/iconfont.css";
 
-.inventory-wrapper {
-  padding: 10px;
+.inventory-titles {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 3rem;
+  border-bottom: 2px solid black;
+  font-size: 1rem;
+  color: black;
+
+  &__model,
+  &__language,
+  &__owner {
+    width: 15%;
+    font-weight: bold;
+  }
+
+  &__participants {
+    width: 25%;
+    font-weight: bold;
+  }
+
+  &__arrow {
+    width: 10%;
+  }
+
+  &__actions {
+    width: 20%;
+    font-weight: bold;
+  }
+}
+
+.open-detail {
+  @include flexCenter;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1.5rem;
+  color: #808080;
+  transform: rotate(180deg);
 }
 
 .tables {

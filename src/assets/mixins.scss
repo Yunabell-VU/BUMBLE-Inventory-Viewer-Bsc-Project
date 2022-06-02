@@ -22,8 +22,15 @@
     justify-content: left;
     align-items: center;
 }
+
 @mixin flexRightCenter {
     display: flex;
     justify-content: right;
+    align-items: center;
+}
+
+@mixin flexSpaceBetween {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
