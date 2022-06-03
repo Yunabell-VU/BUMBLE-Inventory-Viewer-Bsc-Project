@@ -60,7 +60,7 @@ export default {
 
 .user-block {
   @include flexSpaceBetween;
-  width: 10%;
+  width: 8%;
   height: 100%;
 
   &__avatar {

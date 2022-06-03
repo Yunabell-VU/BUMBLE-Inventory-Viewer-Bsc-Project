@@ -4,12 +4,22 @@
     <div class="inventory-row__basic__language">{{ languageName }}</div>
     <div class="inventory-row__basic__owner">TODO</div>
     <div class="inventory-row__basic__participants">TODO</div>
-    <div class="inventory-row__basic__arrow">
+    <div
+      :class="{ 'inventory-row__basic__arrow--flipped': extraInfoShown }"
+      class="inventory-row__basic__arrow"
+      @click="toggleExtraInfo"
+    >
       <div class="iconfont">&#xe671;</div>
     </div>
     <div class="inventory-row__basic__actions"></div>
   </div>
-  <div class="inventory-row__extra"></div>
+  <div v-show="extraInfoShown" class="inventory-row__extra">
+    <h3>teset</h3>
+    <h3>teset</h3>
+    <h3>teset</h3>
+    <h3>teset</h3>
+    <h3>teset</h3>
+  </div>
 </template>
 
 <script>
@@ -24,7 +34,7 @@ export default {
   },
   data() {
     return {
-      detailClosed: true,
+      extraInfoShown: false,
     };
   },
   computed: {
@@ -50,6 +60,11 @@ export default {
     },
     languageName() {
       return this.language.name;
+    },
+  },
+  methods: {
+    toggleExtraInfo() {
+      this.extraInfoShown = !this.extraInfoShown;
     },
   },
 };
@@ -87,10 +102,17 @@ export default {
       font-size: 1.8rem;
       color: #808080;
       transform: rotate(180deg);
+      transition: transform 0.3s;
 
       &:hover {
         color: #262626;
         cursor: pointer;
+      }
+    }
+
+    &--flipped {
+      .iconfont {
+        transform: rotate(0deg);
       }
     }
   }
@@ -102,7 +124,7 @@ export default {
 
 .inventory-row__extra {
   width: 100%;
-  height: 50px;
+  overflow: hidden;
   border-left: 5px solid #262626;
   background-color: #fafafa;
   box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.25);
