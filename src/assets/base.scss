@@ -98,5 +98,11 @@ ul,li{
   list-style:none
 }
 
+
+::-webkit-scrollbar {
+  /*hide scrollbar (only work on Chrome)*/
+  display: none;
+  }
+
 @import "bootstrap/dist/css/bootstrap.min.css";
 @import "mixins.scss";

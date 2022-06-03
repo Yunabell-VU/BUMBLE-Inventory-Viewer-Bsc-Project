@@ -15,7 +15,17 @@
       >
         <div class="iconfont">&#xe671;</div>
       </div>
-      <div class="inventory-row__basic__actions"></div>
+      <div class="inventory-row__basic__actions">
+        <ul>
+          <li class="inventory-row__basic__actions__button">VIEW</li>
+          <li class="inventory-row__basic__actions__button">EDIT</li>
+          <li
+            class="inventory-row__basic__actions__button inventory-row__basic__actions__button__delete"
+          >
+            DELETE
+          </li>
+        </ul>
+      </div>
     </div>
     <div v-show="extraInfoShown" class="inventory-row__extra">
       <ul>
@@ -155,6 +165,31 @@ export default {
 
   &__actions {
     width: 20%;
+
+    ul {
+      @include flexSpaceBetween;
+    }
+
+    &__button {
+      @include flexCenter;
+      width: 80px;
+      height: 35px;
+      background-color: #e9cb7c;
+      font-weight: bold;
+
+      &:hover {
+        cursor: pointer;
+        background-color: darken(#e9cb7c, 10%);
+      }
+
+      &__delete {
+        background-color: #e97c7c;
+
+        &:hover {
+          background-color: darken(#e97c7c, 10%);
+        }
+      }
+    }
   }
 }
 
