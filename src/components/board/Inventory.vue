@@ -14,18 +14,6 @@
       class="inventory-rows"
     >
       <InventoryRow :model-id="item.$id" />
-      <!-- <td>{{ item.name }}</td>
-      <td>{{ item.confirmsTo.$ref }}</td>
-      <td>TODO</td>
-      <td>TODO</td>
-      <td>
-        <div
-          :class="{ 'open-detail--rotated': detailOpened }"
-          class="iconfont open-detail"
-        >
-          &#xe671;
-        </div>
-      </td> -->
     </div>
     <!-- <h2>Users</h2>
     <div class="users tables">
@@ -115,9 +103,7 @@ export default {
   computed: {
     ...mapGetters(["modelInventory", "currentUser"]),
   },
-  methods: {
-    getLanguage(languageID) {},
-  },
+  methods: {},
 };
 </script>
 
@@ -125,12 +111,19 @@ export default {
 @import "../../assets/base.scss";
 @import "../../assets/iconfont.css";
 
+.inventory-wrapper {
+  @include flexCenter;
+  flex-direction: column;
+  width: 100%;
+}
+
 .inventory-titles {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 100%;
+  width: 90%;
   height: 3rem;
+  border-top: 1px solid #cccccc;
   border-bottom: 2px solid black;
   font-size: 1rem;
   color: black;
@@ -157,16 +150,7 @@ export default {
   }
 }
 
-.open-detail {
-  @include flexCenter;
-  width: 1.5rem;
-  height: 1.5rem;
-  font-size: 1.5rem;
-  color: #808080;
-  transform: rotate(180deg);
-}
-
-.tables {
-  margin-bottom: 0.2rem;
+.inventory-rows {
+  width: 100%;
 }
 </style>

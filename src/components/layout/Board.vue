@@ -47,15 +47,16 @@ export default {
 }
 
 .board-layout {
-  display: flex;
+  @include flexCenter;
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: 3.5rem 3.5rem;
+  padding: 3.5rem 0rem;
   background-color: white;
 
   &__header {
     @include flexSpaceBetween;
+    width: 90%;
     padding-bottom: 20px;
 
     &__create-button {
@@ -74,8 +75,8 @@ export default {
   }
 
   &__content {
+    width: 100%;
     height: 100%;
-    border-top: 1px solid #cccccc;
   }
 }
 

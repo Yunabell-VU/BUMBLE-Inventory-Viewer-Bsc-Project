@@ -1,24 +1,46 @@
 <template>
-  <div class="inventory-row__basic">
-    <div class="inventory-row__basic__model">{{ modelName }}</div>
-    <div class="inventory-row__basic__language">{{ languageName }}</div>
-    <div class="inventory-row__basic__owner">TODO</div>
-    <div class="inventory-row__basic__participants">TODO</div>
+  <div class="inventory-row-wrapper">
     <div
-      :class="{ 'inventory-row__basic__arrow--flipped': extraInfoShown }"
-      class="inventory-row__basic__arrow"
-      @click="toggleExtraInfo"
+      :class="{ 'inventory-row__basic--no-border': extraInfoShown }"
+      class="inventory-row__basic"
     >
-      <div class="iconfont">&#xe671;</div>
+      <div class="inventory-row__basic__model">{{ modelName }}</div>
+      <div class="inventory-row__basic__language">{{ languageName }}</div>
+      <div class="inventory-row__basic__owner">TODO</div>
+      <div class="inventory-row__basic__participants">TODO</div>
+      <div
+        :class="{ 'inventory-row__basic__arrow--flipped': extraInfoShown }"
+        class="inventory-row__basic__arrow"
+        @click="toggleExtraInfo"
+      >
+        <div class="iconfont">&#xe671;</div>
+      </div>
+      <div class="inventory-row__basic__actions"></div>
     </div>
-    <div class="inventory-row__basic__actions"></div>
-  </div>
-  <div v-show="extraInfoShown" class="inventory-row__extra">
-    <h3>teset</h3>
-    <h3>teset</h3>
-    <h3>teset</h3>
-    <h3>teset</h3>
-    <h3>teset</h3>
+    <div v-show="extraInfoShown" class="inventory-row__extra">
+      <ul>
+        <li>
+          <div class="inventory-row__extra__key">id:</div>
+          <div class="inventory-row__extra__value">{{ model.$id }}</div>
+        </li>
+        <li>
+          <div class="inventory-row__extra__key">Supported Editors:</div>
+          <div
+            v-for="item in supportedEditors"
+            :key="item"
+            class="inventory-row__extra__value"
+          >
+            <span class="inventory-row__extra__value__editor-name">{{
+              item.name
+            }}</span>
+          </div>
+        </li>
+        <li>
+          <div class="inventory-row__extra__key"></div>
+          <div class="inventory-row__extra__value"></div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -61,6 +83,9 @@ export default {
     languageName() {
       return this.language.name;
     },
+    supportedEditors() {
+      return this.language.supportedEditors;
+    },
   },
   methods: {
     toggleExtraInfo() {
@@ -74,13 +99,23 @@ export default {
 @import "../../../assets/base.scss";
 @import "../../../assets/iconfont.css";
 
+.inventory-row-wrapper {
+  @include flexCenter;
+  flex-direction: column;
+  width: 100%;
+}
+
 .inventory-row__basic {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 100%;
+  width: 90%;
   height: 70px;
   border-bottom: 1px solid #cccccc;
+
+  &--no-border {
+    border: none;
+  }
 
   &__model,
   &__language,
@@ -102,7 +137,7 @@ export default {
       font-size: 1.8rem;
       color: #808080;
       transform: rotate(180deg);
-      transition: transform 0.3s;
+      transition: all 0.3s ease;
 
       &:hover {
         color: #262626;
@@ -113,6 +148,7 @@ export default {
     &--flipped {
       .iconfont {
         transform: rotate(0deg);
+        color: red;
       }
     }
   }
@@ -123,10 +159,25 @@ export default {
 }
 
 .inventory-row__extra {
+  @include flexCenter;
   width: 100%;
   overflow: hidden;
   border-left: 5px solid #262626;
   background-color: #fafafa;
   box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.25);
+
+  ul {
+    width: 90%;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    height: 2.5rem;
+  }
+
+  &__key {
+    width: 15%;
+  }
 }
 </style>
