@@ -13,7 +13,7 @@
       :key="item"
       class="inventory-rows"
     >
-      <InventoryRow :model-id="item.$id" />
+      <InventoryRow :model-id="item.$id" @view-model="viewModel(item.name)" />
     </div>
     <!-- <h2>Users</h2>
     <div class="users tables">
@@ -103,7 +103,11 @@ export default {
   computed: {
     ...mapGetters(["modelInventory", "currentUser"]),
   },
-  methods: {},
+  methods: {
+    viewModel(modelName) {
+      this.$emit("viewModel", modelName);
+    },
+  },
 };
 </script>
 

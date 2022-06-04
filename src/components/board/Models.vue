@@ -1,8 +1,6 @@
 <template>
   <div class="models-wrapper">
-    <div class="classes" v-for="model in modelInventory.models" :key="model">
-      <Model :model-name="model.name" />
-    </div>
+    <Model :model-name="currentModel.name" />
   </div>
 </template>
 
@@ -13,9 +11,8 @@ import { mapGetters } from "vuex";
 export default {
   name: "Models",
   components: { Model },
-
   computed: {
-    ...mapGetters(["modelInventory"]),
+    ...mapGetters(["modelInventory", "currentModel"]),
   },
 };
 </script>

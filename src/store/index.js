@@ -14,6 +14,9 @@ const store = createStore({
             name: "",
             email: "",
         },
+        currentModel:{
+            name: ""
+        }
     },
     mutations: {
         setModelInventory(state, inventory) {
@@ -31,6 +34,11 @@ const store = createStore({
                 id: null,
                 name: "",
                 email: "",
+            }
+        },
+        setCurrentModel(state, modelName) {
+            state.currentModel = {
+                name: modelName
             }
         }
     },
@@ -50,6 +58,9 @@ const store = createStore({
         },
         clearCurrentUser() {
             this.commit('clearCurrentUser')
+        },
+        setCurrentModel(vuexContex,modelName) {
+            vuexContex.commit('setCurrentModel', modelName)
         }
     },
     getters: {
@@ -61,6 +72,9 @@ const store = createStore({
         },
         currentUser: (state) => {
             return state.currentUser
+        },
+        currentModel: (state) => {
+            return state.currentModel
         }
     }
 })

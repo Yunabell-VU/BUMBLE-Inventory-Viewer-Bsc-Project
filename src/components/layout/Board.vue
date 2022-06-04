@@ -6,7 +6,10 @@
         <div class="board-layout__header__create-button">+ New</div>
       </div>
       <div class="board-layout__content">
-        <Inventory v-if="currentView === 'inventory'" />
+        <Inventory
+          v-if="currentView === 'inventory'"
+          @view-model="openModelView"
+        />
         <Models v-if="currentView === 'models'" />
       </div>
     </div>
@@ -31,6 +34,12 @@ export default {
       if (this.currentView === "inventory") {
         return "Model Inventory";
       }
+    },
+  },
+  methods: {
+    openModelView(modelName) {
+      this.$store.dispatch("setCurrentModel", modelName);
+      this.currentView = "models";
     },
   },
 };

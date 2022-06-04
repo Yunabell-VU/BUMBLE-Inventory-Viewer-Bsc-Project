@@ -17,7 +17,12 @@
       </div>
       <div class="inventory-row__basic__actions">
         <ul>
-          <li class="inventory-row__basic__actions__button">VIEW</li>
+          <li
+            class="inventory-row__basic__actions__button"
+            @click="$emit('viewModel')"
+          >
+            VIEW
+          </li>
           <li class="inventory-row__basic__actions__button">EDIT</li>
           <li
             class="inventory-row__basic__actions__button inventory-row__basic__actions__button__delete"
