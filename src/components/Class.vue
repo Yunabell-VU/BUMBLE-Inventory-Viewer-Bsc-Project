@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="class-wrapper">
     <h2>Class: {{ name }}</h2>
     <div v-for="(instance, index) in instances" :key="instance">
       <h4>Instance {{ index + 1 }}</h4>
@@ -38,11 +38,7 @@ export default {
       instances: [],
     };
   },
-  methods: {
-    // getClassName() {
-    //   return this.class;
-    // },
-  },
+  methods: {},
   mounted() {
     this.instances = this.content;
   },
@@ -51,4 +47,8 @@ export default {
 
 <style lang="scss">
 @import "../assets/base.scss";
+
+.class-wrapper {
+  width: 100%;
+}
 </style>

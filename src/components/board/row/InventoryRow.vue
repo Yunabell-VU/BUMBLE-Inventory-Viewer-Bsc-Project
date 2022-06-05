@@ -202,7 +202,7 @@ export default {
   @include flexCenter;
   width: 100%;
   overflow: hidden;
-  border-left: 5px solid #262626;
+  border-left: 10px solid #262626;
   background-color: #fafafa;
   box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.25);
 

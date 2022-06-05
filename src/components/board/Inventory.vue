@@ -1,21 +1,29 @@
 <template>
-  <div class="inventory-wrapper">
-    <div class="inventory-titles">
-      <div class="inventory-titles__model">model</div>
-      <div class="inventory-titles__language">language</div>
-      <div class="inventory-titles__owner">owner</div>
-      <div class="inventory-titles__participants">participants</div>
-      <div class="inventory-titles__arrow"></div>
-      <div class="inventory-titles__actions">actions</div>
-    </div>
-    <div
-      v-for="item in modelInventory.models"
-      :key="item"
-      class="inventory-rows"
-    >
-      <InventoryRow :model-id="item.$id" @view-model="viewModel(item.name)" />
-    </div>
-    <!-- <h2>Users</h2>
+  <BoardLayout :titleName="'Model Inventory'">
+    <template #button>
+      <div class="create-new-button">+ New</div>
+    </template>
+    <template #content>
+      <div class="inventory-wrapper">
+        <div class="inventory-titles">
+          <div class="inventory-titles__model">model</div>
+          <div class="inventory-titles__language">language</div>
+          <div class="inventory-titles__owner">owner</div>
+          <div class="inventory-titles__participants">participants</div>
+          <div class="inventory-titles__arrow"></div>
+          <div class="inventory-titles__actions">actions</div>
+        </div>
+        <div
+          v-for="item in modelInventory.models"
+          :key="item"
+          class="inventory-rows"
+        >
+          <InventoryRow
+            :model-id="item.$id"
+            @view-model="viewModel(item.name)"
+          />
+        </div>
+        <!-- <h2>Users</h2>
     <div class="users tables">
       <table class="users__table table table-hover">
         <thead>
@@ -84,17 +92,20 @@
         </tbody>
       </table>
     </div> -->
-  </div>
+      </div>
+    </template>
+  </BoardLayout>
 </template>
 
 <script>
 import Session from "../Session.vue";
+import BoardLayout from "../board/BoardLayout.vue";
 import InventoryRow from "../board/row/InventoryRow.vue";
 import { mapGetters } from "vuex";
 
 export default {
   name: "Inventory",
-  components: { Session, InventoryRow },
+  components: { Session, BoardLayout, InventoryRow },
   data() {
     return {
       detailClosed: true,
@@ -114,6 +125,21 @@ export default {
 <style lang="scss">
 @import "../../assets/base.scss";
 @import "../../assets/iconfont.css";
+
+.create-new-button {
+  @include flexCenter;
+  width: 105px;
+  height: 45px;
+  background-color: #239d4e;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+
+  &:hover {
+    cursor: pointer;
+    background-color: darken(#239d4e, 10%);
+  }
+}
 
 .inventory-wrapper {
   @include flexCenter;

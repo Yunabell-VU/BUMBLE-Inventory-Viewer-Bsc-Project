@@ -1,45 +1,32 @@
 <template>
   <div class="board-wrapper">
-    <div class="board-layout">
-      <div class="board-layout__header">
-        <h1>{{ headerTitle }}</h1>
-        <div class="board-layout__header__create-button">+ New</div>
-      </div>
-      <div class="board-layout__content">
-        <Inventory
-          v-if="currentView === 'inventory'"
-          @view-model="openModelView"
-        />
-        <Models v-if="currentView === 'models'" />
-      </div>
-    </div>
+    <Inventory v-if="currentView === 'inventory'" @view-model="openModelView" />
+    <Model v-if="currentView === 'models'" @go-back="backToInventoryView" />
   </div>
 </template>
 
 <script>
 import Inventory from "../board/Inventory.vue";
-import Models from "../board/Models.vue";
+import Model from "../board/Model.vue";
 
 export default {
   name: "Board",
-  components: { Inventory, Models },
+  components: { Inventory, Model },
   props: {},
   data() {
     return {
       currentView: "inventory",
     };
   },
-  computed: {
-    headerTitle() {
-      if (this.currentView === "inventory") {
-        return "Model Inventory";
-      }
-    },
-  },
+  computed: {},
   methods: {
     openModelView(modelName) {
       this.$store.dispatch("setCurrentModel", modelName);
       this.currentView = "models";
+    },
+    backToInventoryView() {
+      this.$store.dispatch("setCurrentModel", "");
+      this.currentView = "inventory";
     },
   },
 };
@@ -53,44 +40,5 @@ export default {
   height: 100%;
   padding: 4.5rem 1.5rem 0.6rem 1.5rem;
   background-color: #e6e6e6;
-}
-
-.board-layout {
-  @include flexCenter;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  padding: 3.5rem 0rem;
-  background-color: white;
-
-  &__header {
-    @include flexSpaceBetween;
-    width: 90%;
-    padding-bottom: 20px;
-
-    &__create-button {
-      @include flexCenter;
-      width: 105px;
-      height: 45px;
-      background-color: #239d4e;
-      color: white;
-      font-size: 1.3rem;
-      font-weight: bold;
-
-      &:hover {
-        background-color: darken(#239d4e, 10%);
-      }
-    }
-  }
-
-  &__content {
-    width: 100%;
-    height: 100%;
-    overflow-y: scroll;
-  }
-}
-
-.tables {
-  margin-bottom: 0.2rem;
 }
 </style>
