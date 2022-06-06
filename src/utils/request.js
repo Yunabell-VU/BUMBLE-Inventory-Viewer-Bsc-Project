@@ -26,3 +26,27 @@ export const get = (url) => {
         })
     })
 }
+
+export const deleteModel = (url) => {
+    return new Promise((resolve, reject) => {
+        axios.delete(url, {
+            baseURL:"http://localhost:8081/api/v2",
+        }).then((response) => {
+            resolve(response.data)
+        }, err => {
+            reject(err)
+        })
+    })
+}
+
+export const validate = (url) => {
+    return new Promise((resolve, reject) => {
+        axios.get(url, {
+            baseURL:"http://localhost:8081/api/v2",
+        }).then((response) => {
+            resolve(response.data)
+        }, err => {
+            reject(err)
+        })
+    })
+}

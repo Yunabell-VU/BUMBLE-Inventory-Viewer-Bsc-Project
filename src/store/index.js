@@ -1,5 +1,5 @@
 import {createStore} from 'vuex'
-import { post, get } from "../utils/request";
+import { post, get, validate } from "../utils/request";
 
 const store = createStore({
     state: {
@@ -76,7 +76,7 @@ const store = createStore({
         currentModel: (state) => {
             return state.currentModel
         }
-    }
+    },
 })
 
 export default store

@@ -1,5 +1,5 @@
 <template>
-  <div class="inventory-row-wrapper">
+  <div v-if="validModel" class="inventory-row-wrapper">
     <div
       :class="{ 'inventory-row__basic--no-border': extraInfoShown }"
       class="inventory-row__basic"
@@ -26,6 +26,7 @@
           <li class="inventory-row__basic__actions__button">EDIT</li>
           <li
             class="inventory-row__basic__actions__button inventory-row__basic__actions__button__delete"
+            @click="handleModelDelete"
           >
             DELETE
           </li>
@@ -61,6 +62,7 @@
 
 <script>
 import Session from "../../Session.vue";
+import { validate, deleteModel } from "../../../utils/request";
 import { mapGetters } from "vuex";
 
 export default {
@@ -72,6 +74,7 @@ export default {
   data() {
     return {
       extraInfoShown: false,
+      validModel: false,
     };
   },
   computed: {
@@ -106,6 +109,16 @@ export default {
     toggleExtraInfo() {
       this.extraInfoShown = !this.extraInfoShown;
     },
+    async handleModelDelete() {
+      const result = await deleteModel(`models?modeluri=${this.modelName}.xmi`);
+      if (result.type === "success") {
+        this.$store.dispatch("updateModelInventory");
+      }
+    },
+  },
+  async mounted() {
+    let result = await validate(`/validation/?modeluri=${this.modelName}.xmi`);
+    this.validModel = result.data !== "Model not found!";
   },
 };
 </script>
@@ -152,7 +165,7 @@ export default {
       font-size: 1.8rem;
       color: #808080;
       transform: rotate(180deg);
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
 
       &:hover {
         color: #262626;
