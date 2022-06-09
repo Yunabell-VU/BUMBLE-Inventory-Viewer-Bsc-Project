@@ -5,19 +5,21 @@
     </div>
     <div
       class="class-instances"
-      v-for="(instance, index) in instances"
+      v-for="(instance, index) in modifiedInstances"
       :key="index"
     >
       <table class="model__table table table-hover">
         <thead>
           <tr>
             <th>Attribute</th>
+            <th>Type</th>
             <th>Value</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(value, key) in instance" :key="key">
             <td>{{ key }}</td>
+            <td>{{ typeof value }}</td>
             <td>{{ value }}</td>
           </tr>
         </tbody>
@@ -46,6 +48,15 @@ export default {
     return {
       instances: [],
     };
+  },
+  computed: {
+    modifiedInstances() {
+      const newInstance = this.instances.map(({ $id, ...rest }) => {
+        return rest;
+      });
+
+      return newInstance;
+    },
   },
   methods: {},
   mounted() {
@@ -84,7 +95,7 @@ export default {
 
   &__lines {
     width: 100%;
-    height: 5px;
+    height: 4px;
     background-color: #e9ca7c41;
   }
 }

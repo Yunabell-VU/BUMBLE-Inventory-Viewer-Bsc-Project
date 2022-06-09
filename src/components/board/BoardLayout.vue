@@ -45,6 +45,7 @@ export default {
     @include flexSpaceBetween;
     width: 90%;
     padding-bottom: 20px;
+    border-bottom: 1px solid #cccccc;
   }
 
   &__content {

@@ -80,7 +80,6 @@ export default {
 
 .model-contents {
   width: 90%;
-  border-top: 1px solid #cccccc;
 }
 
 .tables {

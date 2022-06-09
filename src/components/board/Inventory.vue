@@ -84,7 +84,6 @@ export default {
   align-items: center;
   width: 90%;
   height: 3rem;
-  border-top: 1px solid #cccccc;
   border-bottom: 2px solid black;
   font-size: 1rem;
   color: black;
