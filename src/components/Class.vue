@@ -1,8 +1,13 @@
 <template>
   <div class="class-wrapper">
-    <h2>Class: {{ name }}</h2>
-    <div v-for="(instance, index) in instances" :key="instance">
-      <h4>Instance {{ index + 1 }}</h4>
+    <div class="class-name">
+      <span>{{ name }}</span>
+    </div>
+    <div
+      class="class-instances"
+      v-for="(instance, index) in instances"
+      :key="index"
+    >
       <table class="model__table table table-hover">
         <thead>
           <tr>
@@ -17,6 +22,10 @@
           </tr>
         </tbody>
       </table>
+      <div class="class-instances__lines"></div>
+    </div>
+    <div class="class-new-instance">
+      <div class="class-new-instance__add-new">add</div>
     </div>
   </div>
 </template>
@@ -50,5 +59,56 @@ export default {
 
 .class-wrapper {
   width: 100%;
+  margin: 2rem 0;
+  box-shadow: 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+}
+
+.class-name {
+  @include flexSpaceBetween;
+  width: 100%;
+  height: 3rem;
+  padding: 0 10px;
+  background-color: #e9ca7c7e;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+  span {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+}
+
+.class-instances {
+  padding: 0 10px;
+
+  &__lines {
+    width: 100%;
+    height: 5px;
+    background-color: #e9ca7c41;
+  }
+}
+
+.class-new-instance {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  height: 60px;
+  padding: 10px 10px;
+
+  &__add-new {
+    @include flexCenter;
+    width: 80px;
+    height: 40px;
+    color: white;
+    background-color: #239d4e;
+    font-size: 1.3rem;
+    font-weight: bold;
+
+    &:hover {
+      cursor: pointer;
+      background-color: darken(#239d4e, 10%);
+    }
+  }
 }
 </style>

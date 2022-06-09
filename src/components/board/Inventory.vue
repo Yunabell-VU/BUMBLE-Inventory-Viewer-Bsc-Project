@@ -1,14 +1,14 @@
 <template>
   <BoardLayout :titleName="'Model Inventory'">
     <template #button>
-      <div class="create-new-button">+ New</div>
+      <!-- <div class="create-new-button">+ New</div> -->
     </template>
     <template #content>
       <div class="inventory-wrapper">
         <div class="inventory-titles">
           <div class="inventory-titles__model">model</div>
           <div class="inventory-titles__language">language</div>
-          <div class="inventory-titles__owner">owner</div>
+          <div class="inventory-titles__owner">created by</div>
           <div class="inventory-titles__participants">participants</div>
           <div class="inventory-titles__arrow"></div>
           <div class="inventory-titles__actions">actions</div>
@@ -23,75 +23,6 @@
             @view-model="viewModel(item.name)"
           />
         </div>
-        <!-- <h2>Users</h2>
-    <div class="users tables">
-      <table class="users__table table table-hover">
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>Name</th>
-            <th>Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{ currentUser.id }}</td>
-            <td>{{ currentUser.name }}</td>
-            <td>{{ currentUser.email }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <h2>Sessions</h2>
-    <div
-      class="sessions tables"
-      v-for="session in modelInventory.sessions"
-      :key="session"
-    >
-      <Session :session="session" />
-    </div>
-    <h2>Models</h2>
-    <div class="models tables">
-      <table class="models__table table table-hover">
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>Name</th>
-            <th>conformsTo</th>
-            <th>Location</th>
-            <th>uri</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in modelInventory.models" :key="item">
-            <td>{{ item.$id }}</td>
-            <td>{{ item.name }}</td>
-            <td>{{ item.confirmsTo.$ref }}</td>
-            <td>{{ item.location }}</td>
-            <td>{{ item.uri }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <h2>Languages</h2>
-    <div class="languages tables">
-      <table class="languages__table table table-hover">
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>Name</th>
-            <th>SupportedEditors</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in modelInventory.languages" :key="item">
-            <td>{{ item.$id }}</td>
-            <td>{{ item.name }}</td>
-            <td>{{ item.supportedEditors[0].name }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div> -->
       </div>
     </template>
   </BoardLayout>

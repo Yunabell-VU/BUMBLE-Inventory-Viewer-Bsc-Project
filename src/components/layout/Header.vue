@@ -55,7 +55,7 @@ export default {
   width: 20%;
   height: 100%;
 
-  background-color: aqua;
+  // background-color: aqua;
 }
 
 .user-block {
