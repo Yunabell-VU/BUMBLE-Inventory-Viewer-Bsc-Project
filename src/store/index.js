@@ -19,6 +19,9 @@ const store = createStore({
         }
     },
     mutations: {
+        setData(state, data) {
+            state.originalData = data
+        },
         setModelInventory(state, inventory) {
             state.modelInventory = inventory;
         },
@@ -40,7 +43,7 @@ const store = createStore({
             state.currentModel = {
                 name: modelName
             }
-        }
+        },
     },
     actions: {
         async updateModelInventory() {
@@ -61,7 +64,7 @@ const store = createStore({
         },
         setCurrentModel(vuexContex,modelName) {
             vuexContex.commit('setCurrentModel', modelName)
-        }
+        },
     },
     getters: {
         modelInventory: (state) => {

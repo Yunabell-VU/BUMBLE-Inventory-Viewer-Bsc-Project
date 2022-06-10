@@ -11,7 +11,11 @@
             v-for="(content, name) in modelClasses"
             :key="content"
           >
-            <Class :content="content" :name="name" />
+            <Class
+              :content="content"
+              :name="name"
+              @addNewInstance="addNewInstance"
+            />
           </div>
         </div>
       </div>
@@ -22,7 +26,7 @@
 <script>
 import BoardLayout from "../board/BoardLayout.vue";
 import Class from "../Class.vue";
-import { post, get } from "../../utils/request";
+import { post, put, get } from "../../utils/request";
 import { mapGetters } from "vuex";
 
 export default {
@@ -42,6 +46,15 @@ export default {
       this.model = data;
       const { $type, $id, ...modelClasses } = this.model;
       this.modelClasses = modelClasses;
+    },
+    async addNewInstance(className, instances) {
+      this.model[className] = instances;
+      const data = { data: this.model };
+      const result = await put(
+        `/models/?modeluri=${this.currentModel.name}.xmi`,
+        JSON.stringify(data)
+      );
+      console.log(result);
     },
   },
   async mounted() {

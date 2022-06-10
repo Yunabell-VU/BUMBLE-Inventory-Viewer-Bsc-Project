@@ -15,6 +15,21 @@ export const post = (url, data = {}) => {
     })
 }
 
+export const put = (url, data = {}) => {
+    return new Promise((resolve, reject) => {
+        axios.put(url, data, {
+            baseURL:"http://localhost:8081/api/v2",
+            headers: {
+                'Content-Type':'application/json'
+            }
+        }).then((response) => {
+            resolve(response.data)
+        }, err => {
+            reject(err)
+        })
+    })
+}
+
 export const get = (url) => {
     return new Promise((resolve, reject) => {
         axios.get(url, {

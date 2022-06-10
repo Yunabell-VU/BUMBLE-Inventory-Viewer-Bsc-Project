@@ -27,7 +27,7 @@
       <div class="class-instances__lines"></div>
     </div>
     <div class="class-new-instance">
-      <div class="class-new-instance__add-new">add</div>
+      <div class="class-new-instance__add-new" @click="addNewInstance">add</div>
     </div>
   </div>
 </template>
@@ -58,7 +58,47 @@ export default {
       return newInstance;
     },
   },
-  methods: {},
+  methods: {
+    addNewInstance() {
+      const firstElement = this.instances[0];
+      const format = { ...firstElement };
+
+      Object.keys(format).forEach((key) => {
+        if (Number.isFinite(format[key])) {
+          format[key] = 0;
+        } else {
+          format[key] = "/";
+        }
+      });
+
+      const newId = this.getNewId();
+
+      format.$id = newId.toString();
+      format.id = newId;
+
+      this.instances.push(format);
+      this.$emit("addNewInstance", {
+        className: this.name,
+        instances: this.instances,
+      });
+    },
+    getNewId() {
+      let ids = [];
+
+      for (var i = 0; i < this.instances.length; i++) {
+        ids.push(this.instances[i].id);
+      }
+
+      ids.sort();
+
+      for (var i = 0; i < ids.length; i++) {
+        if (ids[i] != i + 1) {
+          return i + 1;
+        }
+      }
+      return ids.length + 1;
+    },
+  },
   mounted() {
     this.instances = this.content;
   },
