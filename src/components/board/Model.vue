@@ -15,7 +15,7 @@
               :content="content"
               :name="name"
               :ecore-info="getModelEcoreInfo(name)"
-              @addNewInstance="updateInstances"
+              @updateInstance="updateInstances"
             />
           </div>
         </div>

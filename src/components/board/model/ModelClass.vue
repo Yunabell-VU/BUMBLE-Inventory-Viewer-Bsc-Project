@@ -2,6 +2,7 @@
   <div class="class-wrapper">
     <div class="class-name">
       <span>{{ name }}</span>
+      <span>{{ instances.length }} instances</span>
     </div>
     <div
       class="class-instances"
@@ -21,13 +22,16 @@
             <td>{{ key }}</td>
             <td>{{ getAttributeType(key) }}</td>
             <td>
-              <input v-if="isEdit" v-model="instance[key]" placeholder="no" />
+              <input
+                v-if="isEdit"
+                v-model="instances[index][key]"
+                placeholder="no"
+              />
               <div v-else>{{ value }}</div>
             </td>
           </tr>
         </tbody>
       </table>
-      <div class="class-instances__lines"></div>
     </div>
     <div class="class-actions">
       <div
@@ -108,7 +112,7 @@ export default {
       format.id = newId;
 
       this.instances.push(format);
-      this.$emit("addNewInstance", {
+      this.$emit("updateInstance", {
         className: this.name,
         instances: this.instances,
       });
@@ -134,7 +138,10 @@ export default {
     },
     handleSave() {
       this.isEdit = false;
-      console.log(this.instances);
+      this.$emit("updateInstance", {
+        className: this.name,
+        instances: this.instances,
+      });
     },
   },
   mounted() {
@@ -150,7 +157,6 @@ export default {
   width: 100%;
   margin: 2rem 0;
   box-shadow: 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.3);
-  border-radius: 5px;
 }
 
 .class-name {
@@ -158,11 +164,10 @@ export default {
   width: 100%;
   height: 3rem;
   padding: 0 10px;
-  background-color: #e9ca7c7e;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  background-color: #262626;
 
   span {
+    color: white;
     font-size: 1.5rem;
     font-weight: bold;
   }
@@ -170,12 +175,6 @@ export default {
 
 .class-instances {
   padding: 0 10px;
-
-  &__lines {
-    width: 100%;
-    height: 4px;
-    background-color: #e9ca7c41;
-  }
 }
 
 .class-actions {
