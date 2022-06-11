@@ -19,22 +19,44 @@
         <tbody>
           <tr v-for="(value, key) in instance" :key="key">
             <td>{{ key }}</td>
-            <td>{{ typeof value }}</td>
-            <td>{{ value }}</td>
+            <td>{{ getAttributeType(key) }}</td>
+            <td>
+              <input v-if="isEdit" v-model="instance[key]" placeholder="no" />
+              <div v-else>{{ value }}</div>
+            </td>
           </tr>
         </tbody>
       </table>
       <div class="class-instances__lines"></div>
     </div>
-    <div class="class-new-instance">
-      <div class="class-new-instance__add-new" @click="addNewInstance">add</div>
+    <div class="class-actions">
+      <div
+        v-if="!isEdit"
+        class="class-actions__edit class-actions__button"
+        @click="switchToEditMode"
+      >
+        edit
+      </div>
+      <div
+        v-else
+        class="class-actions__save class-actions__button"
+        @click="handleSave"
+      >
+        save
+      </div>
+      <div
+        class="class-actions__add-new class-actions__button"
+        @click="addNewInstance"
+      >
+        add
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Class",
+  name: "ModelClass",
   props: {
     content: {
       type: Object,
@@ -43,10 +65,12 @@ export default {
       },
     },
     name: String,
+    ecoreInfo: Object,
   },
   data() {
     return {
       instances: [],
+      isEdit: false,
     };
   },
   computed: {
@@ -59,13 +83,20 @@ export default {
     },
   },
   methods: {
+    getAttributeType(attributeName) {
+      const classes = this.ecoreInfo.eStructuralFeatures;
+      const attribute = classes.filter((item) => item.name === attributeName);
+      const typeRef = attribute[0].eType.$ref;
+      const rawAttrType = typeRef.split("//").slice(-1);
+      return rawAttrType[0].slice(1);
+    },
     addNewInstance() {
       const firstElement = this.instances[0];
       const format = { ...firstElement };
 
       Object.keys(format).forEach((key) => {
         if (Number.isFinite(format[key])) {
-          format[key] = 0;
+          format[key] = 1;
         } else {
           format[key] = "/";
         }
@@ -98,6 +129,13 @@ export default {
       }
       return ids.length + 1;
     },
+    switchToEditMode() {
+      this.isEdit = true;
+    },
+    handleSave() {
+      this.isEdit = false;
+      console.log(this.instances);
+    },
   },
   mounted() {
     this.instances = this.content;
@@ -106,7 +144,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../assets/base.scss";
+@import "../../../assets/base.scss";
 
 .class-wrapper {
   width: 100%;
@@ -140,20 +178,21 @@ export default {
   }
 }
 
-.class-new-instance {
+.class-actions {
   display: flex;
   justify-content: flex-end;
   width: 100%;
   height: 60px;
   padding: 10px 10px;
 
-  &__add-new {
+  &__button {
     @include flexCenter;
     width: 80px;
     height: 40px;
+    margin-left: 10px;
     color: white;
     background-color: #239d4e;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: bold;
 
     &:hover {

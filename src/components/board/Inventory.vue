@@ -31,7 +31,7 @@
 <script>
 import Session from "../Session.vue";
 import BoardLayout from "../board/BoardLayout.vue";
-import InventoryRow from "../board/row/InventoryRow.vue";
+import InventoryRow from "../board/inventory/InventoryRow.vue";
 import { mapGetters } from "vuex";
 
 export default {

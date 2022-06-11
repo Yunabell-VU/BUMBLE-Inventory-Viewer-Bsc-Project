@@ -11,10 +11,11 @@
             v-for="(content, name) in modelClasses"
             :key="content"
           >
-            <Class
+            <ModelClass
               :content="content"
               :name="name"
-              @addNewInstance="addNewInstance"
+              :ecore-info="getModelEcoreInfo(name)"
+              @addNewInstance="updateInstances"
             />
           </div>
         </div>
@@ -25,17 +26,18 @@
 
 <script>
 import BoardLayout from "../board/BoardLayout.vue";
-import Class from "../Class.vue";
+import ModelClass from "./model/ModelClass.vue";
 import { post, put, get } from "../../utils/request";
 import { mapGetters } from "vuex";
 
 export default {
   name: "Model",
-  components: { BoardLayout, Class },
+  components: { BoardLayout, ModelClass },
   data() {
     return {
       model: [],
       modelClasses: [],
+      ecoreClasses: [],
     };
   },
   computed: {
@@ -47,14 +49,19 @@ export default {
       const { $type, $id, ...modelClasses } = this.model;
       this.modelClasses = modelClasses;
     },
-    async addNewInstance(className, instances) {
+    async updateInstances(className, instances) {
       this.model[className] = instances;
       const data = { data: this.model };
-      const result = await put(
+
+      await put(
         `/models/?modeluri=${this.currentModel.name}.xmi`,
         JSON.stringify(data)
       );
-      console.log(result);
+    },
+    getModelEcoreInfo(modelName) {
+      const name = modelName[0].toUpperCase() + modelName.slice(1);
+      const ecoreClass = this.ecoreClasses.filter((item) => item.name === name);
+      return ecoreClass[0];
     },
   },
   async mounted() {
@@ -64,6 +71,11 @@ export default {
       this.parseModel(result.data);
     };
     getModel(this.currentModel.name);
+
+    const ecoreName = this.currentModel.name.slice(5).toLowerCase();
+
+    const ecoreResult = await get(`/models/?modeluri=${ecoreName}.ecore`);
+    this.ecoreClasses = ecoreResult.data.eClassifiers;
   },
 };
 </script>
