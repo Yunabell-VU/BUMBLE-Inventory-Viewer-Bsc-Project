@@ -15,7 +15,7 @@
               :content="content"
               :name="name"
               :ecore-info="getModelEcoreInfo(name)"
-              @updateInstance="updateInstances"
+              @updateInstances="updateInstances"
             />
           </div>
         </div>
@@ -49,7 +49,8 @@ export default {
       const { $type, $id, ...modelClasses } = this.model;
       this.modelClasses = modelClasses;
     },
-    async updateInstances(className, instances) {
+    async updateInstances(payload) {
+      const { className, instances } = payload;
       this.model[className] = instances;
       const data = { data: this.model };
 

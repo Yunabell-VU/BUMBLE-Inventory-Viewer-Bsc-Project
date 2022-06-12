@@ -9,6 +9,17 @@
       v-for="(instance, index) in modifiedInstances"
       :key="index"
     >
+      <div class="class-instances__info-bar">
+        <span class="class-instances__info-bar__id">id: {{ instance.id }}</span>
+        <div class="class-instances__info-bar__id">
+          <span class="iconfont class-instances__info-bar__icon">&#xe600;</span>
+          <span
+            class="iconfont class-instances__info-bar__icon"
+            @click="handleDeleteInstance(instance.id)"
+            >&#xe67e;</span
+          >
+        </div>
+      </div>
       <table class="model__table table table-hover">
         <thead>
           <tr>
@@ -18,14 +29,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(value, key) in instance" :key="key">
+          <tr v-for="(value, key) in instanceWithoutID(instance)" :key="key">
             <td>{{ key }}</td>
             <td>{{ getAttributeType(key) }}</td>
             <td>
               <input
                 v-if="isEdit"
                 v-model="instances[index][key]"
-                placeholder="no"
+                placeholder=""
               />
               <div v-else>{{ value }}</div>
             </td>
@@ -87,6 +98,11 @@ export default {
     },
   },
   methods: {
+    instanceWithoutID(instance) {
+      const { id, ...rest } = instance;
+
+      return rest;
+    },
     getAttributeType(attributeName) {
       const classes = this.ecoreInfo.eStructuralFeatures;
       const attribute = classes.filter((item) => item.name === attributeName);
@@ -112,7 +128,7 @@ export default {
       format.id = newId;
 
       this.instances.push(format);
-      this.$emit("updateInstance", {
+      this.$emit("updateInstances", {
         className: this.name,
         instances: this.instances,
       });
@@ -133,12 +149,23 @@ export default {
       }
       return ids.length + 1;
     },
+    handleDeleteInstance(instanceID) {
+      const newInstances = this.instances.filter(
+        (instance) => instance.id !== instanceID
+      );
+      this.instances = newInstances;
+
+      this.$emit("updateInstances", {
+        className: this.name,
+        instances: this.instances,
+      });
+    },
     switchToEditMode() {
       this.isEdit = true;
     },
     handleSave() {
       this.isEdit = false;
-      this.$emit("updateInstance", {
+      this.$emit("updateInstances", {
         className: this.name,
         instances: this.instances,
       });
@@ -152,6 +179,7 @@ export default {
 
 <style lang="scss">
 @import "../../../assets/base.scss";
+@import "../../../assets/iconfont.css";
 
 .class-wrapper {
   width: 100%;
@@ -174,7 +202,33 @@ export default {
 }
 
 .class-instances {
-  padding: 0 10px;
+  margin: 10px 10px;
+
+  border: 1px solid #cccccc;
+
+  &__info-bar {
+    @include flexSpaceBetween;
+    padding: 0 10px;
+    width: 100%;
+    height: 40px;
+    background-color: #f0e3c2;
+
+    &__id {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    &__icon {
+      margin-left: 10px;
+      font-size: 1.2rem;
+      font-weight: bold;
+
+      &:hover {
+        cursor: pointer;
+        color: #e97c7c;
+      }
+    }
+  }
 }
 
 .class-actions {
