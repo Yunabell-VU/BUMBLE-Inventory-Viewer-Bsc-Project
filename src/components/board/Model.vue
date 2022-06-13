@@ -12,6 +12,7 @@
             :key="content"
           >
             <ModelClass
+              v-if="getModelEcoreInfo(name) != undefind"
               :content="content"
               :name="name"
               :ecore-info="getModelEcoreInfo(name)"

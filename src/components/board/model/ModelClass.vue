@@ -12,7 +12,7 @@
       <div class="class-instances__info-bar">
         <span class="class-instances__info-bar__id">id: {{ instance.id }}</span>
         <div class="class-instances__info-bar__id">
-          <span class="iconfont class-instances__info-bar__icon">&#xe600;</span>
+          <!-- <span class="iconfont class-instances__info-bar__icon">&#xe600;</span> -->
           <span
             class="iconfont class-instances__info-bar__icon"
             @click="handleDeleteInstance(instance.id)"
@@ -84,6 +84,7 @@ export default {
   },
   data() {
     return {
+      classFormat: [],
       instances: [],
       isEdit: false,
     };
@@ -111,20 +112,18 @@ export default {
       return rawAttrType[0].slice(1);
     },
     addNewInstance() {
-      const firstElement = this.instances[0];
-      const format = { ...firstElement };
+      let format = {};
 
-      Object.keys(format).forEach((key) => {
-        if (Number.isFinite(format[key])) {
-          format[key] = 1;
+      for (var i = 0; i < this.classFormat.length; i++) {
+        if (this.classFormat[i].type === "Int") {
+          format[this.classFormat[i].name] = 1;
         } else {
-          format[key] = "/";
+          format[this.classFormat[i].name] = "/";
         }
-      });
+      }
 
       const newId = this.getNewId();
 
-      format.$id = newId.toString();
       format.id = newId;
 
       this.instances.push(format);
@@ -173,6 +172,16 @@ export default {
   },
   mounted() {
     this.instances = this.content;
+
+    const classes = this.ecoreInfo.eStructuralFeatures;
+
+    for (var i = 0; i < classes.length; i++) {
+      const attrName = classes[i].name;
+      let attributeObj = {};
+      attributeObj.name = attrName;
+      attributeObj.type = this.getAttributeType(attrName);
+      this.classFormat.push(attributeObj);
+    }
   },
 };
 </script>
