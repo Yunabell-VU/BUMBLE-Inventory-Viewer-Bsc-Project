@@ -1,0 +1,156 @@
+{
+    "type": "success",
+    "data": {
+        "$type": "file:/D:/emfcloud-modelserver-bumble/examples/org.eclipse.emfcloud.modelserver.example/target/.temp/workspace/modelInventory.ecore#//ModelInventory",
+        "$id": "/",
+        "language": [
+            {
+                "$id": "//@language.0",
+                "name": "shape",
+                "supportedEditors": [
+                    {
+                        "$id": "//@language.0/@supportedEditors.0",
+                        "name": "XTEXT"
+                    }
+                ],
+                "id": 1
+            },
+            {
+                "$id": "//@language.1",
+                "name": "animal",
+                "supportedEditors": [
+                    {
+                        "$id": "//@language.1/@supportedEditors.0",
+                        "name": "EMF"
+                    }
+                ],
+                "id": 2
+            }
+        ],
+        "collaborationSessions": [
+            {
+                "$id": "//@collaborationSessions.0",
+                "id": 1,
+                "participants": [
+                    {
+                        "$id": "//@collaborationSessions.0/@participants.0",
+                        "user": {
+                            "$type": "file:/D:/emfcloud-modelserver-bumble/examples/org.eclipse.emfcloud.modelserver.example/target/.temp/workspace/modelInventory.ecore#//User",
+                            "$ref": "//@users.0"
+                        },
+                        "role": "INITIATOR"
+                    },
+                    {
+                        "$id": "//@collaborationSessions.0/@participants.1",
+                        "user": {
+                            "$type": "file:/D:/emfcloud-modelserver-bumble/examples/org.eclipse.emfcloud.modelserver.example/target/.temp/workspace/modelInventory.ecore#//User",
+                            "$ref": "//@users.1"
+                        }
+                    },
+                    {
+                        "$id": "//@collaborationSessions.0/@participants.2",
+                        "user": {
+                            "$type": "file:/D:/emfcloud-modelserver-bumble/examples/org.eclipse.emfcloud.modelserver.example/target/.temp/workspace/modelInventory.ecore#//User",
+                            "$ref": "//@users.2"
+                        }
+                    }
+                ],
+                "has": {
+                    "$type": "file:/D:/emfcloud-modelserver-bumble/examples/org.eclipse.emfcloud.modelserver.example/target/.temp/workspace/modelInventory.ecore#//Model",
+                    "$ref": "0-476-27557-4"
+                }
+            },
+            {
+                "$id": "//@collaborationSessions.1",
+                "id": 2,
+                "participants": [
+                    {
+                        "$id": "//@collaborationSessions.1/@participants.0",
+                        "user": {
+                            "$type": "file:/D:/emfcloud-modelserver-bumble/examples/org.eclipse.emfcloud.modelserver.example/target/.temp/workspace/modelInventory.ecore#//User",
+                            "$ref": "//@users.1"
+                        },
+                        "role": "INITIATOR"
+                    },
+                    {
+                        "$id": "//@collaborationSessions.1/@participants.1",
+                        "user": {
+                            "$type": "file:/D:/emfcloud-modelserver-bumble/examples/org.eclipse.emfcloud.modelserver.example/target/.temp/workspace/modelInventory.ecore#//User",
+                            "$ref": "//@users.2"
+                        }
+                    }
+                ],
+                "has": {
+                    "$type": "file:/D:/emfcloud-modelserver-bumble/examples/org.eclipse.emfcloud.modelserver.example/target/.temp/workspace/modelInventory.ecore#//Model",
+                    "$ref": "0-786-27557-4"
+                }
+            }
+        ],
+        "users": [
+            {
+                "$id": "//@users.0",
+                "id": 1,
+                "name": "Alice",
+                "emailAddress": "alice@abc.com",
+                "password": "alice",
+                "owns": [
+                    {
+                        "$type": "file:/D:/emfcloud-modelserver-bumble/examples/org.eclipse.emfcloud.modelserver.example/target/.temp/workspace/modelInventory.ecore#//Model",
+                        "$ref": "0-786-27557-4"
+                    }
+                ]
+            },
+            {
+                "$id": "//@users.1",
+                "id": 2,
+                "name": "Bob"
+            },
+            {
+                "$id": "//@users.2",
+                "id": 3,
+                "name": "John",
+                "emailAddress": "john@abc.com",
+                "password": "john"
+            }
+        ],
+        "drivers": [
+            {
+                "$id": "//@drivers.0",
+                "name": "Git"
+            }
+        ],
+        "actionproviders": [
+            {
+                "$id": "//@actionproviders.0",
+                "name": "ConsistencyChecker"
+            }
+        ],
+        "model": [
+            {
+                "$id": "0-786-27557-4",
+                "name": "ModelShape",
+                "location": "Git",
+                "uri": "0-786-27557-4",
+                "confirmsTo": [
+                    {
+                        "$type": "file:/D:/emfcloud-modelserver-bumble/examples/org.eclipse.emfcloud.modelserver.example/target/.temp/workspace/modelInventory.ecore#//Language",
+                        "$ref": "//@language.0"
+                    }
+                ]
+            },
+            {
+                "$id": "0-476-27557-4",
+                "name": "ModelAnimal",
+                "location": "Git",
+                "uri": "0-476-27557-4",
+                "confirmsTo": [
+                    {
+                        "$type": "file:/D:/emfcloud-modelserver-bumble/examples/org.eclipse.emfcloud.modelserver.example/target/.temp/workspace/modelInventory.ecore#//Language",
+                        "$ref": "//@language.1"
+                    }
+                ],
+                "createdBy": "Bob"
+            }
+        ]
+    }
+}

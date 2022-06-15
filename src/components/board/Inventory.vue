@@ -8,8 +8,9 @@
         <div class="inventory-titles">
           <div class="inventory-titles__model">model</div>
           <div class="inventory-titles__language">language</div>
+          <div class="inventory-titles__location">Location</div>
           <div class="inventory-titles__owner">created by</div>
-          <div class="inventory-titles__participants">participants</div>
+          <div class="inventory-titles__session">collaboration session</div>
           <div class="inventory-titles__arrow"></div>
           <div class="inventory-titles__actions">actions</div>
         </div>
@@ -90,13 +91,14 @@ export default {
 
   &__model,
   &__language,
+  &__location,
   &__owner {
     width: 15%;
     font-weight: bold;
   }
 
-  &__participants {
-    width: 25%;
+  &__session {
+    width: 10%;
     font-weight: bold;
   }
 

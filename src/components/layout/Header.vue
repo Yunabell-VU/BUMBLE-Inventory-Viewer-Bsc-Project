@@ -4,7 +4,8 @@
     <div class="user-block">
       <div class="user-block__avatar">{{ initial }}</div>
       <div class="user-block__name">{{ currentUser.name }}</div>
-      <span class="iconfont">&#xe8ec;</span>
+      <span class="iconfont"></span>
+      <!-- <span class="iconfont">&#xe8ec;</span> -->
     </div>
   </div>
 </template>

@@ -6,8 +6,26 @@
     >
       <div class="inventory-row__basic__model">{{ modelName }}</div>
       <div class="inventory-row__basic__language">{{ languageName }}</div>
-      <div class="inventory-row__basic__owner">TODO</div>
-      <div class="inventory-row__basic__participants">TODO</div>
+      <div class="inventory-row__basic__location">{{ location }}</div>
+      <div class="inventory-row__basic__owner">{{ createdBy }}</div>
+      <div class="inventory-row__basic__session">
+        <div
+          :class="
+            hasCollaborationSession
+              ? 'inventory-row__basic__session__status-ring--on'
+              : 'inventory-row__basic__session__status-ring--off'
+          "
+          class="inventory-row__basic__session__status-ring"
+        ></div>
+        <div
+          :class="
+            hasCollaborationSession
+              ? 'inventory-row__basic__session__status--on'
+              : 'inventory-row__basic__session__status--off'
+          "
+          class="inventory-row__basic__session__status"
+        ></div>
+      </div>
       <div
         :class="{ 'inventory-row__basic__arrow--flipped': extraInfoShown }"
         class="inventory-row__basic__arrow"
@@ -17,13 +35,13 @@
       </div>
       <div class="inventory-row__basic__actions">
         <ul>
+          <li class="inventory-row__basic__actions__button">JOIN</li>
           <li
             class="inventory-row__basic__actions__button"
             @click="$emit('viewModel')"
           >
             VIEW
           </li>
-          <li class="inventory-row__basic__actions__button">EDIT</li>
           <li
             class="inventory-row__basic__actions__button inventory-row__basic__actions__button__delete"
             @click="handleModelDelete"
@@ -91,7 +109,8 @@ export default {
       return this.model.name;
     },
     language() {
-      const languageID = this.model.confirmsTo.$ref;
+      const confirmsTo = this.model.confirmsTo;
+      const languageID = confirmsTo[0].$ref;
       const language = this.modelInventory.languages.filter(
         (language) => language.$id === languageID
       )[0];
@@ -103,6 +122,19 @@ export default {
     },
     supportedEditors() {
       return this.language.supportedEditors;
+    },
+    location() {
+      return this.model.location;
+    },
+    createdBy() {
+      return this.model.createdBy || "/";
+    },
+    hasCollaborationSession() {
+      const sessions = this.modelInventory.sessions;
+      const session = sessions.filter(
+        (session) => session.has.$ref === this.model.$id
+      );
+      return !!session;
     },
   },
   methods: {
@@ -147,15 +179,54 @@ export default {
 
   &__model,
   &__language,
+  &__location,
   &__owner {
     width: 15%;
   }
 
-  &__participants {
-    width: 25%;
+  &__session {
+    display: flex;
+    position: relative;
+    width: 10%;
+    height: 100%;
+
+    &__status {
+      position: absolute;
+      top: 28px;
+      left: 3px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+
+      &--on {
+        background-color: green;
+      }
+
+      &--off {
+        background-color: red;
+      }
+    }
+
+    &__status-ring {
+      position: absolute;
+      left: 0px;
+      top: 25px;
+      width: 21px;
+      height: 21px;
+      border-radius: 50%;
+
+      &--on {
+        border: 2px solid rgba(0, 128, 0, 0.5);
+      }
+
+      &--off {
+        border: 2px solid rgba(255, 0, 0, 0.5);
+      }
+    }
   }
 
   &__arrow {
+    @include flexCenter;
     width: 10%;
 
     .iconfont {
@@ -190,7 +261,7 @@ export default {
 
     &__button {
       @include flexCenter;
-      width: 80px;
+      width: 70px;
       height: 35px;
       background-color: #e9cb7c;
       font-weight: bold;
