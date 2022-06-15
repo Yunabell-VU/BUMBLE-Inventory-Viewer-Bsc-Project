@@ -233,7 +233,7 @@ export default {
       @include flexCenter;
       width: 1.5rem;
       height: 1.5rem;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       color: #808080;
       transform: rotate(180deg);
       transition: all 0.2s ease;
@@ -264,6 +264,7 @@ export default {
       width: 70px;
       height: 35px;
       background-color: #e9cb7c;
+      font-size: 0.9rem;
       font-weight: bold;
 
       &:hover {

@@ -1,7 +1,7 @@
 <template>
   <div class="board-layout">
     <div class="board-layout__header">
-      <h1>{{ titleName }}</h1>
+      <h2>{{ titleName }}</h2>
       <slot name="button"></slot>
     </div>
     <div class="board-layout__content">

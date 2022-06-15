@@ -87,11 +87,11 @@ export default {
 
 .go-back-button {
   @include flexCenter;
-  width: 105px;
-  height: 45px;
+  width: 90px;
+  height: 40px;
   background-color: #e9cb7c;
   color: #262626;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: bold;
 
   &:hover {

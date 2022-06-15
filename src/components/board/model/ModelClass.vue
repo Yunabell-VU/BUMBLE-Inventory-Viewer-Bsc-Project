@@ -199,13 +199,13 @@ export default {
 .class-name {
   @include flexSpaceBetween;
   width: 100%;
-  height: 3rem;
+  height: 2.4rem;
   padding: 0 10px;
   background-color: #262626;
 
   span {
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: bold;
   }
 }
@@ -219,11 +219,11 @@ export default {
     @include flexSpaceBetween;
     padding: 0 10px;
     width: 100%;
-    height: 40px;
+    height: 30px;
     background-color: #f0e3c2;
 
     &__id {
-      font-size: 1.2rem;
+      font-size: 1rem;
       font-weight: bold;
     }
 
@@ -249,12 +249,12 @@ export default {
 
   &__button {
     @include flexCenter;
-    width: 80px;
-    height: 40px;
+    width: 70px;
+    height: 35px;
     margin-left: 10px;
     color: white;
     background-color: #239d4e;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: bold;
 
     &:hover {
