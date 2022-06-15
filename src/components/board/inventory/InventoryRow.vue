@@ -69,11 +69,26 @@
             }}</span>
           </div>
         </li>
-        <li>
-          <div class="inventory-row__extra__key"></div>
-          <div class="inventory-row__extra__value"></div>
-        </li>
       </ul>
+      <div
+        v-if="hasCollaborationSession"
+        class="inventory-row__extra__participants"
+      >
+        <table class="model__table table table-hover">
+          <thead>
+            <tr>
+              <th>Collaboration Session Participant</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="user in collaborationSession.participants" :key="user">
+              <td>{{ getUserName(user.user.$ref) }}</td>
+              <td>{{ user.role || "PARTICIPANT" }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -93,6 +108,7 @@ export default {
     return {
       extraInfoShown: false,
       validModel: false,
+      collaborationSession: {},
     };
   },
   computed: {
@@ -147,8 +163,18 @@ export default {
         this.$store.dispatch("updateModelInventory");
       }
     },
+    getUserName(userID) {
+      const users = this.modelInventory.users;
+      const user = users.filter((user) => user.$id === userID);
+      return user[0].name;
+    },
   },
   async mounted() {
+    if (this.hasCollaborationSession) {
+      this.collaborationSession = this.modelInventory.sessions.filter(
+        (session) => session.has.$ref === this.model.$id
+      )[0];
+    }
     let result = await validate(`/validation/?modeluri=${this.modelName}.xmi`);
     this.validModel = result.data !== "Model not found!";
   },
@@ -285,6 +311,7 @@ export default {
 
 .inventory-row__extra {
   @include flexCenter;
+  flex-direction: column;
   width: 100%;
   overflow: hidden;
   border-left: 10px solid #262626;
@@ -303,6 +330,11 @@ export default {
 
   &__key {
     width: 15%;
+  }
+
+  &__participants {
+    margin-top: 1rem;
+    width: 90%;
   }
 }
 </style>
