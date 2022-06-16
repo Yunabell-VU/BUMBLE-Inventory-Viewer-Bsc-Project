@@ -35,7 +35,12 @@
       </div>
       <div class="inventory-row__basic__actions">
         <ul>
-          <li class="inventory-row__basic__actions__button">JOIN</li>
+          <li
+            class="inventory-row__basic__actions__button"
+            @click="handleJoinSession"
+          >
+            JOIN
+          </li>
           <li
             class="inventory-row__basic__actions__button"
             @click="$emit('viewModel')"
@@ -167,6 +172,9 @@ export default {
       const users = this.modelInventory.users;
       const user = users.filter((user) => user.$id === userID);
       return user[0].name;
+    },
+    handleJoinSession() {
+      alert("not implemented yet!");
     },
   },
   async mounted() {
