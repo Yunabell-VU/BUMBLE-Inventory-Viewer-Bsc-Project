@@ -1,7 +1,7 @@
 <template>
   <BoardLayout :titleName="currentModel.name">
     <template #button>
-      <div class="go-back-button" @click="$emit('goBack')">Back</div>
+      <div class="go-back-button" @click="handleGoBack">Back</div>
     </template>
     <template #content>
       <div class="model-wrapper">
@@ -39,6 +39,7 @@ export default {
       model: [],
       modelClasses: [],
       ecoreClasses: [],
+      ws: null,
     };
   },
   computed: {
@@ -65,6 +66,10 @@ export default {
       const ecoreClass = this.ecoreClasses.filter((item) => item.name === name);
       return ecoreClass[0];
     },
+    handleGoBack() {
+      this.ws.close();
+      this.$emit("goBack");
+    },
   },
   async mounted() {
     const getModel = async (name) => {
@@ -78,6 +83,20 @@ export default {
 
     const ecoreResult = await get(`/models/?modeluri=${ecoreName}.ecore`);
     this.ecoreClasses = ecoreResult.data.eClassifiers;
+
+    this.ws = new WebSocket(
+      `ws://localhost:8081/api/v2/subscribe?modeluri=${this.currentModel.name}.xmi`
+    );
+    this.ws.onopen = () => {
+      console.log("connection success");
+    };
+    this.ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      console.log("onmessage result: ", data);
+      if (data.type === "fullUpdate") {
+        getModel(this.currentModel.name);
+      }
+    };
   },
 };
 </script>

@@ -115,7 +115,7 @@ export default {
   },
   data() {
     return {
-      extraInfoShown: false,
+      extraInfoShown: true,
       classFormat: [],
       instances: [],
       isEdit: false,
