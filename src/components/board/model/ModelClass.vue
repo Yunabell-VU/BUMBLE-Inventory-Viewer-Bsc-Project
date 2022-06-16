@@ -19,18 +19,7 @@
         </tbody>
       </table>
     </div>
-    <div class="show-instances">
-      <div
-        :class="{ 'show-instances__arrow--flipped': extraInfoShown }"
-        class="show-instances__arrow"
-        @click="toggleExtraInfo"
-      >
-        <div class="iconfont">&#xe671;</div>
-      </div>
-      <span class="show-instances__text"
-        >show {{ instances.length }} instances</span
-      >
-    </div>
+
     <div v-if="extraInfoShown" class="class-instances-info">
       <div
         class="class-instances"
@@ -96,6 +85,19 @@
           add
         </div>
       </div>
+    </div>
+    <div class="show-instances">
+      <div
+        :class="{ 'show-instances__arrow--flipped': extraInfoShown }"
+        class="show-instances__arrow"
+        @click="toggleExtraInfo"
+      >
+        <div class="iconfont">&#xe671;</div>
+      </div>
+      <span v-if="extraInfoShown" class="show-instances__text">close</span>
+      <span v-else class="show-instances__text"
+        >show {{ instances.length }} instances</span
+      >
     </div>
   </div>
 </template>
