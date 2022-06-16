@@ -2,68 +2,99 @@
   <div class="class-wrapper">
     <div class="class-name">
       <span>{{ name }}</span>
-      <span>{{ instances.length }} instances</span>
     </div>
-    <div
-      class="class-instances"
-      v-for="(instance, index) in modifiedInstances"
-      :key="index"
-    >
-      <div class="class-instances__info-bar">
-        <span class="class-instances__info-bar__id">id: {{ instance.id }}</span>
-        <div class="class-instances__info-bar__id">
-          <!-- <span class="iconfont class-instances__info-bar__icon">&#xe600;</span> -->
-          <span
-            class="iconfont class-instances__info-bar__icon"
-            @click="handleDeleteInstance(instance.id)"
-            >&#xe67e;</span
-          >
-        </div>
-      </div>
+    <div class="class-format">
       <table class="model__table table table-hover">
         <thead>
           <tr>
             <th>Attribute</th>
             <th>Type</th>
-            <th>Value</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(value, key) in instanceWithoutID(instance)" :key="key">
-            <td>{{ key }}</td>
-            <td>{{ getAttributeType(key) }}</td>
-            <td>
-              <input
-                v-if="isEdit"
-                v-model="instances[index][key]"
-                placeholder=""
-              />
-              <div v-else>{{ value }}</div>
-            </td>
+          <tr v-for="item in classFormat" :key="item">
+            <td>{{ item.name }}</td>
+            <td>{{ item.type }}</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="class-actions">
+    <div class="show-instances">
       <div
-        v-if="!isEdit"
-        class="class-actions__edit class-actions__button"
-        @click="switchToEditMode"
+        :class="{ 'show-instances__arrow--flipped': extraInfoShown }"
+        class="show-instances__arrow"
+        @click="toggleExtraInfo"
       >
-        edit
+        <div class="iconfont">&#xe671;</div>
       </div>
-      <div
-        v-else
-        class="class-actions__save class-actions__button"
-        @click="handleSave"
+      <span class="show-instances__text"
+        >show {{ instances.length }} instances</span
       >
-        save
+    </div>
+    <div v-if="extraInfoShown" class="class-instances-info">
+      <div
+        class="class-instances"
+        v-for="(instance, index) in modifiedInstances"
+        :key="index"
+      >
+        <div class="class-instances__info-bar">
+          <span class="class-instances__info-bar__id"
+            >id: {{ instance.id }}</span
+          >
+          <div class="class-instances__info-bar__id">
+            <!-- <span class="iconfont class-instances__info-bar__icon">&#xe600;</span> -->
+            <span
+              class="iconfont class-instances__info-bar__icon"
+              @click="handleDeleteInstance(instance.id)"
+              >&#xe67e;</span
+            >
+          </div>
+        </div>
+        <table class="model__table table table-hover">
+          <thead>
+            <tr>
+              <th>Attribute</th>
+              <th>Type</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(value, key) in instanceWithoutID(instance)" :key="key">
+              <td>{{ key }}</td>
+              <td>{{ getAttributeType(key) }}</td>
+              <td>
+                <input
+                  v-if="isEdit"
+                  v-model="instances[index][key]"
+                  placeholder=""
+                />
+                <div v-else>{{ value }}</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div
-        class="class-actions__add-new class-actions__button"
-        @click="addNewInstance"
-      >
-        add
+      <div class="class-actions">
+        <div
+          v-if="!isEdit"
+          class="class-actions__edit class-actions__button"
+          @click="switchToEditMode"
+        >
+          edit
+        </div>
+        <div
+          v-else
+          class="class-actions__save class-actions__button"
+          @click="handleSave"
+        >
+          save
+        </div>
+        <div
+          class="class-actions__add-new class-actions__button"
+          @click="addNewInstance"
+        >
+          add
+        </div>
       </div>
     </div>
   </div>
@@ -84,6 +115,7 @@ export default {
   },
   data() {
     return {
+      extraInfoShown: false,
       classFormat: [],
       instances: [],
       isEdit: false,
@@ -169,6 +201,9 @@ export default {
         instances: this.instances,
       });
     },
+    toggleExtraInfo() {
+      this.extraInfoShown = !this.extraInfoShown;
+    },
   },
   mounted() {
     this.instances = this.content;
@@ -207,6 +242,47 @@ export default {
     color: white;
     font-size: 1.2rem;
     font-weight: bold;
+  }
+}
+
+.show-instances {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 10px;
+  width: 100%;
+  height: 2.4rem;
+  background-color: #262626;
+
+  span {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  &__arrow {
+    @include flexCenter;
+    width: 3rem;
+
+    .iconfont {
+      @include flexCenter;
+      width: 1.5rem;
+      height: 1.5rem;
+      font-size: 1.5rem;
+      color: white;
+      transform: rotate(180deg);
+      transition: all 0.2s ease;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    &--flipped {
+      .iconfont {
+        transform: rotate(0deg);
+      }
+    }
   }
 }
 
