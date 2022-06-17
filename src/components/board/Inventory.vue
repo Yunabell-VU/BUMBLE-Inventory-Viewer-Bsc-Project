@@ -40,6 +40,7 @@ export default {
   components: { Session, BoardLayout, InventoryRow },
   data() {
     return {
+      ws: null,
       detailClosed: true,
     };
   },
@@ -48,8 +49,24 @@ export default {
   },
   methods: {
     viewModel(modelName) {
+      this.ws.close();
       this.$emit("viewModel", modelName);
     },
+  },
+  mounted() {
+    this.ws = new WebSocket(
+      `ws://localhost:8081/api/v2/subscribe?modeluri=ModelInventory.xmi`
+    );
+    this.ws.onopen = () => {
+      console.log("model inventory connection success");
+    };
+    this.ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      console.log("onmessage result: ", data);
+      if (data.type === "fullUpdate") {
+        this.$store.dispatch("updateModelInventory");
+      }
+    };
   },
 };
 </script>

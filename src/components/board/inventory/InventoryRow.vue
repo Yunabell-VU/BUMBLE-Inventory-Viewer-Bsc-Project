@@ -155,7 +155,8 @@ export default {
       const session = sessions.filter(
         (session) => session.has.$ref === this.model.$id
       );
-      return !!session;
+
+      return session.length !== 0;
     },
   },
   methods: {

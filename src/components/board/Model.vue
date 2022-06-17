@@ -46,6 +46,11 @@ export default {
     ...mapGetters(["modelInventory", "currentModel"]),
   },
   methods: {
+    async getModel(name) {
+      const result = await get(`/models/?modeluri=${name}.xmi`);
+
+      this.parseModel(result.data);
+    },
     parseModel(data) {
       this.model = data;
       const { $type, $id, ...modelClasses } = this.model;
@@ -72,12 +77,7 @@ export default {
     },
   },
   async mounted() {
-    const getModel = async (name) => {
-      const result = await get(`/models/?modeluri=${name}.xmi`);
-
-      this.parseModel(result.data);
-    };
-    getModel(this.currentModel.name);
+    this.getModel(this.currentModel.name);
 
     const ecoreName = this.currentModel.name.slice(5).toLowerCase();
 
@@ -94,7 +94,7 @@ export default {
       const data = JSON.parse(event.data);
       console.log("onmessage result: ", data);
       if (data.type === "fullUpdate") {
-        getModel(this.currentModel.name);
+        this.getModel(this.currentModel.name);
       }
     };
   },
