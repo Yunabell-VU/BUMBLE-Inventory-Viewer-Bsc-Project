@@ -3,7 +3,7 @@
     <div class="layout-left"><Navigator /></div>
     <div class="layout-right">
       <Header />
-      <Board />
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -11,11 +11,11 @@
 <script>
 import Header from "../components/layout/Header.vue";
 import Navigator from "../components/layout/Navigator.vue";
-import Board from "../components/layout/Board.vue";
+import Models from "../components/board/Models.vue";
 
 export default {
   name: "Home",
-  components: { Header, Navigator, Board },
+  components: { Header, Navigator, Models },
   mounted() {
     this.$store.dispatch("setCurrentUser");
   },

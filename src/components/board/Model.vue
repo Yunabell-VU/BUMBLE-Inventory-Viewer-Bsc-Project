@@ -26,8 +26,9 @@
 </template>
 
 <script>
-import BoardLayout from "../board/BoardLayout.vue";
+import BoardLayout from "../layout/BoardLayout.vue";
 import ModelClass from "./model/ModelClass.vue";
+import { useRouter } from "vue-router";
 import { post, put, get } from "../../utils/request";
 import { mapGetters } from "vuex";
 
@@ -36,6 +37,7 @@ export default {
   components: { BoardLayout, ModelClass },
   data() {
     return {
+      router: useRouter(),
       model: [],
       modelClasses: [],
       ecoreClasses: [],
@@ -73,7 +75,8 @@ export default {
     },
     handleGoBack() {
       this.ws.close();
-      this.$emit("goBack");
+      this.$store.dispatch("setCurrentModel", "");
+      this.router.push({ name: "Models" });
     },
   },
   async mounted() {
@@ -92,7 +95,6 @@ export default {
     };
     this.ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      console.log("onmessage result: ", data);
       if (data.type === "fullUpdate") {
         this.getModel(this.currentModel.name);
       }
@@ -106,11 +108,11 @@ export default {
 
 .go-back-button {
   @include flexCenter;
-  width: 90px;
-  height: 40px;
+  width: 70px;
+  height: 35px;
   background-color: #e9cb7c;
   color: #262626;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
 
   &:hover {

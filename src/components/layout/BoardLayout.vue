@@ -1,11 +1,13 @@
 <template>
-  <div class="board-layout">
-    <div class="board-layout__header">
-      <h2>{{ titleName }}</h2>
-      <slot name="button"></slot>
-    </div>
-    <div class="board-layout__content">
-      <slot name="content"></slot>
+  <div class="board-wrapper">
+    <div class="board-layout">
+      <div class="board-layout__header">
+        <h2>{{ titleName }}</h2>
+        <slot name="button"></slot>
+      </div>
+      <div class="board-layout__content">
+        <slot name="content"></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -32,6 +34,13 @@ export default {
 <style lang="scss">
 @import "../../assets/base.scss";
 @import "../../assets/iconfont.css";
+
+.board-wrapper {
+  @include flexCenter;
+  height: 100%;
+  padding: 4.5rem 1.5rem 0.6rem 1.5rem;
+  background-color: #e6e6e6;
+}
 
 .board-layout {
   @include flexCenter;

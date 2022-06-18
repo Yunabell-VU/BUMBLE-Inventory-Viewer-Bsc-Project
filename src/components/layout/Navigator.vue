@@ -4,7 +4,25 @@
       <img src="../../../BUMBLE_logo.png" alt="" />
       <span>BUMBLE</span>
     </div>
-    <div class="navi-menus"></div>
+    <div class="navi-menus">
+      <ul>
+        <li>
+          <NavigatorMenu :icon="`&#xe709;`" :menuName="`Inventory`" />
+        </li>
+        <li>
+          <NavigatorMenu :icon="`&#xe609;`" :menuName="`Models`" />
+        </li>
+        <li>
+          <NavigatorMenu :icon="`&#xe6fd;`" :menuName="`Sessions`" />
+        </li>
+        <li>
+          <NavigatorMenu :icon="`&#xe62e;`" :menuName="`Languages`" />
+        </li>
+        <li>
+          <NavigatorMenu :icon="`&#xe682;`" :menuName="`Users`" />
+        </li>
+      </ul>
+    </div>
     <div class="navi-logout" @click="handleLogout">
       <div class="navi-logout__icon iconfont">&#xe655;</div>
       <div class="navi-logout__text">Logout</div>
@@ -13,15 +31,21 @@
 </template>
 
 <script>
+import NavigatorMenu from "../navigator/NavigatorMenu.vue";
 import { useRouter } from "vue-router";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Navigator",
+  components: { NavigatorMenu },
   props: {},
   data() {
     return {
       router: useRouter(),
     };
+  },
+  computed: {
+    ...mapGetters(["currentView"]),
   },
   methods: {
     handleLogout() {
@@ -31,7 +55,9 @@ export default {
       this.router.push({ name: "Login" });
     },
   },
-  mounted() {},
+  mounted() {
+    console.log("currentView: ", this.currentView);
+  },
 };
 </script>
 
@@ -65,11 +91,15 @@ export default {
   }
 }
 
+.navi-menus {
+  margin-top: 18px;
+}
+
 .navi-logout {
   @include flexCenter;
   position: absolute;
   left: 0;
-  bottom: 100px;
+  bottom: 50px;
   width: 100%;
 
   color: white;
@@ -80,19 +110,19 @@ export default {
   }
 
   .iconfont {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 
   &__icon {
     @include flexCenter;
-    height: 3rem;
+    height: 2.5rem;
     margin-right: 5px;
   }
 
   &__text {
     @include flexCenter;
-    height: 3rem;
-    font-size: 1.5rem;
+    height: 2.5rem;
+    font-size: 1.25rem;
     font-weight: bold;
   }
 }

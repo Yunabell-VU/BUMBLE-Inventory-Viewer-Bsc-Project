@@ -37,16 +37,11 @@
         <ul>
           <li
             class="inventory-row__basic__actions__button"
-            @click="handleJoinSession"
-          >
-            JOIN
-          </li>
-          <li
-            class="inventory-row__basic__actions__button"
             @click="$emit('viewModel')"
           >
             VIEW
           </li>
+          <li class="inventory-row__basic__actions__button">EDIT</li>
           <li
             class="inventory-row__basic__actions__button inventory-row__basic__actions__button__delete"
             @click="handleModelDelete"
@@ -89,7 +84,7 @@
           <tbody>
             <tr v-for="user in collaborationSession.participants" :key="user">
               <td>{{ getUserName(user.user.$ref) }}</td>
-              <td>{{ user.role || "PARTICIPANT" }}</td>
+              <td>{{ user.role || "COLLABORATOR" }}</td>
             </tr>
           </tbody>
         </table>
@@ -173,9 +168,6 @@ export default {
       const users = this.modelInventory.users;
       const user = users.filter((user) => user.$id === userID);
       return user[0].name;
-    },
-    handleJoinSession() {
-      alert("not implemented yet!");
     },
   },
   async mounted() {

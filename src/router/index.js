@@ -1,10 +1,51 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+// import Inventory from '../components/board/inventory'
+import Models from '../components/board/Models.vue'
+import Model from '../components/board/Model.vue'
+import Inventory from '../components/board/Inventory.vue'
+import Sessions from '../components/board/Sessions.vue'
+import Languages from '../components/board/Languages.vue'
+import Users from '../components/board/Users.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('../pages/Home.vue')
+    component: () => import('../pages/Home.vue'),
+    redirect:'/models',
+    children: [
+      {
+        path:'/models',
+        name: 'Models',
+        component: Models,
+      },
+      {
+        path:'/models/:modelName',
+        name: 'Model',
+        component: Model,
+      },
+      {
+        path:'/inventory',
+        name: 'Inventory',
+        component: Inventory
+      },
+      {
+        path:'/sessions',
+        name: 'Sessions',
+        component: Sessions
+      },
+      {
+        path:'/languages',
+        name: 'Languages',
+        component: Languages
+      },
+      {
+        path:'/users',
+        name: 'Users',
+        component: Users
+      },
+    ]
+
   }, {
     path: '/register',
     name: 'Register',

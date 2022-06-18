@@ -1,5 +1,5 @@
 <template>
-  <BoardLayout :titleName="'Inventory'">
+  <BoardLayout :titleName="'Sessions'">
     <template #button>
       <div class="create-new-button">+ New</div>
     </template>
@@ -35,7 +35,7 @@ import { put } from "../../utils/request";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "Inventory",
+  name: "Sessions",
   components: { Session, BoardLayout, ModelsRow },
   data() {
     return {

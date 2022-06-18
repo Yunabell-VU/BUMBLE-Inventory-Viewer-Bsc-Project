@@ -1,8 +1,9 @@
 import {createStore} from 'vuex'
-import { post, get, validate } from "../utils/request";
+import { post, get } from "../utils/request";
 
 const store = createStore({
     state: {
+        inventoryTemplate: {},
         modelInventory: {
             users: [],
             sessions: [],
@@ -14,13 +15,17 @@ const store = createStore({
             name: "",
             email: "",
         },
+        currentView:{
+            main: "Inventory",
+            secondary: null,
+        },
         currentModel:{
             name: ""
         }
     },
     mutations: {
-        setData(state, data) {
-            state.originalData = data
+        setInventoryTemplate(state, data) {
+            state.inventoryTemplate = data
         },
         setModelInventory(state, inventory) {
             state.modelInventory = inventory;
@@ -39,6 +44,12 @@ const store = createStore({
                 email: "",
             }
         },
+        setCurrentView(state, view) {
+            state.currentView = {
+                main: view.main,
+                secondary: view.secondary
+            }
+        },
         setCurrentModel(state, modelName) {
             state.currentModel = {
                 name: modelName
@@ -54,6 +65,7 @@ const store = createStore({
                 models: result.data.model,
                 languages: result.data.language,
             };
+            this.commit('setInventoryTemplate', result.data)
             this.commit('setModelInventory', inventory)
         },
         setCurrentUser() {
@@ -62,11 +74,17 @@ const store = createStore({
         clearCurrentUser() {
             this.commit('clearCurrentUser')
         },
+        setCurrentView(vuexContex, view) {
+            vuexContex.commit('setCurrentView', view)
+        },
         setCurrentModel(vuexContex,modelName) {
             vuexContex.commit('setCurrentModel', modelName)
         },
     },
     getters: {
+        inventoryTemplate: (state) => {
+            return state.inventoryTemplate
+        },
         modelInventory: (state) => {
             return state.modelInventory
         },
@@ -75,6 +93,9 @@ const store = createStore({
         },
         currentUser: (state) => {
             return state.currentUser
+        },
+        currentView: (state) => {
+            return state.currentView
         },
         currentModel: (state) => {
             return state.currentModel
