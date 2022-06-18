@@ -44,9 +44,7 @@ export default {
       router: useRouter(),
     };
   },
-  computed: {
-    ...mapGetters(["currentView"]),
-  },
+  computed: {},
   methods: {
     handleLogout() {
       this.$store.dispatch("clearCurrentUser");
@@ -55,9 +53,7 @@ export default {
       this.router.push({ name: "Login" });
     },
   },
-  mounted() {
-    console.log("currentView: ", this.currentView);
-  },
+  mounted() {},
 };
 </script>
 

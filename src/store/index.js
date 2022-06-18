@@ -15,10 +15,6 @@ const store = createStore({
             name: "",
             email: "",
         },
-        currentView:{
-            main: "Inventory",
-            secondary: null,
-        },
         currentModel:{
             name: ""
         }
@@ -42,12 +38,6 @@ const store = createStore({
                 id: null,
                 name: "",
                 email: "",
-            }
-        },
-        setCurrentView(state, view) {
-            state.currentView = {
-                main: view.main,
-                secondary: view.secondary
             }
         },
         setCurrentModel(state, modelName) {
@@ -74,9 +64,6 @@ const store = createStore({
         clearCurrentUser() {
             this.commit('clearCurrentUser')
         },
-        setCurrentView(vuexContex, view) {
-            vuexContex.commit('setCurrentView', view)
-        },
         setCurrentModel(vuexContex,modelName) {
             vuexContex.commit('setCurrentModel', modelName)
         },
@@ -93,9 +80,6 @@ const store = createStore({
         },
         currentUser: (state) => {
             return state.currentUser
-        },
-        currentView: (state) => {
-            return state.currentView
         },
         currentModel: (state) => {
             return state.currentModel

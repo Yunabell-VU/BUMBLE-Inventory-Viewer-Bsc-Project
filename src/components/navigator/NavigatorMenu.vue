@@ -1,7 +1,7 @@
 <template>
   <div
     :class="{
-      'navi-menus__menu-block--active': currentView.main == menuName,
+      'navi-menus__menu-block--active': isPathHasMenuName(),
     }"
     class="navi-menus__menu-block"
     @click="switchMainView"
@@ -26,15 +26,14 @@ export default {
       router: useRouter(),
     };
   },
-  computed: {
-    ...mapGetters(["currentView"]),
-  },
+  computed: {},
   methods: {
+    isPathHasMenuName() {
+      const path = this.$route.fullPath;
+      const primaryPath = path.split("/")[1];
+      return primaryPath === this.menuName.toLowerCase();
+    },
     switchMainView() {
-      this.$store.dispatch("setCurrentView", {
-        main: this.menuName,
-        secondary: null,
-      });
       this.router.push({ name: this.menuName });
     },
   },
