@@ -103,6 +103,8 @@
 </template>
 
 <script>
+import { getNewId } from "../../../utils/tools";
+
 export default {
   name: "ModelClass",
   props: {
@@ -156,7 +158,7 @@ export default {
         }
       }
 
-      const newId = this.getNewId();
+      const newId = getNewId(this.instances);
 
       format.id = newId;
 
@@ -166,22 +168,22 @@ export default {
         instances: this.instances,
       });
     },
-    getNewId() {
-      let ids = [];
+    // getNewId() {
+    //   let ids = [];
 
-      for (var i = 0; i < this.instances.length; i++) {
-        ids.push(this.instances[i].id);
-      }
+    //   for (var i = 0; i < this.instances.length; i++) {
+    //     ids.push(this.instances[i].id);
+    //   }
 
-      ids.sort();
+    //   ids.sort();
 
-      for (var i = 0; i < ids.length; i++) {
-        if (ids[i] != i + 1) {
-          return i + 1;
-        }
-      }
-      return ids.length + 1;
-    },
+    //   for (var i = 0; i < ids.length; i++) {
+    //     if (ids[i] != i + 1) {
+    //       return i + 1;
+    //     }
+    //   }
+    //   return ids.length + 1;
+    // },
     handleDeleteInstance(instanceID) {
       const newInstances = this.instances.filter(
         (instance) => instance.id !== instanceID

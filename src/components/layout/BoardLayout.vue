@@ -9,6 +9,7 @@
         <slot name="content"></slot>
       </div>
     </div>
+    <slot name="modal"></slot>
   </div>
 </template>
 
