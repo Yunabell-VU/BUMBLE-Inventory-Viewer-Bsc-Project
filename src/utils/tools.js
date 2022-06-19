@@ -6,7 +6,7 @@ export const getNewId = (instances) => {
     }
 
     ids.sort();
-
+    
     for (var i = 0; i < ids.length; i++) {
       if (ids[i] != i + 1) {
         return i + 1;

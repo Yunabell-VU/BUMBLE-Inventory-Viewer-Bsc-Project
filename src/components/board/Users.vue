@@ -34,10 +34,6 @@
           <div class="user-modal-body">
             <ul>
               <li>
-                <span>id:</span>
-                <span>{{ getNewUserID() }}</span>
-              </li>
-              <li>
                 <span> name:</span>
                 <input v-model="newUser.name" type="text" />
               </li>
@@ -92,6 +88,12 @@ export default {
   },
   methods: {
     showModal() {
+      this.newUser = {
+        id: null,
+        name: "",
+        password: "",
+        emailAddress: "",
+      };
       this.isModalVisible = true;
     },
     closeModal() {
