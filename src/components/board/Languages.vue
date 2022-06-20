@@ -1,73 +1,143 @@
 <template>
   <BoardLayout :titleName="'Languages'">
     <template #button>
-      <div class="create-new-button">+ New</div>
+      <div class="languages-create-new-button" @click="showModal">+ New</div>
     </template>
     <template #content>
-      <div class="models-wrapper">
-        <div class="models-titles">
-          <div class="models-titles__model">model</div>
-          <div class="models-titles__language">language</div>
-          <div class="models-titles__location">Location</div>
-          <div class="models-titles__owner">created by</div>
-          <div class="models-titles__session">collaboration session</div>
-          <div class="models-titles__arrow"></div>
-          <div class="models-titles__actions">actions</div>
-        </div>
-        <div
-          v-for="item in modelInventory.models"
-          :key="item"
-          class="models-rows"
-        >
-          <ModelsRow :model-id="item.$id" @view-model="viewModel(item.name)" />
-        </div>
+      <div class="languages-wrapper">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Supported Editors</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="language in modelInventory.languages" :key="language">
+              <td>{{ language.id }}</td>
+              <td>{{ language.name }}</td>
+              <td>
+                <div v-for="editor in language.supportedEditors" :key="editor">
+                  <span class="languages-wrapper__editor">{{
+                    editor.name
+                  }}</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+    </template>
+    <template #modal>
+      <Modal v-show="isModalVisible" @close="closeModal">
+        <template #header>
+          <div class="languages-modal-header">Add new language</div>
+        </template>
+        <template #body>
+          <div class="languages-modal-body">
+            <ul>
+              <li class="languages-modal-input">
+                <span> name:</span>
+                <input v-model="newLanguage.name" type="text" />
+                <span class="languages-modal-input__whitespace"></span>
+              </li>
+              <li
+                v-for="(editor, index) in newLanguage.supportedEditors"
+                :key="editor"
+                class="languages-modal-input"
+              >
+                <span> supported editor:</span>
+                <input v-model="editor.name" type="text" />
+                <button @click="handleEditorDelete(index)">delete</button>
+              </li>
+              <li class="languages-modal-input__add">
+                <button @click="handleEditorAdd">add editor</button>
+              </li>
+            </ul>
+          </div>
+        </template>
+        <template #footer>
+          <div class="languages-modal-footer">
+            <button @click="handleSave">save</button>
+            <button @click="closeModal">cancel</button>
+          </div>
+        </template>
+      </Modal>
     </template>
   </BoardLayout>
 </template>
 
 <script>
-import Session from "../Session.vue";
 import BoardLayout from "../layout/BoardLayout.vue";
-import ModelsRow from "./models/ModelsRow.vue";
-import { useRouter } from "vue-router";
+import Modal from "../layout/Modal.vue";
 import { put } from "../../utils/request";
+import { getNewId } from "../../utils/tools";
 import { mapGetters } from "vuex";
 
 export default {
   name: "Languages",
-  components: { Session, BoardLayout, ModelsRow },
+  components: { BoardLayout, Modal },
   data() {
     return {
+      isEdit: false,
       ws: null,
-      detailClosed: true,
-      router: useRouter(),
+      isModalVisible: false,
+      newLanguage: {
+        id: null,
+        name: "",
+        supportedEditors: [
+          {
+            name: "",
+          },
+        ],
+      },
     };
   },
   computed: {
     ...mapGetters(["modelInventory", "inventoryTemplate", "currentUser"]),
   },
   methods: {
-    viewModel(modelName) {
-      this.ws.close();
-      this.$store.dispatch("setCurrentModel", modelName);
-      this.router.push({ name: "Model", params: { modelName: modelName } });
+    showModal() {
+      this.newUser = {
+        id: null,
+        name: "",
+        password: "",
+        emailAddress: "",
+      };
+      this.isModalVisible = true;
     },
-    async updateCollaborationSessions(sessions) {
+    closeModal() {
+      this.isModalVisible = false;
+    },
+    getNewUserID() {
+      return getNewId(this.modelInventory.languages);
+    },
+    handleEditorDelete(index) {
+      this.newLanguage.supportedEditors.splice(index, 1);
+    },
+    handleEditorAdd() {
+      const editor = { name: "" };
+      this.newLanguage.supportedEditors.push(editor);
+    },
+    handleSave() {
+      this.newLanguage.id = this.getNewUserID(this.modelInventory.languages);
+      let languages = this.modelInventory.languages;
+      languages.push(this.newLanguage);
+
       const inventory = this.inventoryTemplate;
-      inventory.collaborationSessions = sessions;
+      inventory.languages = languages;
       const data = { data: inventory };
 
-      await put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
+      put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
+
+      this.closeModal();
     },
   },
   mounted() {
     this.ws = new WebSocket(
       `ws://localhost:8081/api/v2/subscribe?modeluri=ModelInventory.xmi`
     );
-    this.ws.onopen = () => {
-      console.log("model inventory connection success");
-    };
     this.ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.type === "fullUpdate") {
@@ -82,7 +152,7 @@ export default {
 @import "../../assets/base.scss";
 @import "../../assets/iconfont.css";
 
-.create-new-button {
+.languages-create-new-button {
   @include flexCenter;
   width: 70px;
   height: 35px;
@@ -97,46 +167,32 @@ export default {
   }
 }
 
-.models-wrapper {
+.languages-wrapper {
   @include flexCenter;
-  flex-direction: column;
+  padding: 0px 5%;
   width: 100%;
 }
 
-.models-titles {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 90%;
-  height: 3rem;
-  border-bottom: 2px solid black;
-  font-size: 1rem;
-  color: black;
-
-  &__model,
-  &__language,
-  &__location,
-  &__owner {
-    width: 15%;
-    font-weight: bold;
-  }
-
-  &__session {
-    width: 10%;
-    font-weight: bold;
-  }
-
-  &__arrow {
-    width: 10%;
-  }
-
-  &__actions {
-    width: 20%;
-    font-weight: bold;
-  }
+.languages-add-modal {
+  position: absolute;
 }
 
-.models-rows {
-  width: 100%;
+.languages-modal-input {
+  @include flexSpaceBetween;
+  margin-bottom: 15px;
+
+  span {
+    margin-right: 10px;
+  }
+  input {
+    margin-right: 10px;
+  }
+  button {
+    width: 60px;
+  }
+
+  &__whitespace {
+    width: 60px;
+  }
 }
 </style>

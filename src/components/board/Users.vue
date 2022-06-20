@@ -15,7 +15,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="user in users" :key="user">
+            <tr v-for="user in modelInventory.users" :key="user">
               <td>{{ user.id }}</td>
               <td>{{ user.name }}</td>
               <td>{{ user.password }}</td>
@@ -33,15 +33,15 @@
         <template #body>
           <div class="user-modal-body">
             <ul>
-              <li>
+              <li class="user-modal-input">
                 <span> name:</span>
                 <input v-model="newUser.name" type="text" />
               </li>
-              <li>
+              <li class="user-modal-input">
                 <span> password:</span>
                 <input v-model="newUser.password" type="text" />
               </li>
-              <li>
+              <li class="user-modal-input">
                 <span> email address:</span>
                 <input v-model="newUser.emailAddress" type="text" />
               </li>
@@ -72,7 +72,6 @@ export default {
   data() {
     return {
       isEdit: false,
-      users: [],
       ws: null,
       isModalVisible: false,
       newUser: {
@@ -100,14 +99,15 @@ export default {
       this.isModalVisible = false;
     },
     getNewUserID() {
-      return getNewId(this.users);
+      return getNewId(this.modelInventory.users);
     },
     handleSave() {
       this.newUser.id = this.getNewUserID();
-      this.users.push(this.newUser);
+      let users = this.modelInventory.users;
+      users.push(this.newUser);
 
       const inventory = this.inventoryTemplate;
-      inventory.users = this.users;
+      inventory.users = users;
       const data = { data: inventory };
 
       put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
@@ -119,17 +119,12 @@ export default {
     this.ws = new WebSocket(
       `ws://localhost:8081/api/v2/subscribe?modeluri=ModelInventory.xmi`
     );
-    this.ws.onopen = () => {
-      console.log("model inventory connection success");
-    };
     this.ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.type === "fullUpdate") {
         this.$store.dispatch("updateModelInventory");
       }
     };
-
-    this.users = this.modelInventory.users;
   },
 };
 </script>
@@ -161,5 +156,14 @@ export default {
 
 .users-add-modal {
   position: absolute;
+}
+
+.user-modal-input {
+  @include flexSpaceBetween;
+  margin-bottom: 15px;
+
+  span {
+    margin-right: 10px;
+  }
 }
 </style>

@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import Session from "../Session.vue";
 import BoardLayout from "../layout/BoardLayout.vue";
 import ModelsRow from "./models/ModelsRow.vue";
 import { useRouter } from "vue-router";
@@ -36,7 +35,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "Models",
-  components: { Session, BoardLayout, ModelsRow },
+  components: { BoardLayout, ModelsRow },
   data() {
     return {
       ws: null,

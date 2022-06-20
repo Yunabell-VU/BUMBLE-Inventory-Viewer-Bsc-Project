@@ -94,13 +94,11 @@
 </template>
 
 <script>
-import Session from "../../Session.vue";
 import { validate, deleteModel } from "../../../utils/request";
 import { mapGetters } from "vuex";
 
 export default {
   name: "InventoryRow",
-  components: { Session },
   props: {
     modelId: String,
   },

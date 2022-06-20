@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import Session from "../Session.vue";
 import BoardLayout from "../layout/BoardLayout.vue";
 import ModelsRow from "./models/ModelsRow.vue";
 import { useRouter } from "vue-router";
@@ -36,7 +35,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "Inventory",
-  components: { Session, BoardLayout, ModelsRow },
+  components: { BoardLayout, ModelsRow },
   data() {
     return {
       ws: null,
@@ -65,9 +64,6 @@ export default {
     this.ws = new WebSocket(
       `ws://localhost:8081/api/v2/subscribe?modeluri=ModelInventory.xmi`
     );
-    this.ws.onopen = () => {
-      console.log("model inventory connection success");
-    };
     this.ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.type === "fullUpdate") {
