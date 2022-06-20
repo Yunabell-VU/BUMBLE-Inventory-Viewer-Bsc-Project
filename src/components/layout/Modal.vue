@@ -53,9 +53,10 @@ export default {
 
 .my-modal-header {
   position: relative;
-  border-bottom: 1px solid #eeeeee;
-  color: #4aae9b;
-  justify-content: space-between;
+  background-color: #262626;
+  color: white;
+  font-size: 1rem;
+  justify-content: center;
 }
 
 .my-modal-footer {

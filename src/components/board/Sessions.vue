@@ -1,13 +1,13 @@
 <template>
   <BoardLayout :titleName="'Sessions'">
-    <template #button>
-      <div class="sessions-create-new-button" @click="showModal">+ New</div>
-    </template>
     <template #content>
       <div class="sessions-wrapper">
         <div v-for="session in modelInventory.sessions" :key="session">
           <div>
-            Collaboration Session (id : {{ session.id }})
+            <div class="sessions-title-info">
+              <span>Model : {{ getModelName(session.has.$ref) }}</span>
+              <span>Collaboration Session (id : {{ session.id }})</span>
+            </div>
             <table class="sessions__table table table-hover">
               <thead>
                 <tr>
@@ -80,7 +80,7 @@ import { getNewId } from "../../utils/tools";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "Languages",
+  name: "Sessions",
   components: { BoardLayout, Modal },
   data() {
     return {
@@ -108,6 +108,11 @@ export default {
       const users = this.modelInventory.users;
       const user = users.filter((user) => user.$id === userID);
       return user[0].name;
+    },
+    getModelName(modelID) {
+      const models = this.modelInventory.models;
+      const model = models.filter((model) => model.$id === modelID);
+      return model[0].name;
     },
     showModal() {
       this.newUser = {
@@ -146,6 +151,7 @@ export default {
     },
   },
   mounted() {
+    console.log(this.modelInventory.sessions);
     this.ws = new WebSocket(
       `ws://localhost:8081/api/v2/subscribe?modeluri=ModelInventory.xmi`
     );
@@ -183,6 +189,20 @@ export default {
   flex-direction: column;
   padding: 0px 5%;
   width: 100%;
+}
+
+.sessions-title-info {
+  @include flexSpaceBetween;
+  margin-top: 2rem;
+  padding: 0px 10px;
+  width: 100%;
+  height: 40px;
+  background-color: #262626;
+  color: white;
+
+  span {
+    font-weight: bold;
+  }
 }
 
 .sessions-add-modal {

@@ -38,29 +38,38 @@
           <div class="languages-modal-body">
             <ul>
               <li class="languages-modal-input">
+                <span></span>
                 <span> name:</span>
                 <input v-model="newLanguage.name" type="text" />
-                <span class="languages-modal-input__whitespace"></span>
               </li>
               <li
                 v-for="(editor, index) in newLanguage.supportedEditors"
                 :key="editor"
                 class="languages-modal-input"
               >
+                <span
+                  @click="handleEditorDelete(index)"
+                  class="iconfont languages-modal-input__delete"
+                >
+                  &#xe67e;
+                </span>
                 <span> supported editor:</span>
                 <input v-model="editor.name" type="text" />
-                <button @click="handleEditorDelete(index)">delete</button>
               </li>
               <li class="languages-modal-input__add">
-                <button @click="handleEditorAdd">add editor</button>
+                <button @click="handleEditorAdd" class="modal-button">
+                  add editor
+                </button>
               </li>
             </ul>
           </div>
         </template>
         <template #footer>
           <div class="languages-modal-footer">
-            <button @click="handleSave">save</button>
-            <button @click="closeModal">cancel</button>
+            <div class="languages-modal-footer__buttons">
+              <button @click="closeModal" class="modal-button">cancel</button>
+              <button @click="handleSave" class="modal-button">save</button>
+            </div>
           </div>
         </template>
       </Modal>
@@ -184,15 +193,34 @@ export default {
   span {
     margin-right: 10px;
   }
-  input {
-    margin-right: 10px;
-  }
   button {
+    margin-left: 10px;
     width: 60px;
   }
 
-  &__whitespace {
-    width: 60px;
+  &__delete {
+    // margin-left: 10px;
+    color: red;
+
+    &:hover {
+      cursor: pointer;
+      color: #262626;
+    }
+  }
+
+  &__add {
+    @include flexCenter;
+  }
+}
+
+.languages-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+
+  &__buttons {
+    button {
+      margin-left: 10px;
+    }
   }
 }
 </style>

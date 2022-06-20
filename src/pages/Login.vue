@@ -117,6 +117,11 @@ export default {
     color: #fff;
     font-size: 1.25rem;
     text-align: center;
+
+    &:hover {
+      cursor: pointer;
+      background-color: lighten(#262626, 10%);
+    }
   }
   &__login-link {
     text-align: center;

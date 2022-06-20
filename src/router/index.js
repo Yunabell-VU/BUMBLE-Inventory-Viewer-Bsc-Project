@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-// import Inventory from '../components/board/inventory'
 import Models from '../components/board/Models.vue'
 import Model from '../components/board/Model.vue'
 import Inventory from '../components/board/Inventory.vue'

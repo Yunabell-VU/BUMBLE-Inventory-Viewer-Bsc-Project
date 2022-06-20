@@ -50,8 +50,10 @@
         </template>
         <template #footer>
           <div class="user-modal-footer">
-            <button @click="handleSave">save</button>
-            <button @click="closeModal">cancel</button>
+            <div class="user-modal-footer__buttons">
+              <button @click="closeModal" class="modal-button">cancel</button>
+              <button @click="handleSave" class="modal-button">save</button>
+            </div>
           </div>
         </template>
       </Modal>
@@ -164,6 +166,17 @@ export default {
 
   span {
     margin-right: 10px;
+  }
+}
+
+.user-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+
+  &__buttons {
+    button {
+      margin-left: 10px;
+    }
   }
 }
 </style>

@@ -98,6 +98,14 @@ ul,li{
   list-style:none
 }
 
+.modal-button {
+  background-color: #e9cb7c;
+  border: none;
+  font-weight: bold;
+  &:hover {
+    background-color: darken(#e9cb7c, 10%);
+  }
+}
 
 ::-webkit-scrollbar {
   /*hide scrollbar (only work on Chrome)*/
