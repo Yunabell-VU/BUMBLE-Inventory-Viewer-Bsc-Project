@@ -20,9 +20,7 @@
               <td>{{ model.name }}</td>
               <td>
                 <div v-for="language in getLanguages(model)" :key="language">
-                  <span class="models-wrapper__editor">{{
-                    language.name
-                  }}</span>
+                  <span class="models-wrapper__language">{{ language }}</span>
                 </div>
               </td>
               <td>{{ model.location }}</td>
@@ -136,10 +134,15 @@ export default {
   methods: {
     getLanguages(model) {
       const confirmsTo = model.confirmsTo;
-      const languageID = confirmsTo[0].$ref;
-      const languages = this.modelInventory.languages.filter(
-        (language) => language.$id === languageID
-      );
+      const languages = [];
+
+      for (var i = 0; i < confirmsTo.length; i++) {
+        const languageID = confirmsTo[i].$ref;
+        const language = this.modelInventory.languages.filter(
+          (item) => item.$id === languageID
+        );
+        languages.push(language[0].name);
+      }
 
       return languages;
     },

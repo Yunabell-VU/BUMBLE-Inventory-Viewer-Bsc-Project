@@ -7,7 +7,7 @@
       <div class="inventory-wrapper">
         <div class="inventory-titles">
           <div class="inventory-titles__model">model</div>
-          <div class="inventory-titles__language">language</div>
+          <div class="inventory-titles__language">uri</div>
           <div class="inventory-titles__location">Location</div>
           <div class="inventory-titles__owner">created by</div>
           <div class="inventory-titles__session">collaboration session</div>
@@ -19,7 +19,10 @@
           :key="item"
           class="models-rows"
         >
-          <ModelsRow :model-id="item.$id" @view-model="viewModel(item.name)" />
+          <InventoryRow
+            :model-id="item.$id"
+            @view-model="viewModel(item.name)"
+          />
         </div>
       </div>
     </template>
@@ -28,14 +31,14 @@
 
 <script>
 import BoardLayout from "../layout/BoardLayout.vue";
-import ModelsRow from "./models/ModelsRow.vue";
+import InventoryRow from "./inventory/InventoryRow.vue";
 import { useRouter } from "vue-router";
 import { put } from "../../utils/request";
 import { mapGetters } from "vuex";
 
 export default {
   name: "Inventory",
-  components: { BoardLayout, ModelsRow },
+  components: { BoardLayout, InventoryRow },
   data() {
     return {
       ws: null,

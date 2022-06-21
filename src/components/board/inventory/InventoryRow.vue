@@ -5,7 +5,7 @@
       class="inventory-row__basic"
     >
       <div class="inventory-row__basic__model">{{ modelName }}</div>
-      <div class="inventory-row__basic__language">{{ languageName }}</div>
+      <div class="inventory-row__basic__language">{{ model.uri }}</div>
       <div class="inventory-row__basic__location">{{ location }}</div>
       <div class="inventory-row__basic__owner">{{ createdBy }}</div>
       <div class="inventory-row__basic__session">
@@ -56,20 +56,29 @@
     <div v-show="extraInfoShown" class="inventory-row__extra">
       <ul>
         <li>
-          <div class="inventory-row__extra__key">id:</div>
-          <div class="inventory-row__extra__value">{{ model.$id }}</div>
-        </li>
-        <li>
-          <div class="inventory-row__extra__key">Supported Editors:</div>
-          <div
-            v-for="item in supportedEditors"
-            :key="item"
-            class="inventory-row__extra__value"
-          >
-            <span class="inventory-row__extra__value__editor-name">{{
-              item.name
-            }}</span>
-          </div>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Language</th>
+                <th>Supported Editors</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="language in languages" :key="language">
+                <td>{{ language.name }}</td>
+                <td>
+                  <div
+                    v-for="editor in language.supportedEditors"
+                    :key="editor"
+                  >
+                    <span class="languages-wrapper__editor">{{
+                      editor.name
+                    }}</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </li>
       </ul>
       <div
@@ -124,20 +133,22 @@ export default {
     modelName() {
       return this.model.name;
     },
-    language() {
+    languages() {
       const confirmsTo = this.model.confirmsTo;
-      const languageID = confirmsTo[0].$ref;
-      const language = this.modelInventory.languages.filter(
-        (language) => language.$id === languageID
-      )[0];
+      const languages = [];
 
-      return language;
+      for (var i = 0; i < confirmsTo.length; i++) {
+        const languageID = confirmsTo[i].$ref;
+        const language = this.modelInventory.languages.filter(
+          (item) => item.$id === languageID
+        );
+        languages.push(language[0]);
+      }
+
+      return languages;
     },
-    languageName() {
-      return this.language.name;
-    },
-    supportedEditors() {
-      return this.language.supportedEditors;
+    supportedEditors(language) {
+      return language.supportedEditors;
     },
     location() {
       return this.model.location;
@@ -345,7 +356,7 @@ export default {
   li {
     display: flex;
     align-items: center;
-    height: 2.5rem;
+    margin-bottom: 10px;
   }
 
   &__key {
