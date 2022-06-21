@@ -5,6 +5,10 @@ import Inventory from '../components/board/Inventory.vue'
 import Sessions from '../components/board/Sessions.vue'
 import Languages from '../components/board/Languages.vue'
 import Users from '../components/board/Users.vue'
+import Drivers from "../components/board/Drivers.vue"
+import ActionProviders from "../components/board/ActionProviders.vue"
+import EditAdapters from "../components/board/EditAdapters.vue"
+import IdentityResolvers from "../components/board/IdentityResolvers.vue"
 
 const routes = [
   {
@@ -42,6 +46,26 @@ const routes = [
         path:'/users',
         name: 'Users',
         component: Users
+      },
+      {
+        path:'/drivers',
+        name: 'Drivers',
+        component: Drivers
+      },
+      {
+        path:'/actionproviders',
+        name: 'ActionProviders',
+        component: ActionProviders
+      },
+      {
+        path:'/editadapters',
+        name: 'EditAdapters',
+        component: EditAdapters
+      },
+      {
+        path:'/identityresolvers',
+        name: 'IdentityResolvers',
+        component: IdentityResolvers
       },
     ]
 

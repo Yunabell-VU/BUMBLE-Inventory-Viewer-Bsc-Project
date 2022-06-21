@@ -21,6 +21,18 @@
         <li>
           <NavigatorMenu :icon="`&#xe682;`" :menuName="`Users`" />
         </li>
+        <li>
+          <NavigatorMenu :icon="`&#xe63f;`" :menuName="`Drivers`" />
+        </li>
+        <li>
+          <NavigatorMenu :icon="`&#xe63f;`" :menuName="`Action Providers`" />
+        </li>
+        <li>
+          <NavigatorMenu :icon="`&#xe63f;`" :menuName="`Edit Adapters`" />
+        </li>
+        <li>
+          <NavigatorMenu :icon="`&#xe63f;`" :menuName="`Identity Resolvers`" />
+        </li>
       </ul>
     </div>
     <div class="navi-logout" @click="handleLogout">

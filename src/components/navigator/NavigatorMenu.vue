@@ -31,10 +31,10 @@ export default {
     isPathHasMenuName() {
       const path = this.$route.fullPath;
       const primaryPath = path.split("/")[1];
-      return primaryPath === this.menuName.toLowerCase();
+      return primaryPath === this.menuName.replace(/\s*/g, "").toLowerCase();
     },
     switchMainView() {
-      this.router.push({ name: this.menuName });
+      this.router.push({ name: this.menuName.replace(/\s*/g, "") });
     },
   },
 };
@@ -48,7 +48,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding-left: 15%;
+  padding-left: 5%;
   width: 100%;
   height: 45px;
   color: #f2f2f2;

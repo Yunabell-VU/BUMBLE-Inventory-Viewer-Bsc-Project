@@ -9,6 +9,10 @@ const store = createStore({
             sessions: [],
             models: [],
             languages: [],
+            drivers: [],
+            actionProviders: [],
+            editAdapters:[],
+            identityResolvers:[]
         },
         currentUser:{
             id: null,
@@ -54,6 +58,11 @@ const store = createStore({
                 sessions: result.data.collaborationSessions,
                 models: result.data.model,
                 languages: result.data.language,
+                drivers: result.data.drivers,
+                actionProviders: result.data.actionproviders,
+                editAdapters: result.data.editAdapters,
+                identityResolvers: result.data.identityresolvers,
+
             };
             this.commit('setInventoryTemplate', result.data)
             this.commit('setModelInventory', inventory)
