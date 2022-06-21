@@ -108,11 +108,14 @@ export default {
   },
   methods: {
     showModal() {
-      this.newUser = {
+      this.newLanguage = {
         id: null,
         name: "",
-        password: "",
-        emailAddress: "",
+        supportedEditors: [
+          {
+            name: "",
+          },
+        ],
       };
       this.isModalVisible = true;
     },

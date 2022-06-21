@@ -151,7 +151,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.modelInventory.sessions);
     this.ws = new WebSocket(
       `ws://localhost:8081/api/v2/subscribe?modeluri=ModelInventory.xmi`
     );

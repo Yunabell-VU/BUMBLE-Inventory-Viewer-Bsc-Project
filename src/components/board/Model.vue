@@ -76,7 +76,7 @@ export default {
     handleGoBack() {
       this.ws.close();
       this.$store.dispatch("setCurrentModel", "");
-      this.router.push({ name: "Models" });
+      this.router.push({ name: "Inventory" });
     },
   },
   async mounted() {

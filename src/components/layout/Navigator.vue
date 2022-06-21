@@ -7,19 +7,19 @@
     <div class="navi-menus">
       <ul>
         <li>
-          <NavigatorMenu :icon="`&#xe609;`" :menuName="`Models`" />
+          <NavigatorMenu :icon="`&#xe709;`" :menuName="`Inventory`" />
         </li>
         <li>
           <NavigatorMenu :icon="`&#xe6fd;`" :menuName="`Sessions`" />
+        </li>
+        <li>
+          <NavigatorMenu :icon="`&#xe609;`" :menuName="`Models`" />
         </li>
         <li>
           <NavigatorMenu :icon="`&#xe62e;`" :menuName="`Languages`" />
         </li>
         <li>
           <NavigatorMenu :icon="`&#xe682;`" :menuName="`Users`" />
-        </li>
-        <li>
-          <NavigatorMenu :icon="`&#xe709;`" :menuName="`Inventory`" />
         </li>
       </ul>
     </div>

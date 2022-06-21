@@ -4,15 +4,15 @@
       <div class="create-new-button">+ New</div>
     </template>
     <template #content>
-      <div class="models-wrapper">
-        <div class="models-titles">
-          <div class="models-titles__model">model</div>
-          <div class="models-titles__language">language</div>
-          <div class="models-titles__location">Location</div>
-          <div class="models-titles__owner">created by</div>
-          <div class="models-titles__session">collaboration session</div>
-          <div class="models-titles__arrow"></div>
-          <div class="models-titles__actions">actions</div>
+      <div class="inventory-wrapper">
+        <div class="inventory-titles">
+          <div class="inventory-titles__model">model</div>
+          <div class="inventory-titles__language">language</div>
+          <div class="inventory-titles__location">Location</div>
+          <div class="inventory-titles__owner">created by</div>
+          <div class="inventory-titles__session">collaboration session</div>
+          <div class="inventory-titles__arrow"></div>
+          <div class="inventory-titles__actions">actions</div>
         </div>
         <div
           v-for="item in modelInventory.models"
@@ -93,13 +93,13 @@ export default {
   }
 }
 
-.models-wrapper {
+.inventory-wrapper {
   @include flexCenter;
   flex-direction: column;
   width: 100%;
 }
 
-.models-titles {
+.inventory-titles {
   display: flex;
   flex-direction: row;
   align-items: center;

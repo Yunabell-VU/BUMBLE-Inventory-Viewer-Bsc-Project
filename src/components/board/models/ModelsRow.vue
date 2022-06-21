@@ -1,5 +1,5 @@
 <template>
-  <div v-if="validModel" class="inventory-row-wrapper">
+  <div class="inventory-row-wrapper">
     <div
       :class="{ 'inventory-row__basic--no-border': extraInfoShown }"
       class="inventory-row__basic"
@@ -36,12 +36,14 @@
       <div class="inventory-row__basic__actions">
         <ul>
           <li
-            class="inventory-row__basic__actions__button"
-            @click="$emit('viewModel')"
+            :class="{
+              'inventory-row__basic__actions__button--disabled': !validModel,
+            }"
+            class="inventory-row__basic__actions__button inventory-row__basic__actions__button__view"
+            @click="viewModel"
           >
             VIEW
           </li>
-          <li class="inventory-row__basic__actions__button">EDIT</li>
           <li
             class="inventory-row__basic__actions__button inventory-row__basic__actions__button__delete"
             @click="handleModelDelete"
@@ -153,6 +155,11 @@ export default {
     },
   },
   methods: {
+    viewModel() {
+      if (this.validModel) {
+        this.$emit("viewModel");
+      } else return;
+    },
     toggleExtraInfo() {
       this.extraInfoShown = !this.extraInfoShown;
     },
@@ -297,11 +304,25 @@ export default {
         background-color: darken(#e9cb7c, 10%);
       }
 
+      &__view {
+        width: 200px;
+      }
+
       &__delete {
         background-color: #e97c7c;
 
         &:hover {
           background-color: darken(#e97c7c, 10%);
+        }
+      }
+
+      &--disabled {
+        background-color: lighten(#e9cb7c, 20%);
+        color: #808080;
+
+        &:hover {
+          cursor: pointer;
+          background-color: lighten(#e9cb7c, 20%);
         }
       }
     }
