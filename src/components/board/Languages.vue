@@ -24,6 +24,14 @@
                   }}</span>
                 </div>
               </td>
+              <td>
+                <div
+                  class="delete-instance"
+                  @click="handleLanguageDelete(language.id)"
+                >
+                  <span class="iconfont"> &#xe67e;</span>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -125,6 +133,18 @@ export default {
     getNewUserID() {
       return getNewId(this.modelInventory.languages);
     },
+    handleLanguageDelete(languageID) {
+      const newLanguages = this.modelInventory.languages.filter(
+        (language) => language.id !== languageID
+      );
+
+      const inventory = this.inventoryTemplate;
+      inventory.language = newLanguages;
+
+      const data = { data: inventory };
+
+      put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
+    },
     handleEditorDelete(index) {
       this.newLanguage.supportedEditors.splice(index, 1);
     },
@@ -138,7 +158,7 @@ export default {
       languages.push(this.newLanguage);
 
       const inventory = this.inventoryTemplate;
-      inventory.languages = languages;
+      inventory.language = languages;
       const data = { data: inventory };
 
       put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));

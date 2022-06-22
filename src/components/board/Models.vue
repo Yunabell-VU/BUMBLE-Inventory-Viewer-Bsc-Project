@@ -24,6 +24,14 @@
               <td>{{ model.location }}</td>
               <td>{{ model.uri }}</td>
               <td>{{ model.createdBy || "" }}</td>
+              <td>
+                <div
+                  class="delete-instance"
+                  @click="handleModelDelete(model.uri)"
+                >
+                  <span class="iconfont"> &#xe67e;</span>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -148,6 +156,17 @@ export default {
       };
       return newConfirmsTo;
     },
+    handleModelDelete(modelURI) {
+      const newModels = this.modelInventory.models.filter(
+        (model) => model.uri !== modelURI
+      );
+
+      const inventory = this.inventoryTemplate;
+      inventory.model = newModels;
+      const data = { data: inventory };
+
+      put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
+    },
     handleSave() {
       if (this.newModel.uri === "" || this.newModel.name === "") {
         return;
@@ -208,6 +227,15 @@ export default {
   @include flexCenter;
   padding: 0px 5%;
   width: 100%;
+}
+
+.delete-instance {
+  .iconfont {
+    color: red;
+  }
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .models-add-modal {

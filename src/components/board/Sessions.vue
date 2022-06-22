@@ -111,8 +111,15 @@ export default {
     },
     getModelName(modelID) {
       const models = this.modelInventory.models;
-      const model = models.filter((model) => model.$id === modelID);
-      return model[0].name;
+      if (models) {
+        const model = models.filter((model) => model.$id === modelID);
+
+        if (model.length > 0) {
+          return model[0].name;
+        }
+      }
+
+      return "Model Deleted or Not Exist";
     },
     showModal() {
       this.newUser = {

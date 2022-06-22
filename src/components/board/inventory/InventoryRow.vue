@@ -154,12 +154,6 @@ export default {
     toggleExtraInfo() {
       this.extraInfoShown = !this.extraInfoShown;
     },
-    async handleModelDelete() {
-      const result = await deleteModel(`models?modeluri=${this.modelName}.xmi`);
-      if (result.type === "success") {
-        this.$store.dispatch("updateModelInventory");
-      }
-    },
     getUserName(userID) {
       const users = this.modelInventory.users;
       const user = users.filter((user) => user.$id === userID);
