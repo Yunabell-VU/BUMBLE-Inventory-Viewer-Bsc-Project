@@ -1,13 +1,13 @@
 <template>
   <BoardLayout :titleName="'Inventory'">
     <template #button>
-      <div class="create-new-button">+ New</div>
+      <div class="create-new-button">Structure</div>
     </template>
     <template #content>
       <div class="inventory-wrapper">
         <div class="inventory-titles">
           <div class="inventory-titles__model">model</div>
-          <div class="inventory-titles__language">uri</div>
+          <div class="inventory-titles__language">Language</div>
           <div class="inventory-titles__location">Location</div>
           <div class="inventory-titles__owner">created by</div>
           <div class="inventory-titles__session">collaboration session</div>
@@ -52,7 +52,6 @@ export default {
   methods: {
     viewModel(modelName) {
       this.ws.close();
-      this.$store.dispatch("setCurrentModel", modelName);
       this.router.push({ name: "Model", params: { modelName: modelName } });
     },
     async updateCollaborationSessions(sessions) {
@@ -83,16 +82,16 @@ export default {
 
 .create-new-button {
   @include flexCenter;
-  width: 70px;
+  width: 100px;
   height: 35px;
-  background-color: #239d4e;
-  color: white;
+  background-color: #e9cb7c;
+  color: #262626;
   font-size: 1rem;
   font-weight: bold;
 
   &:hover {
     cursor: pointer;
-    background-color: darken(#239d4e, 10%);
+    background-color: darken(#e9cb7c, 10%);
   }
 }
 

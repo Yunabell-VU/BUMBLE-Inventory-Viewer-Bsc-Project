@@ -1,5 +1,5 @@
 <template>
-  <BoardLayout :titleName="currentModel.name">
+  <BoardLayout :titleName="modelName">
     <template #button>
       <div class="go-back-button" @click="handleGoBack">Back</div>
     </template>
@@ -37,6 +37,7 @@ export default {
   components: { BoardLayout, ModelClass },
   data() {
     return {
+      modelName: "",
       router: useRouter(),
       model: [],
       modelClasses: [],
@@ -45,7 +46,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["modelInventory", "currentModel"]),
+    ...mapGetters(["modelInventory"]),
   },
   methods: {
     async getModel(name) {
@@ -64,7 +65,7 @@ export default {
       const data = { data: this.model };
 
       await put(
-        `/models/?modeluri=${this.currentModel.name}.xmi`,
+        `/models/?modeluri=${this.modelName}.xmi`,
         JSON.stringify(data)
       );
     },
@@ -75,28 +76,25 @@ export default {
     },
     handleGoBack() {
       this.ws.close();
-      this.$store.dispatch("setCurrentModel", "");
       this.router.push({ name: "Inventory" });
     },
   },
   async mounted() {
-    this.getModel(this.currentModel.name);
+    this.modelName = this.$route.fullPath.split("/").pop();
+    this.getModel(this.modelName);
 
-    const ecoreName = this.currentModel.name.slice(5).toLowerCase();
+    const ecoreName = this.modelName.slice(5).toLowerCase();
 
     const ecoreResult = await get(`/models/?modeluri=${ecoreName}.ecore`);
     this.ecoreClasses = ecoreResult.data.eClassifiers;
 
     this.ws = new WebSocket(
-      `ws://localhost:8081/api/v2/subscribe?modeluri=${this.currentModel.name}.xmi`
+      `ws://localhost:8081/api/v2/subscribe?modeluri=${this.modelName}.xmi`
     );
-    this.ws.onopen = () => {
-      console.log("connection success");
-    };
     this.ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.type === "fullUpdate") {
-        this.getModel(this.currentModel.name);
+        this.getModel(this.modelName);
       }
     };
   },

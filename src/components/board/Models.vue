@@ -19,9 +19,7 @@
             <tr v-for="model in modelInventory.models" :key="model">
               <td>{{ model.name }}</td>
               <td>
-                <div v-for="language in getLanguages(model)" :key="language">
-                  <span class="models-wrapper__language">{{ language }}</span>
-                </div>
+                {{ getLanguage(model).name }}
               </td>
               <td>{{ model.location }}</td>
               <td>{{ model.uri }}</td>
@@ -54,28 +52,13 @@
                 <span> uri:</span>
                 <input v-model="newModel.uri" type="text" />
               </li>
-              <li
-                v-for="(language, index) in newModel.confirmsTo"
-                :key="language"
-                class="models-modal-input"
-              >
-                <span
-                  @click="handleLanguageDelete(index)"
-                  class="iconfont models-modal-input__delete"
-                >
-                  &#xe67e;
-                </span>
+              <li class="models-modal-input">
                 <span> language:</span>
-                <select v-model="language.$ref" style="width: 185px">
+                <select v-model="newModel.confirmsTo.$ref" style="width: 185px">
                   <option v-for="item in availableLanguages" :key="item">
                     {{ item }}
                   </option>
                 </select>
-              </li>
-              <li class="models-modal-input__add">
-                <button @click="handleLanguageAdd" class="modal-button">
-                  add language
-                </button>
               </li>
             </ul>
           </div>
@@ -132,48 +115,34 @@ export default {
     },
   },
   methods: {
-    getLanguages(model) {
+    getLanguage(model) {
       const confirmsTo = model.confirmsTo;
-      const languages = [];
+      const languageID = confirmsTo.$ref;
 
-      for (var i = 0; i < confirmsTo.length; i++) {
-        const languageID = confirmsTo[i].$ref;
-        const language = this.modelInventory.languages.filter(
-          (item) => item.$id === languageID
-        );
-        languages.push(language[0].name);
-      }
+      const language = this.modelInventory.languages.filter(
+        (item) => item.$id === languageID
+      );
 
-      return languages;
+      return language[0];
     },
     showModal() {
       this.newModel = {
         name: "",
         location: "",
         uri: "",
-        confirmsTo: [
-          {
-            $ref: "",
-          },
-        ],
+        confirmsTo: {
+          $ref: "",
+        },
       };
       this.isModalVisible = true;
     },
     closeModal() {
       this.isModalVisible = false;
     },
-    handleLanguageDelete(index) {
-      this.newModel.confirmsTo.splice(index, 1);
-    },
-    handleLanguageAdd() {
-      const language = { $ref: "" };
-      this.newModel.confirmsTo.push(language);
-    },
     languageNameToRef(confirmsTo) {
       const language = this.modelInventory.languages.filter(
         (language) => language.name === confirmsTo.$ref
       );
-
       const newConfirmsTo = {
         $ref: language[0]?.$id || "",
       };
@@ -184,8 +153,8 @@ export default {
         return;
       }
 
-      this.newModel.confirmsTo = this.newModel.confirmsTo.map(
-        this.languageNameToRef
+      this.newModel.confirmsTo = this.languageNameToRef(
+        this.newModel.confirmsTo
       );
 
       this.newModel.createdBy = this.currentUser.name;

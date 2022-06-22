@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 import { useRouter } from "vue-router";
 
 export default {
@@ -48,7 +47,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding-left: 5%;
+  padding-left: 8%;
   width: 100%;
   height: 45px;
   color: #f2f2f2;
@@ -71,17 +70,17 @@ export default {
   }
 
   .iconfont {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   &__icon {
     margin-right: 10px;
-    font-weight: bold;
+    font-weight: 600;
   }
 
   &__text {
     @include flexCenter;
-    font-weight: bold;
+    font-weight: 600;
   }
 }
 </style>

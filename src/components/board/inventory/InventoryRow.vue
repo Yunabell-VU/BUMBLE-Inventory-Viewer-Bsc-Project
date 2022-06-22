@@ -5,7 +5,7 @@
       class="inventory-row__basic"
     >
       <div class="inventory-row__basic__model">{{ modelName }}</div>
-      <div class="inventory-row__basic__language">{{ model.uri }}</div>
+      <div class="inventory-row__basic__language">{{ language.name }}</div>
       <div class="inventory-row__basic__location">{{ location }}</div>
       <div class="inventory-row__basic__owner">{{ createdBy }}</div>
       <div class="inventory-row__basic__session">
@@ -44,41 +44,26 @@
           >
             VIEW
           </li>
-          <li
-            class="inventory-row__basic__actions__button inventory-row__basic__actions__button__delete"
-            @click="handleModelDelete"
-          >
-            DELETE
-          </li>
         </ul>
       </div>
     </div>
     <div v-show="extraInfoShown" class="inventory-row__extra">
       <ul>
         <li>
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>Language</th>
-                <th>Supported Editors</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="language in languages" :key="language">
-                <td>{{ language.name }}</td>
-                <td>
-                  <div
-                    v-for="editor in language.supportedEditors"
-                    :key="editor"
-                  >
-                    <span class="languages-wrapper__editor">{{
-                      editor.name
-                    }}</span>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="inventory-row__extra__key">uri:</div>
+          <div class="inventory-row__extra__value">{{ model.uri }}</div>
+        </li>
+        <li>
+          <div class="inventory-row__extra__key">Supported Editors:</div>
+          <div
+            v-for="item in supportedEditors"
+            :key="item"
+            class="inventory-row__extra__value"
+          >
+            <span class="inventory-row__extra__value__editor-name">{{
+              item.name
+            }}</span>
+          </div>
         </li>
       </ul>
       <div
@@ -133,22 +118,17 @@ export default {
     modelName() {
       return this.model.name;
     },
-    languages() {
-      const confirmsTo = this.model.confirmsTo;
-      const languages = [];
+    language() {
+      const languageID = this.model.confirmsTo.$ref;
 
-      for (var i = 0; i < confirmsTo.length; i++) {
-        const languageID = confirmsTo[i].$ref;
-        const language = this.modelInventory.languages.filter(
-          (item) => item.$id === languageID
-        );
-        languages.push(language[0]);
-      }
+      const language = this.modelInventory.languages.filter(
+        (item) => item.$id === languageID
+      );
 
-      return languages;
+      return language[0];
     },
-    supportedEditors(language) {
-      return language.supportedEditors;
+    supportedEditors() {
+      return this.language.supportedEditors;
     },
     location() {
       return this.model.location;
@@ -299,7 +279,7 @@ export default {
     width: 20%;
 
     ul {
-      @include flexSpaceBetween;
+      @include flexCenter;
     }
 
     &__button {
@@ -316,7 +296,7 @@ export default {
       }
 
       &__view {
-        width: 200px;
+        width: 100%;
       }
 
       &__delete {
@@ -356,7 +336,7 @@ export default {
   li {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin: 5px 0;
   }
 
   &__key {

@@ -20,7 +20,10 @@
       </table>
     </div>
 
-    <div v-if="extraInfoShown" class="class-instances-info">
+    <div
+      v-if="extraInfoShown && instances.length > 0"
+      class="class-instances-info"
+    >
       <div
         class="class-instances"
         v-for="(instance, index) in modifiedInstances"
