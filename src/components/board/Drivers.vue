@@ -16,6 +16,14 @@
             <tr v-for="driver in modelInventory.drivers" :key="driver">
               <td>{{ driver.$id }}</td>
               <td>{{ driver.name }}</td>
+              <td>
+                <div
+                  class="delete-instance"
+                  @click="handleDriverDelete(driver.$id)"
+                >
+                  <span class="iconfont"> &#xe67e;</span>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -53,7 +61,7 @@
 import BoardLayout from "../layout/BoardLayout.vue";
 import Modal from "../layout/Modal.vue";
 import { put } from "../../utils/request";
-import { getNewId } from "../../utils/tools";
+import { deleteInstance } from "../../utils/tools";
 import { mapGetters } from "vuex";
 
 export default {
@@ -81,6 +89,9 @@ export default {
     },
     closeModal() {
       this.isModalVisible = false;
+    },
+    handleDriverDelete(driverID) {
+      deleteInstance(this.modelInventory, "drivers", "$id", driverID);
     },
     handleSave() {
       let drivers = this.modelInventory.drivers;

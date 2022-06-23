@@ -87,8 +87,7 @@
 <script>
 import BoardLayout from "../layout/BoardLayout.vue";
 import Modal from "../layout/Modal.vue";
-import { put } from "../../utils/request";
-import { getLanguage } from "../../utils/tools";
+import { getLanguage, deleteInstance, saveInstance } from "../../utils/tools";
 import { mapGetters } from "vuex";
 
 export default {
@@ -151,14 +150,7 @@ export default {
       return newConfirmsTo;
     },
     handleModelDelete(modelURI) {
-      const newModels = this.modelInventory.model.filter(
-        (model) => model.uri !== modelURI
-      );
-
-      this.modelInventory.model = newModels;
-      const data = { data: this.modelInventory };
-
-      put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
+      deleteInstance(this.modelInventory, "model", "uri", modelURI);
     },
     handleSave() {
       if (this.newModel.uri === "" || this.newModel.name === "") {
@@ -171,13 +163,7 @@ export default {
 
       this.newModel.createdBy = this.currentUser.name;
 
-      let models = this.modelInventory.model;
-      models.push(this.newModel);
-
-      this.modelInventory.model = models;
-      const data = { data: this.modelInventory };
-
-      put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
+      saveInstance(this.modelInventory, "model", this.newModel, false);
 
       this.closeModal();
     },
@@ -247,7 +233,6 @@ export default {
   }
 
   &__delete {
-    // margin-left: 10px;
     color: red;
 
     &:hover {

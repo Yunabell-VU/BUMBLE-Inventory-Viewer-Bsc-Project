@@ -63,7 +63,7 @@
 import BoardLayout from "../layout/BoardLayout.vue";
 import Modal from "../layout/Modal.vue";
 import { put } from "../../utils/request";
-import { getNewId } from "../../utils/tools";
+import { saveInstance } from "../../utils/tools";
 import { mapGetters } from "vuex";
 
 export default {
@@ -98,17 +98,8 @@ export default {
     closeModal() {
       this.isModalVisible = false;
     },
-    getNewUserID() {
-      return getNewId(this.modelInventory.users);
-    },
     handleSave() {
-      this.newUser.id = this.getNewUserID();
-      let users = this.modelInventory.users;
-      users.push(this.newUser);
-
-      const data = { data: this.modelInventory };
-
-      put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
+      saveInstance(this.modelInventory, "users", this.newUser, true);
 
       this.closeModal();
     },

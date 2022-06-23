@@ -43,3 +43,15 @@ export function deleteInstance(inventory, attributeName, reference, instanceID) 
 
   put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
 }
+
+export function saveInstance(inventory, attributeName, newInstance, isIdRequired) {
+  if(isIdRequired) {
+    newInstance.id = getNewId(inventory[attributeName])
+  }
+
+  inventory[attributeName].push(newInstance)
+
+  const data = { data: inventory };
+
+  put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
+}

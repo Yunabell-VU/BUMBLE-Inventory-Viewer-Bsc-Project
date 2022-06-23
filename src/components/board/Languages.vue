@@ -89,7 +89,7 @@
 import BoardLayout from "../layout/BoardLayout.vue";
 import Modal from "../layout/Modal.vue";
 import { put } from "../../utils/request";
-import { getNewId, deleteInstance } from "../../utils/tools";
+import { deleteInstance, saveInstance } from "../../utils/tools";
 import { mapGetters } from "vuex";
 
 export default {
@@ -130,9 +130,6 @@ export default {
     closeModal() {
       this.isModalVisible = false;
     },
-    getNewUserID() {
-      return getNewId(this.modelInventory.language);
-    },
     handleLanguageDelete(languageID) {
       deleteInstance(this.modelInventory, "language", "id", languageID);
     },
@@ -144,14 +141,7 @@ export default {
       this.newLanguage.supportedEditors.push(editor);
     },
     handleSave() {
-      this.newLanguage.id = this.getNewUserID(this.modelInventory.language);
-      const languages = this.modelInventory.language;
-      languages.push(this.newLanguage);
-
-      const data = { data: this.modelInventory };
-
-      put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
-
+      saveInstance(this.modelInventory, "language", this.newLanguage, true);
       this.closeModal();
     },
   },
@@ -211,7 +201,6 @@ export default {
   }
 
   &__delete {
-    // margin-left: 10px;
     color: red;
 
     &:hover {
