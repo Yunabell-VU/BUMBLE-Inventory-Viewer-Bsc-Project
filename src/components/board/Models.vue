@@ -16,7 +16,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="model in modelInventory.models" :key="model">
+            <tr v-for="model in modelInventory.model" :key="model">
               <td>{{ model.name }}</td>
               <td>
                 {{ getLanguage(model).name }}
@@ -116,8 +116,8 @@ export default {
     availableLanguages() {
       let languages = [];
 
-      for (var i = 0; i < this.modelInventory.languages.length; i++) {
-        languages.push(this.modelInventory.languages[i].name);
+      for (var i = 0; i < this.modelInventory.language.length; i++) {
+        languages.push(this.modelInventory.language[i].name);
       }
       return languages;
     },
@@ -127,7 +127,7 @@ export default {
       const confirmsTo = model.confirmsTo;
       const languageID = confirmsTo.$ref;
 
-      const language = this.modelInventory.languages.filter(
+      const language = this.modelInventory.language.filter(
         (item) => item.$id === languageID
       );
 
@@ -148,7 +148,7 @@ export default {
       this.isModalVisible = false;
     },
     languageNameToRef(confirmsTo) {
-      const language = this.modelInventory.languages.filter(
+      const language = this.modelInventory.language.filter(
         (language) => language.name === confirmsTo.$ref
       );
       const newConfirmsTo = {
@@ -157,13 +157,12 @@ export default {
       return newConfirmsTo;
     },
     handleModelDelete(modelURI) {
-      const newModels = this.modelInventory.models.filter(
+      const newModels = this.modelInventory.model.filter(
         (model) => model.uri !== modelURI
       );
 
-      const inventory = this.inventoryTemplate;
-      inventory.model = newModels;
-      const data = { data: inventory };
+      this.modelInventory.model = newModels;
+      const data = { data: this.modelInventory };
 
       put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
     },
@@ -178,12 +177,11 @@ export default {
 
       this.newModel.createdBy = this.currentUser.name;
 
-      let models = this.modelInventory.models;
+      let models = this.modelInventory.model;
       models.push(this.newModel);
 
-      const inventory = this.inventoryTemplate;
-      inventory.model = models;
-      const data = { data: inventory };
+      this.modelInventory.model = models;
+      const data = { data: this.modelInventory };
 
       put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
 

@@ -15,7 +15,7 @@
           <div class="inventory-titles__actions">actions</div>
         </div>
         <div
-          v-for="item in modelInventory.models"
+          v-for="item in modelInventory.model"
           :key="item"
           class="models-rows"
         >
@@ -53,13 +53,6 @@ export default {
     viewModel(modelName) {
       this.ws.close();
       this.router.push({ name: "Model", params: { modelName: modelName } });
-    },
-    async updateCollaborationSessions(sessions) {
-      const inventory = this.inventoryTemplate;
-      inventory.collaborationSessions = sessions;
-      const data = { data: inventory };
-
-      await put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
     },
   },
   mounted() {

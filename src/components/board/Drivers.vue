@@ -86,9 +86,7 @@ export default {
       let drivers = this.modelInventory.drivers;
       drivers.push(this.newDriver);
 
-      const inventory = this.inventoryTemplate;
-      inventory.drivers = drivers;
-      const data = { data: inventory };
+      const data = { data: this.modelInventory };
 
       put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
 

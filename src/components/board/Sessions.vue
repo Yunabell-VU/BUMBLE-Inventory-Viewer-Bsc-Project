@@ -2,7 +2,10 @@
   <BoardLayout :titleName="'Sessions'">
     <template #content>
       <div class="sessions-wrapper">
-        <div v-for="session in modelInventory.sessions" :key="session">
+        <div
+          v-for="session in modelInventory.collaborationSessions"
+          :key="session"
+        >
           <div>
             <div class="sessions-title-info">
               <span>Model : {{ getModelName(session.has.$ref) }}</span>
@@ -33,42 +36,6 @@
         </div>
       </div>
     </template>
-    <template #modal>
-      <Modal v-show="isModalVisible" @close="closeModal">
-        <template #header>
-          <div class="sessions-modal-header">Add new language</div>
-        </template>
-        <template #body>
-          <div class="sessions-modal-body">
-            <ul>
-              <li class="sessions-modal-input">
-                <span> name:</span>
-                <input v-model="newLanguage.name" type="text" />
-                <span class="sessions-modal-input__whitespace"></span>
-              </li>
-              <li
-                v-for="(editor, index) in newLanguage.supportedEditors"
-                :key="editor"
-                class="sessions-modal-input"
-              >
-                <span> supported editor:</span>
-                <input v-model="editor.name" type="text" />
-                <button @click="handleEditorDelete(index)">delete</button>
-              </li>
-              <li class="sessions-modal-input__add">
-                <button @click="handleEditorAdd">add editor</button>
-              </li>
-            </ul>
-          </div>
-        </template>
-        <template #footer>
-          <div class="sessions-modal-footer">
-            <button @click="handleSave">save</button>
-            <button @click="closeModal">cancel</button>
-          </div>
-        </template>
-      </Modal>
-    </template>
   </BoardLayout>
 </template>
 
@@ -76,7 +43,6 @@
 import BoardLayout from "../layout/BoardLayout.vue";
 import Modal from "../layout/Modal.vue";
 import { put } from "../../utils/request";
-import { getNewId } from "../../utils/tools";
 import { mapGetters } from "vuex";
 
 export default {
@@ -86,7 +52,6 @@ export default {
     return {
       isEdit: false,
       ws: null,
-      isModalVisible: false,
       participants: [],
       newLanguage: {
         id: null,
@@ -110,7 +75,7 @@ export default {
       return user[0].name;
     },
     getModelName(modelID) {
-      const models = this.modelInventory.models;
+      const models = this.modelInventory.model;
       if (models) {
         const model = models.filter((model) => model.$id === modelID);
 
@@ -120,41 +85,6 @@ export default {
       }
 
       return "Model Deleted or Not Exist";
-    },
-    showModal() {
-      this.newUser = {
-        id: null,
-        name: "",
-        password: "",
-        emailAddress: "",
-      };
-      this.isModalVisible = true;
-    },
-    closeModal() {
-      this.isModalVisible = false;
-    },
-    getNewUserID() {
-      return getNewId(this.modelInventory.languages);
-    },
-    handleEditorDelete(index) {
-      this.newLanguage.supportedEditors.splice(index, 1);
-    },
-    handleEditorAdd() {
-      const editor = { name: "" };
-      this.newLanguage.supportedEditors.push(editor);
-    },
-    handleSave() {
-      this.newLanguage.id = this.getNewUserID(this.modelInventory.languages);
-      let languages = this.modelInventory.languages;
-      languages.push(this.newLanguage);
-
-      const inventory = this.inventoryTemplate;
-      inventory.languages = languages;
-      const data = { data: inventory };
-
-      put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
-
-      this.closeModal();
     },
   },
   mounted() {
@@ -208,29 +138,6 @@ export default {
 
   span {
     font-weight: bold;
-  }
-}
-
-.sessions-add-modal {
-  position: absolute;
-}
-
-.sessions-modal-input {
-  @include flexSpaceBetween;
-  margin-bottom: 15px;
-
-  span {
-    margin-right: 10px;
-  }
-  input {
-    margin-right: 10px;
-  }
-  button {
-    width: 60px;
-  }
-
-  &__whitespace {
-    width: 60px;
   }
 }
 </style>

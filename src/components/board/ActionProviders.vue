@@ -14,7 +14,7 @@
           </thead>
           <tbody>
             <tr
-              v-for="provider in modelInventory.actionProviders"
+              v-for="provider in modelInventory.actionproviders"
               :key="provider"
             >
               <td>{{ provider.$id }}</td>
@@ -86,12 +86,10 @@ export default {
       this.isModalVisible = false;
     },
     handleSave() {
-      let providers = this.modelInventory.actionProviders;
+      let providers = this.modelInventory.actionproviders;
       providers.push(this.newProvider);
 
-      const inventory = this.inventoryTemplate;
-      inventory.actionproviders = providers;
-      const data = { data: inventory };
+      const data = { data: this.modelInventory };
 
       put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
 

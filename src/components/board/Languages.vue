@@ -14,7 +14,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="language in modelInventory.languages" :key="language">
+            <tr v-for="language in modelInventory.language" :key="language">
               <td>{{ language.id }}</td>
               <td>{{ language.name }}</td>
               <td>
@@ -131,17 +131,16 @@ export default {
       this.isModalVisible = false;
     },
     getNewUserID() {
-      return getNewId(this.modelInventory.languages);
+      return getNewId(this.modelInventory.language);
     },
     handleLanguageDelete(languageID) {
-      const newLanguages = this.modelInventory.languages.filter(
+      const newLanguages = this.modelInventory.language.filter(
         (language) => language.id !== languageID
       );
 
-      const inventory = this.inventoryTemplate;
-      inventory.language = newLanguages;
+      this.modelInventory.language = newLanguages;
 
-      const data = { data: inventory };
+      const data = { data: this.modelInventory };
 
       put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
     },
@@ -153,13 +152,11 @@ export default {
       this.newLanguage.supportedEditors.push(editor);
     },
     handleSave() {
-      this.newLanguage.id = this.getNewUserID(this.modelInventory.languages);
-      let languages = this.modelInventory.languages;
+      this.newLanguage.id = this.getNewUserID(this.modelInventory.language);
+      const languages = this.modelInventory.language;
       languages.push(this.newLanguage);
 
-      const inventory = this.inventoryTemplate;
-      inventory.language = languages;
-      const data = { data: inventory };
+      const data = { data: this.modelInventory };
 
       put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
 

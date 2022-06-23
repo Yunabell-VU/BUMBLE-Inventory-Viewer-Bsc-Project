@@ -10,7 +10,6 @@
             <tr>
               <th>Id</th>
               <th>Name</th>
-              <th>Password</th>
               <th>Email</th>
             </tr>
           </thead>
@@ -18,7 +17,6 @@
             <tr v-for="user in modelInventory.users" :key="user">
               <td>{{ user.id }}</td>
               <td>{{ user.name }}</td>
-              <td>{{ user.password }}</td>
               <td>{{ user.emailAddress }}</td>
             </tr>
           </tbody>
@@ -108,9 +106,7 @@ export default {
       let users = this.modelInventory.users;
       users.push(this.newUser);
 
-      const inventory = this.inventoryTemplate;
-      inventory.users = users;
-      const data = { data: inventory };
+      const data = { data: this.modelInventory };
 
       put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
 

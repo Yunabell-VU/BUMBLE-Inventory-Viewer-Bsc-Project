@@ -3,16 +3,7 @@ import { post, get } from "../utils/request";
 
 const store = createStore({
     state: {
-        inventoryTemplate: {},
         modelInventory: {
-            users: [],
-            sessions: [],
-            models: [],
-            languages: [],
-            drivers: [],
-            actionProviders: [],
-            editAdapters:[],
-            identityResolvers:[]
         },
         currentUser:{
             id: null,
@@ -21,9 +12,6 @@ const store = createStore({
         },
     },
     mutations: {
-        setInventoryTemplate(state, data) {
-            state.inventoryTemplate = data
-        },
         setModelInventory(state, inventory) {
             state.modelInventory = inventory;
         },
@@ -45,18 +33,8 @@ const store = createStore({
     actions: {
         async updateModelInventory() {
             const result = await get("/models/?modeluri=ModelInventory.xmi");
-            const inventory = {
-                users: result.data.users,
-                sessions: result.data.collaborationSessions,
-                models: result.data.model,
-                languages: result.data.language,
-                drivers: result.data.drivers,
-                actionProviders: result.data.actionproviders,
-                editAdapters: result.data.editAdapters,
-                identityResolvers: result.data.identityresolvers,
+            const inventory = result.data
 
-            };
-            this.commit('setInventoryTemplate', result.data)
             this.commit('setModelInventory', inventory)
         },
         setCurrentUser() {
@@ -67,9 +45,6 @@ const store = createStore({
         },
     },
     getters: {
-        inventoryTemplate: (state) => {
-            return state.inventoryTemplate
-        },
         modelInventory: (state) => {
             return state.modelInventory
         },

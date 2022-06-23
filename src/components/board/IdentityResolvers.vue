@@ -14,7 +14,7 @@
           </thead>
           <tbody>
             <tr
-              v-for="resolver in modelInventory.identityResolvers"
+              v-for="resolver in modelInventory.identityresolvers"
               :key="resolver"
             >
               <td>{{ resolver.id }}</td>
@@ -88,16 +88,14 @@ export default {
       this.isModalVisible = false;
     },
     getNewUserID() {
-      return getNewId(this.modelInventory.identityResolvers);
+      return getNewId(this.modelInventory.identityresolvers);
     },
     handleSave() {
       this.newResolver.id = this.getNewUserID();
-      let resolvers = this.modelInventory.identityResolvers;
+      let resolvers = this.modelInventory.identityresolvers;
       resolvers.push(this.newResolver);
 
-      const inventory = this.inventoryTemplate;
-      inventory.identityresolvers = resolvers;
-      const data = { data: inventory };
+      const data = { data: this.modelInventory };
 
       put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
 

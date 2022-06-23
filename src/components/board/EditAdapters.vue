@@ -92,9 +92,7 @@ export default {
       let adapters = this.modelInventory.editAdapters;
       adapters.push(this.newAdapter);
 
-      const inventory = this.inventoryTemplate;
-      inventory.editAdapters = adapters;
-      const data = { data: inventory };
+      const data = { data: this.modelInventory };
 
       put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
 

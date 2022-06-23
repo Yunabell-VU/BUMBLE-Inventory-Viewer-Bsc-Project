@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import { validate, deleteModel } from "../../../utils/request";
+import { validate } from "../../../utils/request";
 import { mapGetters } from "vuex";
 
 export default {
@@ -109,7 +109,7 @@ export default {
     ...mapGetters(["modelInventory"]),
 
     model() {
-      const model = this.modelInventory.models.filter(
+      const model = this.modelInventory.model.filter(
         (model) => model.$id === this.modelId
       )[0];
 
@@ -121,7 +121,7 @@ export default {
     language() {
       const languageID = this.model.confirmsTo.$ref;
 
-      const language = this.modelInventory.languages.filter(
+      const language = this.modelInventory.language.filter(
         (item) => item.$id === languageID
       );
 
@@ -137,7 +137,7 @@ export default {
       return this.model.createdBy || "/";
     },
     hasCollaborationSession() {
-      const sessions = this.modelInventory.sessions;
+      const sessions = this.modelInventory.collaborationSessions;
       const session = sessions.filter(
         (session) => session.has.$ref === this.model.$id
       );
@@ -162,9 +162,10 @@ export default {
   },
   async mounted() {
     if (this.hasCollaborationSession) {
-      this.collaborationSession = this.modelInventory.sessions.filter(
-        (session) => session.has.$ref === this.model.$id
-      )[0];
+      this.collaborationSession =
+        this.modelInventory.collaborationSessions.filter(
+          (session) => session.has.$ref === this.model.$id
+        )[0];
     }
     let result = await validate(`/validation/?modeluri=${this.modelName}.xmi`);
     this.validModel = result.data !== "Model not found!";
