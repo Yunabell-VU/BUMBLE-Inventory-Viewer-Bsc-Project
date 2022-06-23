@@ -70,14 +70,6 @@ const routes = [
     ]
 
   }, {
-    path: '/register',
-    name: 'Register',
-    component: () => import('../pages/Register.vue'),
-    beforeEnter(to, from, next) {
-      const {isLogin} = localStorage;
-      isLogin ? next({name: 'Home'}): next();
-    }
-  }, {
     path: '/login',
     name: 'Login',
     component: () => import('../pages/Login.vue'),
@@ -96,7 +88,7 @@ const router = createRouter({
 // TODO: Need to verify if userID exists
 router.beforeEach((to, from, next)=>{
   const {isLogin, userID} = localStorage;
-  ((isLogin && userID)|| to.name === "Login" || to.name === "Register") ? next(): next({name: 'Login'});
+  ((isLogin && userID)|| to.name === "Login") ? next(): next({name: 'Login'});
 })
 
 export default router

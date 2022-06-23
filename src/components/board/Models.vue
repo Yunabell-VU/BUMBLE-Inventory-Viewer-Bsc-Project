@@ -19,7 +19,7 @@
             <tr v-for="model in modelInventory.model" :key="model">
               <td>{{ model.name }}</td>
               <td>
-                {{ getLanguage(model).name }}
+                {{ retrieveLanguage(model).name }}
               </td>
               <td>{{ model.location }}</td>
               <td>{{ model.uri }}</td>
@@ -88,6 +88,7 @@
 import BoardLayout from "../layout/BoardLayout.vue";
 import Modal from "../layout/Modal.vue";
 import { put } from "../../utils/request";
+import { getLanguage } from "../../utils/tools";
 import { mapGetters } from "vuex";
 
 export default {
@@ -123,15 +124,8 @@ export default {
     },
   },
   methods: {
-    getLanguage(model) {
-      const confirmsTo = model.confirmsTo;
-      const languageID = confirmsTo.$ref;
-
-      const language = this.modelInventory.language.filter(
-        (item) => item.$id === languageID
-      );
-
-      return language[0];
+    retrieveLanguage(model) {
+      return getLanguage(this.modelInventory, model);
     },
     showModal() {
       this.newModel = {

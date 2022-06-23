@@ -1,3 +1,5 @@
+import { put } from "../utils/request";
+
 export const getNewId = (instances) => {
     let ids = [];
 
@@ -14,3 +16,30 @@ export const getNewId = (instances) => {
     }
     return ids.length + 1;
   }
+
+export function getLanguage(inventory, model)  {
+  const confirmsTo = model.confirmsTo;
+  const languageID = confirmsTo.$ref;
+
+  const language = inventory.language.filter(
+    (item) => item.$id === languageID
+  );
+
+  if (language.length > 0) {
+    return language[0];
+  }
+
+  return language.push({});
+}
+
+export function deleteInstance(inventory, attributeName, reference, instanceID) {
+  const newInstances = inventory[attributeName].filter(
+    (instance) => instance[reference] !== instanceID
+  );
+
+  inventory[attributeName] = newInstances;
+
+  const data = { data: inventory };
+
+  put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
+}

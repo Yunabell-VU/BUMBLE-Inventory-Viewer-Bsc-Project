@@ -91,6 +91,7 @@
 
 <script>
 import { validate } from "../../../utils/request";
+import { getLanguage } from "../../../utils/tools";
 import { mapGetters } from "vuex";
 
 export default {
@@ -119,13 +120,7 @@ export default {
       return this.model.name;
     },
     language() {
-      const languageID = this.model.confirmsTo.$ref;
-
-      const language = this.modelInventory.language.filter(
-        (item) => item.$id === languageID
-      );
-
-      return language[0];
+      return getLanguage(this.modelInventory, this.model);
     },
     supportedEditors() {
       return this.language.supportedEditors;

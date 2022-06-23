@@ -89,7 +89,7 @@
 import BoardLayout from "../layout/BoardLayout.vue";
 import Modal from "../layout/Modal.vue";
 import { put } from "../../utils/request";
-import { getNewId } from "../../utils/tools";
+import { getNewId, deleteInstance } from "../../utils/tools";
 import { mapGetters } from "vuex";
 
 export default {
@@ -134,15 +134,7 @@ export default {
       return getNewId(this.modelInventory.language);
     },
     handleLanguageDelete(languageID) {
-      const newLanguages = this.modelInventory.language.filter(
-        (language) => language.id !== languageID
-      );
-
-      this.modelInventory.language = newLanguages;
-
-      const data = { data: this.modelInventory };
-
-      put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
+      deleteInstance(this.modelInventory, "language", "id", languageID);
     },
     handleEditorDelete(index) {
       this.newLanguage.supportedEditors.splice(index, 1);
