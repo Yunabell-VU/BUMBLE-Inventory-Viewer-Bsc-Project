@@ -17,9 +17,6 @@
       />
     </div>
     <div class="login-wrapper__login-button" @click="handleLogin">Login</div>
-    <!-- <div class="login-wrapper__login-link" @click="handleRegisterClick">
-      Register
-    </div> -->
   </div>
 </template>
 
