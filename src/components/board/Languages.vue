@@ -1,7 +1,7 @@
 <template>
   <BoardLayout :titleName="'Languages'">
     <template #button>
-      <div class="languages-create-new-button" @click="showModal">+ New</div>
+      <div class="languages-create-new-button" @click="handleCreate">+ New</div>
     </template>
     <template #content>
       <div class="languages-wrapper">
@@ -25,12 +25,20 @@
                 </div>
               </td>
               <td>
-                <div
-                  class="delete-instance"
-                  @click="handleLanguageDelete(language.id)"
-                >
-                  <span class="iconfont"> &#xe67e;</span>
-                </div>
+                <ul class="instance-editions">
+                  <li
+                    class="instance-editions__edit"
+                    @click="handleEdit(language)"
+                  >
+                    <span class="iconfont"> &#xe600;</span>
+                  </li>
+                  <li
+                    class="instance-editions__delete"
+                    @click="handleDelete(language.id)"
+                  >
+                    <span class="iconfont"> &#xe67e;</span>
+                  </li>
+                </ul>
               </td>
             </tr>
           </tbody>
@@ -40,7 +48,10 @@
     <template #modal>
       <Modal v-show="isModalVisible" @close="closeModal">
         <template #header>
-          <div class="languages-modal-header">Add new language</div>
+          <div v-if="isEdit" class="languages-modal-header">
+            Edit This Language
+          </div>
+          <div class="languages-modal-header">Add New Language</div>
         </template>
         <template #body>
           <div class="languages-modal-body">
@@ -76,7 +87,16 @@
           <div class="languages-modal-footer">
             <div class="languages-modal-footer__buttons">
               <button @click="closeModal" class="modal-button">cancel</button>
-              <button @click="handleSave" class="modal-button">save</button>
+              <button
+                v-if="isEdit"
+                @click="handleEditSave"
+                class="modal-button"
+              >
+                save
+              </button>
+              <button v-else @click="handleSave" class="modal-button">
+                save
+              </button>
             </div>
           </div>
         </template>
@@ -88,8 +108,12 @@
 <script>
 import BoardLayout from "../layout/BoardLayout.vue";
 import Modal from "../layout/Modal.vue";
-import { put } from "../../utils/request";
-import { deleteInstance, saveInstance } from "../../utils/tools";
+import {
+  deleteInstance,
+  saveNewInstance,
+  getNewInstanceTemplate,
+  updateInstance,
+} from "../../utils/tools";
 import { mapGetters } from "vuex";
 
 export default {
@@ -100,37 +124,34 @@ export default {
       isEdit: false,
       ws: null,
       isModalVisible: false,
-      newLanguage: {
-        id: null,
-        name: "",
-        supportedEditors: [
-          {
-            name: "",
-          },
-        ],
-      },
+      newLanguage: {},
     };
   },
   computed: {
     ...mapGetters(["modelInventory", "inventoryTemplate", "currentUser"]),
   },
   methods: {
+    handleCreate() {
+      this.newLanguage = getNewInstanceTemplate("language");
+      this.showModal();
+    },
     showModal() {
-      this.newLanguage = {
-        id: null,
-        name: "",
-        supportedEditors: [
-          {
-            name: "",
-          },
-        ],
-      };
       this.isModalVisible = true;
     },
     closeModal() {
+      this.isEdit = false;
       this.isModalVisible = false;
     },
-    handleLanguageDelete(languageID) {
+    handleEdit(language) {
+      this.newLanguage = language;
+      this.isEdit = true;
+      this.showModal();
+    },
+    handleEditSave() {
+      updateInstance(this.modelInventory, "language", this.newLanguage);
+      this.closeModal();
+    },
+    handleDelete(languageID) {
       deleteInstance(this.modelInventory, "language", "id", languageID);
     },
     handleEditorDelete(index) {
@@ -141,7 +162,7 @@ export default {
       this.newLanguage.supportedEditors.push(editor);
     },
     handleSave() {
-      saveInstance(this.modelInventory, "language", this.newLanguage, true);
+      saveNewInstance(this.modelInventory, "language", this.newLanguage, true);
       this.closeModal();
     },
   },

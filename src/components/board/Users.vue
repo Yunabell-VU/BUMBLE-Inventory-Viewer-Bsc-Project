@@ -63,7 +63,7 @@
 import BoardLayout from "../layout/BoardLayout.vue";
 import Modal from "../layout/Modal.vue";
 import { put } from "../../utils/request";
-import { saveInstance } from "../../utils/tools";
+import { saveNewInstance } from "../../utils/tools";
 import { mapGetters } from "vuex";
 
 export default {
@@ -99,7 +99,7 @@ export default {
       this.isModalVisible = false;
     },
     handleSave() {
-      saveInstance(this.modelInventory, "users", this.newUser, true);
+      saveNewInstance(this.modelInventory, "users", this.newUser, true);
 
       this.closeModal();
     },

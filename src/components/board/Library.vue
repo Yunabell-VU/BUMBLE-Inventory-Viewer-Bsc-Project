@@ -4,7 +4,9 @@
       <div class="library-wrapper">
         <div class="library-wrapper__title">
           <span>Drivers</span>
-          <span class="iconfont" @click="showModal('drivers')">&#xe670;</span>
+          <span class="iconfont" @click="handleCreate('drivers')"
+            >&#xe670;</span
+          >
         </div>
         <table class="table table-hover">
           <thead>
@@ -18,19 +20,27 @@
               <td>{{ driver.$id }}</td>
               <td>{{ driver.name }}</td>
               <td>
-                <div
-                  class="delete-instance"
-                  @click="handleDelete('drivers', '$id', driver.$id)"
-                >
-                  <span class="iconfont"> &#xe67e;</span>
-                </div>
+                <ul class="instance-editions">
+                  <li
+                    class="instance-editions__edit"
+                    @click="handleEdit('drivers', driver)"
+                  >
+                    <span class="iconfont"> &#xe600;</span>
+                  </li>
+                  <li
+                    class="instance-editions__delete"
+                    @click="handleDelete('drivers', '$id', driver.$id)"
+                  >
+                    <span class="iconfont"> &#xe67e;</span>
+                  </li>
+                </ul>
               </td>
             </tr>
           </tbody>
         </table>
         <div class="library-wrapper__title">
           <span>Action Providers</span>
-          <span class="iconfont" @click="showModal('actionproviders')"
+          <span class="iconfont" @click="handleCreate('actionproviders')"
             >&#xe670;</span
           >
         </div>
@@ -49,19 +59,29 @@
               <td>{{ provider.$id }}</td>
               <td>{{ provider.name }}</td>
               <td>
-                <div
-                  class="delete-instance"
-                  @click="handleDelete('actionproviders', '$id', provider.$id)"
-                >
-                  <span class="iconfont"> &#xe67e;</span>
-                </div>
+                <ul class="instance-editions">
+                  <li
+                    class="instance-editions__edit"
+                    @click="handleEdit('actionproviders', provider)"
+                  >
+                    <span class="iconfont"> &#xe600;</span>
+                  </li>
+                  <li
+                    class="instance-editions__delete"
+                    @click="
+                      handleDelete('actionproviders', '$id', provider.$id)
+                    "
+                  >
+                    <span class="iconfont"> &#xe67e;</span>
+                  </li>
+                </ul>
               </td>
             </tr>
           </tbody>
         </table>
         <div class="library-wrapper__title">
           <span>Edit Adapters</span>
-          <span class="iconfont" @click="showModal('editAdapters')"
+          <span class="iconfont" @click="handleCreate('editAdapters')"
             >&#xe670;</span
           >
         </div>
@@ -77,19 +97,27 @@
               <td>{{ adapter.id }}</td>
               <td>{{ adapter.name }}</td>
               <td>
-                <div
-                  class="delete-instance"
-                  @click="handleDelete('editAdapters', 'id', adapter.id)"
-                >
-                  <span class="iconfont"> &#xe67e;</span>
-                </div>
+                <ul class="instance-editions">
+                  <li
+                    class="instance-editions__edit"
+                    @click="handleEdit('editAdapters', adapter)"
+                  >
+                    <span class="iconfont"> &#xe600;</span>
+                  </li>
+                  <li
+                    class="instance-editions__delete"
+                    @click="handleDelete('editAdapters', 'id', adapter.id)"
+                  >
+                    <span class="iconfont"> &#xe67e;</span>
+                  </li>
+                </ul>
               </td>
             </tr>
           </tbody>
         </table>
         <div class="library-wrapper__title">
           <span>Identity Resolvers</span>
-          <span class="iconfont" @click="showModal('identityresolvers')"
+          <span class="iconfont" @click="handleCreate('identityresolvers')"
             >&#xe670;</span
           >
         </div>
@@ -108,12 +136,22 @@
               <td>{{ resolver.id }}</td>
               <td>{{ resolver.name }}</td>
               <td>
-                <div
-                  class="delete-instance"
-                  @click="handleDelete('identityresolvers', 'id', resolver.id)"
-                >
-                  <span class="iconfont"> &#xe67e;</span>
-                </div>
+                <ul class="instance-editions">
+                  <li
+                    class="instance-editions__edit"
+                    @click="handleEdit('identityresolvers', resolver)"
+                  >
+                    <span class="iconfont"> &#xe600;</span>
+                  </li>
+                  <li
+                    class="instance-editions__delete"
+                    @click="
+                      handleDelete('identityresolvers', 'id', resolver.id)
+                    "
+                  >
+                    <span class="iconfont"> &#xe67e;</span>
+                  </li>
+                </ul>
               </td>
             </tr>
           </tbody>
@@ -123,7 +161,12 @@
     <template #modal>
       <Modal v-show="isModalVisible" @close="closeModal">
         <template #header>
-          <div class="library-modal-header">Add New Driver</div>
+          <div v-if="isEdit" class="library-modal-header">
+            Edit This {{ currentClass }}
+          </div>
+          <div v-else class="library-modal-header">
+            Add New {{ currentClass }}
+          </div>
         </template>
         <template #body>
           <div class="library-modal-body">
@@ -139,7 +182,16 @@
           <div class="library-modal-footer">
             <div class="library-modal-footer__buttons">
               <button @click="closeModal" class="modal-button">cancel</button>
-              <button @click="handleSave" class="modal-button">save</button>
+              <button
+                v-if="isEdit"
+                @click="handleEditSave"
+                class="modal-button"
+              >
+                save
+              </button>
+              <button v-else @click="handleSave" class="modal-button">
+                save
+              </button>
             </div>
           </div>
         </template>
@@ -151,11 +203,11 @@
 <script>
 import BoardLayout from "../layout/BoardLayout.vue";
 import Modal from "../layout/Modal.vue";
-import { put } from "../../utils/request";
 import {
   deleteInstance,
   getNewInstanceTemplate,
-  saveInstance,
+  saveNewInstance,
+  updateInstance,
 } from "../../utils/tools";
 import { mapGetters } from "vuex";
 
@@ -175,13 +227,27 @@ export default {
     ...mapGetters(["modelInventory", "inventoryTemplate", "currentUser"]),
   },
   methods: {
-    showModal(className) {
+    handleCreate(className) {
       this.currentClass = className;
       this.newInstance = getNewInstanceTemplate(className);
+      this.showModal();
+    },
+    showModal() {
       this.isModalVisible = true;
     },
     closeModal() {
+      this.isEdit = false;
       this.isModalVisible = false;
+    },
+    handleEdit(className, instance) {
+      this.currentClass = className;
+      this.newInstance = instance;
+      this.isEdit = true;
+      this.showModal();
+    },
+    handleEditSave() {
+      updateInstance(this.modelInventory, this.currentClass, this.newInstance);
+      this.closeModal();
     },
     handleDelete(name, reference, itemID) {
       deleteInstance(this.modelInventory, name, reference, itemID);
@@ -195,7 +261,7 @@ export default {
         isIdRequired = true;
       }
 
-      saveInstance(
+      saveNewInstance(
         this.modelInventory,
         this.currentClass,
         this.newInstance,

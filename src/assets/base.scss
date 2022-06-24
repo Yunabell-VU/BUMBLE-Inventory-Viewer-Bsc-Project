@@ -107,6 +107,13 @@ ul,li{
   }
 }
 
+.table {
+  td {
+    max-width: 30px;
+    word-break: break-all;
+  }
+}
+
 ::-webkit-scrollbar {
   /*hide scrollbar (only work on Chrome)*/
   display: none;

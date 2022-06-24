@@ -8,16 +8,25 @@
           }
         ]
       },
-      "drivers": {
+    "model": {
+        "name": "",
+        "location": "",
+        "uri": "",
+        "confirmsTo": {
+          "$ref": ""
+        },
+        "createdBy": ""
+      },
+    "drivers": {
         "name": ""
       },
-      "actionproviders": {
+    "actionproviders": {
         "name": ""
       },
-      "editAdapters": {
+    "editAdapters": {
         "name": ""
       },
-      "identityresolvers": {
+    "identityresolvers": {
         "name":""
       }
 }

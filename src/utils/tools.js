@@ -45,12 +45,21 @@ export function deleteInstance(inventory, className, reference, instanceID) {
   put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
 }
 
-export function saveInstance(inventory, className, newInstance, isIdRequired) {
+export function saveNewInstance(inventory, className, newInstance, isIdRequired) {
   if(isIdRequired) {
     newInstance.id = getNewId(inventory[className])
   }
 
   inventory[className].push(newInstance)
+
+  const data = { data: inventory };
+
+  put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
+}
+
+export function updateInstance(inventory, className, newInstance) {
+  const instance = inventory[className].filter(item => item.$id === newInstance.$id)
+  instance[0] = newInstance
 
   const data = { data: inventory };
 
