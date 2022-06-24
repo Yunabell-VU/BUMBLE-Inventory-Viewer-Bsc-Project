@@ -22,16 +22,7 @@
           <NavigatorMenu :icon="`&#xe682;`" :menuName="`Users`" />
         </li>
         <li>
-          <NavigatorMenu :icon="`&#xe63f;`" :menuName="`Drivers`" />
-        </li>
-        <li>
-          <NavigatorMenu :icon="`&#xe63f;`" :menuName="`Action Providers`" />
-        </li>
-        <li>
-          <NavigatorMenu :icon="`&#xe63f;`" :menuName="`Edit Adapters`" />
-        </li>
-        <li>
-          <NavigatorMenu :icon="`&#xe63f;`" :menuName="`Identity Resolvers`" />
+          <NavigatorMenu :icon="`&#xe63f;`" :menuName="`Library`" />
         </li>
       </ul>
     </div>
@@ -45,7 +36,6 @@
 <script>
 import NavigatorMenu from "../navigator/NavigatorMenu.vue";
 import { useRouter } from "vue-router";
-import { mapGetters } from "vuex";
 
 export default {
   name: "Navigator",

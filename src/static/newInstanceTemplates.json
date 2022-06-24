@@ -1,0 +1,23 @@
+{
+   "language": {
+        "id": null,
+        "name": "",
+        "supportedEditors": [
+          {
+            "name": ""
+          }
+        ]
+      },
+      "drivers": {
+        "name": ""
+      },
+      "actionproviders": {
+        "name": ""
+      },
+      "editAdapters": {
+        "name": ""
+      },
+      "identityresolvers": {
+        "name":""
+      }
+}

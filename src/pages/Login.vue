@@ -28,8 +28,8 @@ export default {
   name: "Login",
   data() {
     return {
-      username: "",
-      password: "",
+      username: "Alice",
+      password: "alice",
       router: useRouter(),
     };
   },

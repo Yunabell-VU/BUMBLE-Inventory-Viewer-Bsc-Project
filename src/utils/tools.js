@@ -1,4 +1,5 @@
 import { put } from "../utils/request";
+import newInstanceTemplates from "../static/newInstanceTemplates.json";
 
 export const getNewId = (instances) => {
     let ids = [];
@@ -32,26 +33,31 @@ export function getLanguage(inventory, model)  {
   return language.push({});
 }
 
-export function deleteInstance(inventory, attributeName, reference, instanceID) {
-  const newInstances = inventory[attributeName].filter(
+export function deleteInstance(inventory, className, reference, instanceID) {
+  const newInstances = inventory[className].filter(
     (instance) => instance[reference] !== instanceID
   );
 
-  inventory[attributeName] = newInstances;
+  inventory[className] = newInstances;
 
   const data = { data: inventory };
 
   put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
 }
 
-export function saveInstance(inventory, attributeName, newInstance, isIdRequired) {
+export function saveInstance(inventory, className, newInstance, isIdRequired) {
   if(isIdRequired) {
-    newInstance.id = getNewId(inventory[attributeName])
+    newInstance.id = getNewId(inventory[className])
   }
 
-  inventory[attributeName].push(newInstance)
+  inventory[className].push(newInstance)
 
   const data = { data: inventory };
 
   put(`/models/?modeluri=ModelInventory.xmi`, JSON.stringify(data));
+}
+
+export function getNewInstanceTemplate(className) {
+  const cleanTemplates = JSON.parse(JSON.stringify(newInstanceTemplates))
+  return cleanTemplates[className]
 }
