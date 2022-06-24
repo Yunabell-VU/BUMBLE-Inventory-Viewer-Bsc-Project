@@ -42,7 +42,6 @@
 <script>
 import BoardLayout from "../layout/BoardLayout.vue";
 import Modal from "../layout/Modal.vue";
-import { put } from "../../utils/request";
 import { mapGetters } from "vuex";
 
 export default {
@@ -51,7 +50,6 @@ export default {
   data() {
     return {
       isEdit: false,
-      ws: null,
       participants: [],
       newLanguage: {
         id: null,
@@ -87,17 +85,7 @@ export default {
       return "Model Deleted or Not Exist";
     },
   },
-  mounted() {
-    this.ws = new WebSocket(
-      `ws://localhost:8081/api/v2/subscribe?modeluri=ModelInventory.xmi`
-    );
-    this.ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data.type === "fullUpdate") {
-        this.$store.dispatch("updateModelInventory");
-      }
-    };
-  },
+  mounted() {},
 };
 </script>
 

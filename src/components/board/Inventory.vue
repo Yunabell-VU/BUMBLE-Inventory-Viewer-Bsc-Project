@@ -41,7 +41,6 @@ export default {
   components: { BoardLayout, InventoryRow },
   data() {
     return {
-      ws: null,
       detailClosed: true,
       router: useRouter(),
     };
@@ -51,21 +50,10 @@ export default {
   },
   methods: {
     viewModel(modelName) {
-      this.ws.close();
       this.router.push({ name: "Model", params: { modelName: modelName } });
     },
   },
-  mounted() {
-    this.ws = new WebSocket(
-      `ws://localhost:8081/api/v2/subscribe?modeluri=ModelInventory.xmi`
-    );
-    this.ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data.type === "fullUpdate") {
-        this.$store.dispatch("updateModelInventory");
-      }
-    };
-  },
+  mounted() {},
 };
 </script>
 

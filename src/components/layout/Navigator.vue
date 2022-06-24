@@ -53,6 +53,7 @@ export default {
       localStorage.removeItem("isLogin");
       localStorage.removeItem("userID");
       this.router.push({ name: "Login" });
+      this.$emit("closeWebSocket");
     },
   },
   mounted() {},

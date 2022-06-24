@@ -42,7 +42,6 @@ export default {
       model: [],
       modelClasses: [],
       ecoreClasses: [],
-      ws: null,
     };
   },
   computed: {
@@ -75,7 +74,6 @@ export default {
       return ecoreClass[0];
     },
     handleGoBack() {
-      this.ws.close();
       this.router.push({ name: "Inventory" });
     },
   },
@@ -87,16 +85,6 @@ export default {
 
     const ecoreResult = await get(`/models/?modeluri=${ecoreName}.ecore`);
     this.ecoreClasses = ecoreResult.data.eClassifiers;
-
-    this.ws = new WebSocket(
-      `ws://localhost:8081/api/v2/subscribe?modeluri=${this.modelName}.xmi`
-    );
-    this.ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data.type === "fullUpdate") {
-        this.getModel(this.modelName);
-      }
-    };
   },
 };
 </script>

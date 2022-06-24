@@ -1,6 +1,8 @@
 <template>
   <div class="layout-wrapper">
-    <div class="layout-left"><Navigator /></div>
+    <div class="layout-left">
+      <Navigator :close-web-socket="closeWebSocket" />
+    </div>
     <div class="layout-right">
       <Header />
       <router-view></router-view>
@@ -16,8 +18,28 @@ import Models from "../components/board/Models.vue";
 export default {
   name: "Home",
   components: { Header, Navigator, Models },
+  data() {
+    return {
+      webSocket: null,
+    };
+  },
+  methods: {
+    closeWebSocket() {
+      this.webSocket.close();
+    },
+  },
   mounted() {
     this.$store.dispatch("setCurrentUser");
+
+    this.webSocket = new WebSocket(
+      `ws://localhost:8081/api/v2/subscribe?modeluri=ModelInventory.xmi`
+    );
+    this.webSocket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.type === "fullUpdate") {
+        this.$store.dispatch("updateModelInventory");
+      }
+    };
   },
 };
 </script>
