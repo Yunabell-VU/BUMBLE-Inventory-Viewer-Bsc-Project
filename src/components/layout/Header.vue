@@ -68,18 +68,18 @@ export default {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     background-color: rgb(233, 110, 110);
     border: 1px solid black;
-    font-size: 25px;
+    font-size: 1.5rem;
     font-weight: bold;
     color: white;
   }
 
   &__name {
-    font-size: 20px;
+    font-size: 1.2rem;
     font-weight: bold;
   }
 }

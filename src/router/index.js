@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Models from '../components/board/Models.vue'
-import Model from '../components/board/Model.vue'
 import Inventory from '../components/board/Inventory.vue'
+import InventoryStructure from '../components/board/inventory/InventoryStructure.vue'
+import Models from '../components/board/Models.vue'
 import Sessions from '../components/board/Sessions.vue'
 import Languages from '../components/board/Languages.vue'
 import Users from '../components/board/Users.vue'
@@ -15,19 +15,19 @@ const routes = [
     redirect:'/inventory',
     children: [
       {
-        path:'/models',
-        name: 'Models',
-        component: Models,
-      },
-      {
-        path:'/models/:modelName',
-        name: 'Model',
-        component: Model,
-      },
-      {
         path:'/inventory',
         name: 'Inventory',
         component: Inventory
+      },
+      {
+        path:'/inventory/structure',
+        name: 'InventoryStructure',
+        component: InventoryStructure,
+      },
+      {
+        path:'/models',
+        name: 'Models',
+        component: Models,
       },
       {
         path:'/sessions',

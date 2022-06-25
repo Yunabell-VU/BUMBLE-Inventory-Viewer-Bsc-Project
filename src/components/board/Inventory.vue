@@ -1,7 +1,7 @@
 <template>
   <BoardLayout :titleName="'Inventory'">
     <template #button>
-      <div class="create-new-button">Structure</div>
+      <div class="create-new-button" @click="goToStructureView">Structure</div>
     </template>
     <template #content>
       <div class="inventory-wrapper">
@@ -33,7 +33,6 @@
 import BoardLayout from "../layout/BoardLayout.vue";
 import InventoryRow from "./inventory/InventoryRow.vue";
 import { useRouter } from "vue-router";
-import { put } from "../../utils/request";
 import { mapGetters } from "vuex";
 
 export default {
@@ -50,7 +49,10 @@ export default {
   },
   methods: {
     viewModel(modelName) {
-      this.router.push({ name: "Model", params: { modelName: modelName } });
+      alert(`Redirect to ${modelName} location`);
+    },
+    goToStructureView() {
+      this.router.push({ name: "InventoryStructure" });
     },
   },
   mounted() {},
