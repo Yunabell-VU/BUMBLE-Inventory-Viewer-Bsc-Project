@@ -55,8 +55,6 @@ export default {
 .path-block {
   width: 20%;
   height: 100%;
-
-  // background-color: aqua;
 }
 
 .user-block {
