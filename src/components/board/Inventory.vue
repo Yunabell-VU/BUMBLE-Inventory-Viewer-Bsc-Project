@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     viewModel(modelName) {
-      alert(`Redirect to ${modelName} location`);
+      alert(`Redirects to ${modelName} location`);
     },
     goToStructureView() {
       this.router.push({ name: "InventoryStructure" });

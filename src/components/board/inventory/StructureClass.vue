@@ -41,7 +41,7 @@
                 :key="ereference"
               >
                 <td>{{ ereference.name }}</td>
-                <td>{{ ereference.eType.$ref }}</td>
+                <td>{{ ereference.eType.$ref.slice(2) }}</td>
               </tr>
             </tbody>
           </table>
@@ -88,9 +88,7 @@ export default {
       return references;
     },
   },
-  mounted() {
-    console.log(this.classes);
-  },
+  mounted() {},
 };
 </script>
 
