@@ -142,7 +142,7 @@ export default {
       this.isModalVisible = false;
     },
     handleEdit(language) {
-      this.newLanguage = language;
+      this.newLanguage = { ...getNewInstanceTemplate("language"), ...language };
       this.isEdit = true;
       this.showModal();
     },

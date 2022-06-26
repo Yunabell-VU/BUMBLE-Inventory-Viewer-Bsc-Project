@@ -58,8 +58,9 @@ export function saveNewInstance(inventory, className, newInstance, isIdRequired)
 }
 
 export function updateInstance(inventory, className, newInstance) {
-  const instance = inventory[className].filter(item => item.$id === newInstance.$id)
-  instance[0] = newInstance
+  const index = inventory[className].findIndex(item => item.$id === newInstance.$id)
+
+  inventory[className].splice(index,1,newInstance)
 
   const data = { data: inventory };
 

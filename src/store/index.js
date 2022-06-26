@@ -55,16 +55,16 @@ const store = createStore({
     },
     getters: {
         modelInventory: (state) => {
-            return state.modelInventory
+            return {...state.modelInventory}
         },
         inventoryStructure: (state) => {
-            return state.inventoryStructure
+            return {...state.inventoryStructure}
         },
         users: (state) =>{
-            return state.modelInventory.users
+            return {...state.modelInventory.users}
         },
         currentUser: (state) => {
-            return state.currentUser
+            return {...state.currentUser}
         },
     },
 })

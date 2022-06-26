@@ -170,7 +170,7 @@ export default {
       return newConfirmsTo;
     },
     handleEdit(model) {
-      this.newModel = model;
+      this.newModel = { ...getNewInstanceTemplate("model"), ...model };
       this.isEdit = true;
       this.showModal();
     },

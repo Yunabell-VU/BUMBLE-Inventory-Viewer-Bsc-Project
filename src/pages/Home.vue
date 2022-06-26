@@ -30,7 +30,6 @@ export default {
   },
   mounted() {
     this.$store.dispatch("setCurrentUser");
-    this.$store.dispatch("setInventoryStructure");
 
     this.webSocket = new WebSocket(
       `ws://localhost:8081/api/v2/subscribe?modeluri=ModelInventory.xmi`
