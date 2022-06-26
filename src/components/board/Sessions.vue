@@ -125,6 +125,7 @@ export default {
 
 .session-time-info {
   @include flexSpaceBetween;
+  margin: 10px 5px;
 
   span {
     font-weight: 600;

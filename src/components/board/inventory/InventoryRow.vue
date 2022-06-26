@@ -55,15 +55,11 @@
         </li>
         <li>
           <div class="inventory-row__extra__key">Supported Editors:</div>
-          <div
-            v-for="item in supportedEditors"
-            :key="item"
-            class="inventory-row__extra__value"
-          >
-            <span class="inventory-row__extra__value__editor-name">{{
-              item.name
-            }}</span>
-          </div>
+          <ul class="inventory-row__extra__value">
+            <li v-for="item in supportedEditors" :key="item">
+              {{ item.name }}
+            </li>
+          </ul>
         </li>
       </ul>
       <div
@@ -336,6 +332,19 @@ export default {
   &__participants {
     margin-top: 1rem;
     width: 90%;
+  }
+}
+
+.inventory-row__extra__value {
+  display: flex;
+
+  li {
+    padding: 0 10px;
+    border-right: 1px solid #808080;
+
+    &:last-child {
+      border-right: none;
+    }
   }
 }
 </style>
