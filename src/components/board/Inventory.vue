@@ -67,14 +67,14 @@ export default {
   @include flexCenter;
   width: 100px;
   height: 35px;
-  background-color: #e9cb7c;
+  background-color: #e97c7c;
   color: #262626;
   font-size: 1rem;
   font-weight: bold;
 
   &:hover {
     cursor: pointer;
-    background-color: darken(#e9cb7c, 10%);
+    background-color: darken(#e97c7c, 10%);
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="structure-enum-wrapper">
+  <div class="structure-wrapper">
     <div v-for="eenum in enums" :key="eenum" class="enum-board">
       <div class="enum-board__title">{{ eenum.name }}</div>
       <div class="enum-board__content">
@@ -37,9 +37,7 @@ export default {
     ...mapGetters(["modelInventory"]),
   },
   methods: {},
-  mounted() {
-    console.log(this.enums);
-  },
+  mounted() {},
 };
 </script>
 
@@ -71,7 +69,7 @@ export default {
   }
 }
 
-.structure-enum-wrapper {
+.structure-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -97,6 +95,7 @@ export default {
     height: 40px;
     background-color: #262626;
     color: white;
+    font-size: 1.1rem;
     font-weight: bold;
   }
 

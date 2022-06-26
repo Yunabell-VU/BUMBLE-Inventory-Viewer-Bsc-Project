@@ -1,39 +1,96 @@
 <template>
-  <div class="structure-class-wrapper"></div>
+  <div class="structure-wrapper">
+    <div v-for="eclass in classes" :key="eclass" class="class-board">
+      <div class="class-board__title">{{ eclass.name }}</div>
+      <div class="class-board__content">
+        <div class="class-board__content-attributes">
+          <span class="class-board__content__feature-name">Attributes</span>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="eattribute in getAttributes(eclass.eStructuralFeatures)"
+                :key="eattribute"
+              >
+                <td>{{ eattribute.name }}</td>
+                <td>{{ getAttributeType(eattribute.eType) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div
+          v-if="getReferences(eclass.eStructuralFeatures).length > 0"
+          class="class-board__content-references"
+        >
+          <span class="class-board__content__feature-name">References</span>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Reference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="ereference in getReferences(eclass.eStructuralFeatures)"
+                :key="ereference"
+              >
+                <td>{{ ereference.name }}</td>
+                <td>{{ ereference.eType.$ref }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import BoardLayout from "../../layout/BoardLayout.vue";
-import { useRouter } from "vue-router";
 import { mapGetters } from "vuex";
 
 export default {
   name: "StructureClass",
   components: { BoardLayout },
+  props: {
+    classes: Object,
+  },
   data() {
-    return {
-      isClassesView: true,
-      router: useRouter(),
-    };
+    return {};
   },
   computed: {
     ...mapGetters(["modelInventory"]),
   },
   methods: {
-    switchView() {
-      this.isClassesView = !this.isClassesView;
+    getAttributes(features) {
+      const attributes = features.filter(
+        (feature) => feature.$type.split("//").pop() === "EAttribute"
+      );
+      return attributes;
     },
-
-    handleGoBack() {
-      this.router.push({ name: "Inventory" });
+    getAttributeType(eType) {
+      if (eType.$type.split("//").pop() === "EDataType") {
+        return eType.$ref.split("//").pop().slice(1);
+      } else {
+        return eType.$ref.split("//").pop();
+      }
     },
-    getModelEcoreInfo(modelName) {
-      const name = modelName[0].toUpperCase() + modelName.slice(1);
-      const ecoreClass = this.ecoreClasses.filter((item) => item.name === name);
-      return ecoreClass[0];
+    getReferences(features) {
+      const references = features.filter(
+        (feature) => feature.$type.split("//").pop() === "EReference"
+      );
+      return references;
     },
   },
-  async mounted() {},
+  mounted() {
+    console.log(this.classes);
+  },
 };
 </script>
 
@@ -65,14 +122,61 @@ export default {
   }
 }
 
-.structure-class-wrapper {
-  @include flexCenter;
-  width: 100%;
-  height: 500px;
-  background: #9d2323;
+.class-board {
+  flex: 1;
+  margin: 0 100px 50px 0;
+  width: calc((100% - 200px) / 2);
+  min-width: calc((100% - 200px) / 2);
+  max-width: calc((100% - 200px) / 2);
+  border: 2px solid #262626;
+
+  &:nth-child(2n) {
+    margin-right: 0;
+  }
+
+  &__title {
+    @include flexCenter;
+    width: 100%;
+    height: 40px;
+    background-color: #262626;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
+  &__content {
+    padding: 0 10px 10px 10px;
+
+    &__feature-name {
+      display: block;
+      margin-top: 10px;
+      border-bottom: 1px solid #262626;
+      background-color: #e9e9e9;
+      font-weight: bold;
+    }
+    &__literal {
+      @include flexSpaceBetween;
+      margin-top: 10px;
+      border-bottom: 1px solid #262626;
+      &:last-child {
+        border: none;
+      }
+
+      &__value {
+        color: #5a5a5a;
+      }
+
+      span {
+        height: 2rem;
+        font-weight: 600;
+      }
+    }
+  }
 }
 
-.tables {
-  margin-bottom: 0.2rem;
+.table {
+  th {
+    font-size: 0.9rem;
+  }
 }
 </style>

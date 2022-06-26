@@ -27,7 +27,10 @@
     <template #content>
       <div class="model-wrapper">
         <div class="model-contents">
-          <StructureClass v-if="isClassesView" :classes="classes" />
+          <StructureClass
+            v-if="isClassesView && classes.length > 0"
+            :classes="classes"
+          />
           <StructureEnum v-else :enums="enums" />
         </div>
       </div>
