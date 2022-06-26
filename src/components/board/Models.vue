@@ -178,7 +178,6 @@ export default {
       this.newModel.confirmsTo = this.languageNameToRef(
         this.newModel.confirmsTo
       );
-
       updateInstance(this.modelInventory, "model", this.newModel);
       this.closeModal();
     },

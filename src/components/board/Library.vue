@@ -11,14 +11,14 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>Id</th>
               <th>Name</th>
+              <th>Icon</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="driver in modelInventory.drivers" :key="driver">
-              <td>{{ driver.$id }}</td>
               <td>{{ driver.name }}</td>
+              <td>{{ driver.icon }}</td>
               <td>
                 <ul class="instance-editions">
                   <li
@@ -47,8 +47,8 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>Id</th>
               <th>Name</th>
+              <th>Icon</th>
             </tr>
           </thead>
           <tbody>
@@ -56,8 +56,8 @@
               v-for="provider in modelInventory.actionproviders"
               :key="provider"
             >
-              <td>{{ provider.$id }}</td>
               <td>{{ provider.name }}</td>
+              <td>{{ provider.icon }}</td>
               <td>
                 <ul class="instance-editions">
                   <li
@@ -171,9 +171,17 @@
         <template #body>
           <div class="library-modal-body">
             <ul>
-              <li class="library-modal-input">
-                <span> name:</span>
-                <input v-model="newInstance.name" type="text" />
+              <li
+                v-for="(value, key) in newInstance"
+                :key="key"
+                class="library-modal-input"
+              >
+                <span> {{ key }}:</span>
+                <input
+                  :disabled="key == '$id' || key == 'id'"
+                  v-model="newInstance[key]"
+                  type="text"
+                />
               </li>
             </ul>
           </div>
@@ -240,7 +248,7 @@ export default {
     },
     handleEdit(className, instance) {
       this.currentClass = className;
-      this.newInstance = instance;
+      this.newInstance = { ...getNewInstanceTemplate(className), ...instance };
       this.isEdit = true;
       this.showModal();
     },

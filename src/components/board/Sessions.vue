@@ -11,6 +11,10 @@
               <span>Model : {{ getModelName(session.has.$ref) }}</span>
               <span>Collaboration Session (id : {{ session.id }})</span>
             </div>
+            <div class="session-time-info">
+              <span>Start Time: {{ session.startTime || "/" }}</span>
+              <span>End Time: {{ session.endTime || "/" }}</span>
+            </div>
             <table class="sessions__table table table-hover">
               <thead>
                 <tr>
@@ -41,25 +45,15 @@
 
 <script>
 import BoardLayout from "../layout/BoardLayout.vue";
-import Modal from "../layout/Modal.vue";
 import { mapGetters } from "vuex";
 
 export default {
   name: "Sessions",
-  components: { BoardLayout, Modal },
+  components: { BoardLayout },
   data() {
     return {
       isEdit: false,
       participants: [],
-      newLanguage: {
-        id: null,
-        name: "",
-        supportedEditors: [
-          {
-            name: "",
-          },
-        ],
-      },
     };
   },
   computed: {
@@ -82,7 +76,7 @@ export default {
         }
       }
 
-      return "Model Deleted or Not Exist";
+      return "Model Deleted or Does Not Exist";
     },
   },
   mounted() {},
@@ -120,12 +114,20 @@ export default {
   margin-top: 2rem;
   padding: 0px 10px;
   width: 100%;
-  height: 40px;
+  height: 60px;
   background-color: #262626;
   color: white;
 
   span {
     font-weight: bold;
+  }
+}
+
+.session-time-info {
+  @include flexSpaceBetween;
+
+  span {
+    font-weight: 600;
   }
 }
 </style>

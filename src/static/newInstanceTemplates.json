@@ -18,10 +18,13 @@
         "createdBy": ""
       },
     "drivers": {
-        "name": ""
+        "name": "",
+        "icon": ""
+        
       },
     "actionproviders": {
-        "name": ""
+        "name": "",
+        "icon": ""
       },
     "editAdapters": {
         "name": ""
