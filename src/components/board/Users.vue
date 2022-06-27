@@ -108,7 +108,7 @@ export default {
   },
   methods: {
     handleCreate() {
-      this.newLanguage = getNewInstanceTemplate("language");
+      this.newUser = getNewInstanceTemplate("users");
       this.showModal();
     },
     showModal() {
