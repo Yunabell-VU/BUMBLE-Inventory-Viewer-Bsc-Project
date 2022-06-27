@@ -51,7 +51,7 @@
           <div v-if="isEdit" class="languages-modal-header">
             Edit This Language
           </div>
-          <div class="languages-modal-header">Add New Language</div>
+          <div v-else class="languages-modal-header">Add New Language</div>
         </template>
         <template #body>
           <div class="languages-modal-body">

@@ -1,7 +1,7 @@
 <template>
   <BoardLayout :titleName="'Users'">
     <template #button>
-      <div class="users-create-new-button" @click="showModal">+ New</div>
+      <div class="users-create-new-button" @click="handleCreate">+ New</div>
     </template>
     <template #content>
       <div class="users-wrapper">
@@ -18,6 +18,19 @@
               <td>{{ user.id }}</td>
               <td>{{ user.name }}</td>
               <td>{{ user.emailAddress }}</td>
+              <td>
+                <ul class="instance-editions">
+                  <li class="instance-editions__edit" @click="handleEdit(user)">
+                    <span class="iconfont"> &#xe600;</span>
+                  </li>
+                  <li
+                    class="instance-editions__delete"
+                    @click="handleDelete(user.id)"
+                  >
+                    <span class="iconfont"> &#xe67e;</span>
+                  </li>
+                </ul>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -26,7 +39,8 @@
     <template #modal>
       <Modal v-show="isModalVisible" @close="closeModal">
         <template #header>
-          <div class="user-modal-header">Add new user</div>
+          <div v-if="isEdit" class="languages-modal-header">Edit This User</div>
+          <div class="user-modal-header">Add New User</div>
         </template>
         <template #body>
           <div class="user-modal-body">
@@ -50,7 +64,16 @@
           <div class="user-modal-footer">
             <div class="user-modal-footer__buttons">
               <button @click="closeModal" class="modal-button">cancel</button>
-              <button @click="handleSave" class="modal-button">save</button>
+              <button
+                v-if="isEdit"
+                @click="handleEditSave"
+                class="modal-button"
+              >
+                save
+              </button>
+              <button v-else @click="handleSave" class="modal-button">
+                save
+              </button>
             </div>
           </div>
         </template>
@@ -62,7 +85,12 @@
 <script>
 import BoardLayout from "../layout/BoardLayout.vue";
 import Modal from "../layout/Modal.vue";
-import { saveNewInstance } from "../../utils/tools";
+import {
+  deleteInstance,
+  saveNewInstance,
+  getNewInstanceTemplate,
+  updateInstance,
+} from "../../utils/tools";
 import { mapGetters } from "vuex";
 
 export default {
@@ -72,29 +100,35 @@ export default {
     return {
       isEdit: false,
       isModalVisible: false,
-      newUser: {
-        id: null,
-        name: "",
-        password: "",
-        emailAddress: "",
-      },
+      newUser: {},
     };
   },
   computed: {
     ...mapGetters(["modelInventory", "inventoryTemplate", "currentUser"]),
   },
   methods: {
+    handleCreate() {
+      this.newLanguage = getNewInstanceTemplate("language");
+      this.showModal();
+    },
     showModal() {
-      this.newUser = {
-        id: null,
-        name: "",
-        password: "",
-        emailAddress: "",
-      };
       this.isModalVisible = true;
     },
     closeModal() {
+      this.isEdit = false;
       this.isModalVisible = false;
+    },
+    handleEdit(user) {
+      this.newUser = { ...getNewInstanceTemplate("users"), ...user };
+      this.isEdit = true;
+      this.showModal();
+    },
+    handleEditSave() {
+      updateInstance(this.modelInventory, "users", this.newUser);
+      this.closeModal();
+    },
+    handleDelete(userID) {
+      deleteInstance(this.modelInventory, "users", "id", userID);
     },
     handleSave() {
       saveNewInstance(this.modelInventory, "users", this.newUser, true);

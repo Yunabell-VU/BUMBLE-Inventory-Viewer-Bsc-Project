@@ -17,6 +17,12 @@
         },
         "createdBy": ""
       },
+      "users": {
+          "id": null,
+          "name": "",
+          "password": "",
+          "emailAddress": ""
+      },
     "drivers": {
         "name": "",
         "icon": ""
