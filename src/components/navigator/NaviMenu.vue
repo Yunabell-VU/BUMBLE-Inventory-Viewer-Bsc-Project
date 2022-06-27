@@ -15,7 +15,7 @@
 import { useRouter } from "vue-router";
 
 export default {
-  name: "NavigatorMenu",
+  name: "NaviMenu",
   props: {
     icon: String,
     menuName: String,

@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import NavigatorMenu from "../navigator/NavigatorMenu.vue";
+import NavigatorMenu from "../navigator/NaviMenu.vue";
 import { useRouter } from "vue-router";
 
 export default {
