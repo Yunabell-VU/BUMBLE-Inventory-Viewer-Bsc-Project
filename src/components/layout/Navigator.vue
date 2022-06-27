@@ -22,7 +22,7 @@
           <NavigatorMenu :icon="`&#xe682;`" :menuName="`Users`" />
         </li>
         <li>
-          <NavigatorMenu :icon="`&#xe63f;`" :menuName="`Library`" />
+          <NavigatorMenu :icon="`&#xe63f;`" :menuName="`Plugins`" />
         </li>
       </ul>
     </div>

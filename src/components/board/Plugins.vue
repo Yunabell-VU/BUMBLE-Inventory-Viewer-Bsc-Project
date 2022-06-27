@@ -1,5 +1,5 @@
 <template>
-  <BoardLayout :titleName="'Library'">
+  <BoardLayout :titleName="'Plugins'">
     <template #content>
       <div class="library-wrapper">
         <div class="library-wrapper__title">

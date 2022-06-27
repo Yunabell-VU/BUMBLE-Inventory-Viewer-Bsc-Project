@@ -5,7 +5,7 @@ import Models from '../components/board/Models.vue'
 import Sessions from '../components/board/Sessions.vue'
 import Languages from '../components/board/Languages.vue'
 import Users from '../components/board/Users.vue'
-import Library from '../components/board/Library.vue'
+import Plugins from '../components/board/Plugins.vue'
 
 const routes = [
   {
@@ -45,9 +45,9 @@ const routes = [
         component: Users
       },
       {
-        path:'/library',
-        name: 'Library',
-        component: Library
+        path:'/plugins',
+        name: 'Plugins',
+        component: Plugins
       }
     ]
   }, {

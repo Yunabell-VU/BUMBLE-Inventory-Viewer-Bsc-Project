@@ -76,7 +76,7 @@ export default {
         }
       }
 
-      return "Model Deleted or Does Not Exist";
+      return "Model Deleted";
     },
   },
   mounted() {},
