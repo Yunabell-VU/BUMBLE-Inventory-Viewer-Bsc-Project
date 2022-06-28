@@ -24,7 +24,9 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+@import "../../assets/base.scss";
+
 .my-modal-backdrop {
   position: fixed;
   top: 0;
@@ -38,7 +40,7 @@ export default {
 }
 
 .my-modal {
-  background: #ffffff;
+  background: $borad-content-background-color;
   box-shadow: 2px 2px 20px 1px;
   overflow-x: auto;
   display: flex;
@@ -53,14 +55,14 @@ export default {
 
 .my-modal-header {
   position: relative;
-  background-color: #262626;
-  color: white;
+  background-color: $theme-color;
+  color: $theme-font-color;
   font-size: 1rem;
   justify-content: center;
 }
 
 .my-modal-footer {
-  border-top: 1px solid #eeeeee;
+  border-top: 1px solid $horizontal-line-color;
   flex-direction: column;
 }
 

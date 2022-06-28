@@ -103,19 +103,19 @@ export default {
     @include flexCenter;
     width: 70px;
     height: 35px;
-    background-color: #e9cb7c;
-    color: #262626;
+    background-color: $secondary-theme-color;
+    color: $theme-color;
     font-size: 1rem;
     font-weight: bold;
 
     &:hover {
       cursor: pointer;
-      background-color: darken(#e9cb7c, 10%);
+      background-color: darken($secondary-theme-color, 10%);
     }
 
     &__view {
-      background-color: #239d4e;
-      color: white;
+      background-color: $create-button-color;
+      color: $theme-font-color;
     }
   }
 }
@@ -126,7 +126,7 @@ export default {
   width: calc((100% - 200px) / 2);
   min-width: calc((100% - 200px) / 2);
   max-width: calc((100% - 200px) / 2);
-  border: 2px solid #262626;
+  border: 2px solid $theme-color;
 
   &:nth-child(2n) {
     margin-right: 0;
@@ -136,8 +136,8 @@ export default {
     @include flexCenter;
     width: 100%;
     height: 40px;
-    background-color: #262626;
-    color: white;
+    background-color: $theme-color;
+    color: $theme-font-color;
     font-size: 1.1rem;
     font-weight: bold;
   }
@@ -148,26 +148,9 @@ export default {
     &__feature-name {
       display: block;
       margin-top: 10px;
-      border-bottom: 1px solid #262626;
-      background-color: #e9e9e9;
+      border-bottom: 1px solid $theme-color;
+      background-color: $board-background-color;
       font-weight: bold;
-    }
-    &__literal {
-      @include flexSpaceBetween;
-      margin-top: 10px;
-      border-bottom: 1px solid #262626;
-      &:last-child {
-        border: none;
-      }
-
-      &__value {
-        color: #5a5a5a;
-      }
-
-      span {
-        height: 2rem;
-        font-weight: 600;
-      }
     }
   }
 }

@@ -100,19 +100,23 @@ export default {
     @include flexCenter;
     width: 70px;
     height: 35px;
-    background-color: #e9cb7c;
-    color: #262626;
+    background-color: $secondary-theme-color;
+    color: $theme-color;
     font-size: 1rem;
     font-weight: bold;
 
     &:hover {
       cursor: pointer;
-      background-color: darken(#e9cb7c, 10%);
+      background-color: darken($secondary-theme-color, 10%);
     }
 
     &__view {
-      background-color: #239d4e;
-      color: white;
+      background-color: $create-button-color;
+      color: $theme-font-color;
+
+      &:hover {
+        background-color: darken($create-button-color, 10%);
+      }
     }
   }
 }

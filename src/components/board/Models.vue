@@ -212,14 +212,14 @@ export default {
   @include flexCenter;
   width: 70px;
   height: 35px;
-  background-color: #239d4e;
-  color: white;
+  background-color: $create-button-color;
+  color: $theme-font-color;
   font-size: 1rem;
   font-weight: bold;
 
   &:hover {
     cursor: pointer;
-    background-color: darken(#239d4e, 10%);
+    background-color: darken($create-button-color, 10%);
   }
 }
 
@@ -238,7 +238,7 @@ export default {
 
   &__delete {
     .iconfont {
-      color: red;
+      color: $delete-button-color;
     }
   }
 }
@@ -260,11 +260,11 @@ export default {
   }
 
   &__delete {
-    color: red;
+    color: $delete-button-color;
 
     &:hover {
       cursor: pointer;
-      color: #262626;
+      color: $theme-color;
     }
   }
 

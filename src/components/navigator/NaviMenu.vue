@@ -50,22 +50,22 @@ export default {
   padding-left: 10%;
   width: 100%;
   height: 45px;
-  color: #f2f2f2;
+  color: $theme-font-color;
 
   &:hover {
     cursor: pointer;
-    background-color: lighten(#262626, 10%);
-    color: #f2f2f2;
+    background-color: lighten($theme-color, 10%);
+    color: $theme-font-color;
   }
 
   &--active {
-    background-color: #e9cb7c;
-    color: #262626;
+    background-color: $secondary-theme-color;
+    color: $theme-color;
 
     &:hover {
       cursor: pointer;
-      background-color: #e9cb7c;
-      color: #262626;
+      background-color: $secondary-theme-color;
+      color: $theme-color;
     }
   }
 

@@ -2,7 +2,7 @@
 :root {
   --vt-c-white: #ffffff;
   --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
+  --vt-c-white-mute: $theme-font-color;
 
   --vt-c-black: #181818;
   --vt-c-black-soft: #222222;
@@ -53,6 +53,28 @@
 $content-fontcolor: #333;
 $content-notice-fontcolor: #777;
 $content-bgColor: #F1F1F1;
+$theme-color: #262626;
+$secondary-theme-color: #e9cb7c;
+
+$header-background-color: #ffffff;
+
+$borad-content-background-color: #ffffff;
+$board-background-color: #e6e6e6;
+$extra-info-backgroun-color: #fafafa;
+
+$theme-font-color: #f2f2f2;
+$soft-font-color: #5a5a5a;
+
+$create-button-color: #239d4e;
+$delete-button-color: #e97c7c;
+
+$disabled-button-font-color: #808080;
+
+$horizontal-line-color: #cccccc;
+
+$avatar-background-color: #e97c7c;
+
+
 
 *,
 *::before,
@@ -99,11 +121,11 @@ ul,li{
 }
 
 .modal-button {
-  background-color: #e9cb7c;
+  background-color: $secondary-theme-color;
   border: none;
   font-weight: bold;
   &:hover {
-    background-color: darken(#e9cb7c, 10%);
+    background-color: darken($secondary-theme-color, 10%);
   }
 }
 

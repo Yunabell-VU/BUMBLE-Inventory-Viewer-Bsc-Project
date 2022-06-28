@@ -87,7 +87,7 @@ export default {
     height: 3rem;
     margin: 0 2.5rem 1rem 2.5rem;
     padding: 0 1rem;
-    background: #f9f9f9;
+    background: $borad-content-background-color;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 6px;
     border-radius: 6px;
@@ -107,7 +107,7 @@ export default {
   &__login-button {
     margin: 2rem 2.5rem 1rem 2.5rem;
     line-height: 3rem;
-    background: rgb(38, 38, 38);
+    background: $theme-color;
     box-shadow: 0 0.25rem 0.5rem 0 rgba(38, 38, 38, 0.32);
     border-radius: 0.25rem;
     border-radius: 0.25rem;
@@ -117,7 +117,7 @@ export default {
 
     &:hover {
       cursor: pointer;
-      background-color: lighten(#262626, 10%);
+      background-color: lighten($theme-color, 10%);
     }
   }
   &__login-link {

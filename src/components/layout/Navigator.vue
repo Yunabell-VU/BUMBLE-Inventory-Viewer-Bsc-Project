@@ -67,7 +67,7 @@ export default {
 .navi-wrapper {
   width: 100%;
   height: 100%;
-  background-color: #262626;
+  background-color: $theme-color;
 }
 
 .navi-logo-wrapper {
@@ -75,7 +75,7 @@ export default {
   justify-content: center;
   align-items: center;
   height: 50px;
-  background-color: black;
+  background-color: darken($theme-color, 20%);
 
   img {
     width: 35px;
@@ -84,7 +84,7 @@ export default {
   span {
     // To visually make BUMBLE logo and text position in the middle
     padding-right: 15px;
-    color: #f2f2f2;
+    color: $theme-font-color;
     font-size: 1.5rem;
     font-weight: bold;
   }
@@ -101,10 +101,10 @@ export default {
   bottom: 50px;
   width: 100%;
 
-  color: white;
+  color: $theme-font-color;
 
   &:hover {
-    color: #e9cb7c;
+    color: $secondary-theme-color;
     cursor: pointer;
   }
 

@@ -49,7 +49,7 @@ export default {
   width: 100%;
   height: 50px;
   padding: 0 1.5rem;
-  background-color: white;
+  background-color: $header-background-color;
 }
 
 .path-block {
@@ -69,11 +69,11 @@ export default {
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    background-color: rgb(233, 110, 110);
-    border: 1px solid black;
+    background-color: $avatar-background-color;
+    border: 1px solid $theme-color;
     font-size: 1.5rem;
     font-weight: bold;
-    color: white;
+    color: $theme-font-color;
   }
 
   &__name {

@@ -40,7 +40,7 @@ export default {
   @include flexCenter;
   height: 100%;
   padding: 4.5rem 1.5rem 0.6rem 1.5rem;
-  background-color: #e6e6e6;
+  background-color: $board-background-color;
 }
 
 .board-layout {
@@ -49,13 +49,13 @@ export default {
   width: 100%;
   height: 100%;
   padding: 3.5rem 0rem;
-  background-color: white;
+  background-color: $borad-content-background-color;
 
   &__header {
     @include flexSpaceBetween;
     width: 90%;
     padding-bottom: 20px;
-    border-bottom: 1px solid #cccccc;
+    border-bottom: 1px solid $horizontal-line-color;
   }
 
   &__content {

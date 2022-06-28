@@ -180,7 +180,7 @@ export default {
   align-items: center;
   width: 90%;
   height: 70px;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid $horizontal-line-color;
 
   &--no-border {
     border: none;
@@ -243,12 +243,12 @@ export default {
       width: 1.5rem;
       height: 1.5rem;
       font-size: 1.5rem;
-      color: #808080;
+      color: $disabled-button-font-color;
       transform: rotate(180deg);
       transition: all 0.2s ease;
 
       &:hover {
-        color: #262626;
+        color: $theme-color;
         cursor: pointer;
       }
     }
@@ -272,34 +272,26 @@ export default {
       @include flexCenter;
       width: 70px;
       height: 35px;
-      background-color: #e9cb7c;
+      background-color: $secondary-theme-color;
       font-size: 0.9rem;
       font-weight: bold;
 
       &:hover {
         cursor: pointer;
-        background-color: darken(#e9cb7c, 10%);
+        background-color: darken($secondary-theme-color, 10%);
       }
 
       &__view {
         width: 100%;
       }
 
-      &__delete {
-        background-color: #e97c7c;
-
-        &:hover {
-          background-color: darken(#e97c7c, 10%);
-        }
-      }
-
       &--disabled {
-        background-color: lighten(#e9cb7c, 20%);
-        color: #808080;
+        background-color: lighten($secondary-theme-color, 20%);
+        color: $disabled-button-font-color;
 
         &:hover {
           cursor: pointer;
-          background-color: lighten(#e9cb7c, 20%);
+          background-color: lighten($secondary-theme-color, 20%);
         }
       }
     }
@@ -311,8 +303,8 @@ export default {
   flex-direction: column;
   width: 100%;
   overflow: hidden;
-  border-left: 10px solid #262626;
-  background-color: #fafafa;
+  border-left: 10px solid $theme-color;
+  background-color: $extra-info-backgroun-color;
   box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.25);
 
   ul {
@@ -340,7 +332,7 @@ export default {
 
   li {
     padding: 0 10px;
-    border-right: 1px solid #808080;
+    border-right: 1px solid $horizontal-line-color;
 
     &:last-child {
       border-right: none;

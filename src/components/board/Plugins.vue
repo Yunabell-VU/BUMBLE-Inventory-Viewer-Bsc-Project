@@ -289,14 +289,14 @@ export default {
   @include flexCenter;
   width: 70px;
   height: 35px;
-  background-color: #239d4e;
-  color: white;
+  background-color: $create-button-color;
+  color: $theme-font-color;
   font-size: 1rem;
   font-weight: bold;
 
   &:hover {
     cursor: pointer;
-    background-color: darken(#239d4e, 10%);
+    background-color: darken($create-button-color, 10%);
   }
 }
 
@@ -314,8 +314,8 @@ export default {
     padding: 0px 10px;
     width: 100%;
     height: 40px;
-    background-color: #262626;
-    color: white;
+    background-color: $theme-color;
+    color: $theme-font-color;
 
     span {
       font-weight: bold;
