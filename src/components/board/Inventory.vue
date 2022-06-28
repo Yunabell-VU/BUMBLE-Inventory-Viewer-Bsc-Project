@@ -67,14 +67,14 @@ export default {
   @include flexCenter;
   width: 100px;
   height: 35px;
-  background-color: $delete-button-color;
-  color: $theme-color;
+  background-color: $theme-color;
+  color: $theme-font-color;
   font-size: 1rem;
   font-weight: bold;
 
   &:hover {
     cursor: pointer;
-    background-color: darken($delete-button-color, 10%);
+    background-color: lighten($theme-color, 10%);
   }
 }
 
