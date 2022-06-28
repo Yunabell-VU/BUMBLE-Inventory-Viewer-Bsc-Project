@@ -12,8 +12,10 @@
               <span>Collaboration Session (id : {{ session.id }})</span>
             </div>
             <div class="session-time-info">
-              <span>Start Time: {{ session.startTime || "/" }}</span>
-              <span>End Time: {{ session.endTime || "/" }}</span>
+              <span
+                >Start Time: {{ getTimeFormat(session.startTime) || "/" }}</span
+              >
+              <span>End Time: {{ getTimeFormat(session.endTime) || "/" }}</span>
             </div>
             <table class="sessions__table table table-hover">
               <thead>
@@ -46,6 +48,7 @@
 <script>
 import BoardLayout from "../layout/BoardLayout.vue";
 import { mapGetters } from "vuex";
+import { timeConverter } from "../../utils/tools";
 
 export default {
   name: "Sessions",
@@ -77,6 +80,9 @@ export default {
       }
 
       return "Model Deleted";
+    },
+    getTimeFormat(timeStamp) {
+      return timeConverter(timeStamp);
     },
   },
   mounted() {},

@@ -49,11 +49,11 @@ export default {
   computed: {},
   methods: {
     handleLogout() {
+      this.$emit("closeWebSocket");
       this.$store.dispatch("clearCurrentUser");
       localStorage.removeItem("isLogin");
       localStorage.removeItem("userID");
       this.router.push({ name: "Login" });
-      this.$emit("closeWebSocket");
     },
   },
   mounted() {},
