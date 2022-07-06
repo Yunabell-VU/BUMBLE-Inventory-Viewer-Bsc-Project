@@ -1,35 +1,33 @@
-# Bachelor_Project
+# BUMBLE Inventory Viewer 
 
-This template should help get you started developing with Vue 3 in Vite.
+This is the web-based front-end for supporting cross-platform real-time collaborative modeling in the BUMBLE project. 
 
-## Recommended IDE Setup
+## Prerequisites
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
+The following libraries/frameworks need to be installed on your system:
 
-## Customize configuration
+| | |
+|-|-|
+|[Java](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)|`11`|
+|[Node.js](https://nodejs.org/en/)|`<=16.15.1`|
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
 
-## Project Setup
+## Run the project
+
+### Front-end
 
 ```sh
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+### Server
+
+To display contents and full functionalities of the project, the server need to be launched. first.
 
 ```sh
-npm run build
+cd server
+java -jar org.eclipse.emfcloud.modelserver.example-0.7.0-SNAPSHOT-standalone.jar
 ```
 
-### Lint with [ESLint](https://eslint.org/)
 
-```sh
-npm run lint
-```
