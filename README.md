@@ -34,14 +34,21 @@ java -jar org.eclipse.emfcloud.modelserver.example-0.7.0-SNAPSHOT-standalone.jar
 
 ## Demo
 
+
+**Inventory page**:
 ![Inventory Instances](https://github.com/Yunabell-VU/BUMBLE-Inventory-Viewer-Bsc-Project/blob/master/demo/demo-inventory-instances.png)
 
+**Inventory/structure/classes page**:
 ![Inventory Structure Classes](https://github.com/Yunabell-VU/BUMBLE-Inventory-Viewer-Bsc-Project/blob/master/demo/demo-inventory-structure-classes-full.png)
 
+**Inventory/structure/enums page**:
 ![Inventory Structure Enums](https://github.com/Yunabell-VU/BUMBLE-Inventory-Viewer-Bsc-Project/blob/master/demo/demo-inventory-structure-enums-full.png)
 
+**Sessions page**:
 ![Sessions](https://github.com/Yunabell-VU/BUMBLE-Inventory-Viewer-Bsc-Project/blob/master/demo/demo-sessions.png)
 
+**Plugins page**:
 ![Plugins](https://github.com/Yunabell-VU/BUMBLE-Inventory-Viewer-Bsc-Project/blob/master/demo/demo-plugins.png)
 
+**Example of add a new user**:
 ![Add instance](https://github.com/Yunabell-VU/BUMBLE-Inventory-Viewer-Bsc-Project/blob/master/demo/demo-new-user.png)
