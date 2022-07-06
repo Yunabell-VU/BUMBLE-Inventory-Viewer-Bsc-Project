@@ -25,7 +25,7 @@ npm run dev
 
 ### Server
 
-To display contents and full functionalities of the project, the server need to be launched. first.
+To display contents and full functionalities of the project, the server need to be launched. 
 
 ```sh
 cd server
