@@ -1,6 +1,6 @@
 # BUMBLE Inventory Viewer 
 
-This is the web-based front-end for supporting cross-platform real-time collaborative modeling in the BUMBLE project. 
+This is the web-based front-end for supporting cross-platform real-time collaborative modeling in the [BUMBLE](https://itea4.org/project/bumble.html) project. 
 
 ![BUMBLE collaborative engine](https://github.com/Yunabell-VU/BUMBLE-Inventory-Viewer-Bsc-Project/blob/master/demo/bumble%20collaboration%20engine.png)
 
